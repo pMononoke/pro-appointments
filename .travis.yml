@@ -60,13 +60,16 @@ cache:
       vendor/bin/php-cs-fixer fix --dry-run -v --rules=declare_strict_types  --allow-risky=yes
 
   - &run-phpstan-tests |
-      vendor/bin/phpstan analyse src
+      vendor/bin/phpstan analyse
 
   - &update-project-dependencies |
       composer update --no-progress --no-suggest --ansi
 
-  - &add-deptrac-to-path |
+  - &install-deptrac-to-path |
       curl -LS http://get.sensiolabs.de/deptrac.phar -o deptrac && chmod +x deptrac
+
+  - &run-code-architectural-analyze |
+      ./deptrac analyze depfile.boundedContext.yml --formatter-graphviz=0
 
 before_install:
   - cp ci/.env.test.travis .env.test
@@ -75,6 +78,7 @@ install:
   - docker-compose -f tests/docker/docker-compose.yml up -d
   - composer install
   - ./bin/phpunit install
+  - *install-deptrac-to-path
 
 
 before_script:
@@ -90,6 +94,8 @@ script:
   - *run-php-cs-fixer-tests
 
   - *run-phpstan-tests
+
+  - *run-code-architectural-analyze
 
   #- *run-behat-tests
 

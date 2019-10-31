@@ -19,6 +19,15 @@
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
         </testsuite>
+        <testsuite name="collaboration">
+            <directory>proAppointments/collaboration/tests</directory>
+        </testsuite>
+        <testsuite name="identityAccess">
+            <directory>proAppointments/IdentityAccess/tests</directory>
+        </testsuite>
+        <testsuite name="schedule">
+            <directory>proAppointments/schedule/tests</directory>
+        </testsuite>
     </testsuites>
 
     <filter>
