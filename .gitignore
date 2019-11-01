@@ -2,6 +2,7 @@
 /.idea/
 /extra/
 deptrac
+docker-compose.dev.yml
 ###< pro-appointments/develop ###
 
 
@@ -24,3 +25,7 @@ deptrac
 /.php_cs
 /.php_cs.cache
 ###< friendsofphp/php-cs-fixer ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
