@@ -71,6 +71,8 @@ cache:
   - &run-code-architectural-analyze |
       ./deptrac analyze depfile.boundedContext.yml --formatter-graphviz=0
 
+  - &run-sensiolabs-security-checker |
+      ./bin/console security:check composer.lock
 before_install:
   - cp ci/.env.test.travis .env.test
 
@@ -90,6 +92,8 @@ before_script:
 
 script:
   - *clear-test-app-cache
+
+  - *run-sensiolabs-security-checker
 
   - *run-php-cs-fixer-tests
 

@@ -86,6 +86,18 @@
     "psr/log": {
         "version": "1.1.1"
     },
+    "sensiolabs/security-checker": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.0",
+            "ref": "160c9b600564faa1224e8f387d49ef13ceb8b793"
+        },
+        "files": [
+            "config/packages/security_checker.yaml"
+        ]
+    },
     "symfony/browser-kit": {
         "version": "v4.3.5"
     },
@@ -168,6 +180,12 @@
             "src/Controller/.gitignore",
             "src/Kernel.php"
         ]
+    },
+    "symfony/http-client": {
+        "version": "v4.3.6"
+    },
+    "symfony/http-client-contracts": {
+        "version": "v1.1.7"
     },
     "symfony/http-foundation": {
         "version": "v4.3.5"
