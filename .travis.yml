@@ -1,0 +1,112 @@
+sudo: required
+
+env:
+  global:
+    #- CC_TEST_REPORTER_ID=xxxxxxx
+
+    - TEST_COVERAGE=true
+
+    - RUN_SONAR_SCANNER=0
+
+language: php
+
+services:
+    - docker
+
+addons:
+  sonarcloud:
+    organization: "xxxx"
+    token:
+      secure: "xxxxx"
+
+matrix:
+    fast_finish: true
+    include:
+        - php: 7.2
+          env: RUN_SONAR_SCANNER=0
+        - php: 7.3
+
+
+cache:
+  directories:
+  - $HOME/.composer/cache
+
+.steps:
+  #
+  #   CI STEP
+  #
+  - &add-composer-bin-dir-to-path |
+      export PATH="$PATH:$HOME/.composer/vendor/bin"
+
+  - &clear-test-app-cache |
+      bin/console cache:clear
+
+  - &disable-php-memory-limit |
+      echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+
+  - &disable-xdebug-php-extension |
+      phpenv config-rm xdebug.ini || echo "xdebug not available"
+
+  - &run-behat-tests |
+      vendor/bin/behat --format=progress --no-interaction --colors
+
+  - &run-phpunit-tests |
+      bin/phpunit --colors=always --coverage-clover=coverage-report.clover --log-junit=test-report.xml
+
+  - &run-php-cs-fixer-tests |
+      vendor/bin/php-cs-fixer fix --dry-run --diff
+
+  - &run-strict-type-php-cs-fixer-tests |
+      vendor/bin/php-cs-fixer fix --dry-run -v --rules=declare_strict_types  --allow-risky=yes
+
+  - &run-phpstan-tests |
+      vendor/bin/phpstan analyse
+
+  - &update-project-dependencies |
+      composer update --no-progress --no-suggest --ansi
+
+  - &install-deptrac-to-path |
+      curl -LS http://get.sensiolabs.de/deptrac.phar -o deptrac && chmod +x deptrac
+
+  - &run-code-architectural-analyze |
+      ./deptrac analyze depfile.boundedContext.yml --formatter-graphviz=0
+
+  - &run-sensiolabs-security-checker |
+      ./bin/console security:check composer.lock
+before_install:
+  - cp ci/.env.test.travis .env.test
+
+install:
+  - docker-compose -f tests/docker/docker-compose.yml up -d
+  - composer install
+  - ./bin/phpunit install
+  - *install-deptrac-to-path
+
+
+before_script:
+  #- php bin/console doctrine:database:create --if-not-exists -e test
+  #- php bin/console doctrine:migrations:migrate --no-interaction -e test
+  #- php bin/console doctrine:schema:update --force -e test
+
+  #- php bin/console eventsauce:create-schema  --force -e test
+
+script:
+  - *clear-test-app-cache
+
+  - *run-sensiolabs-security-checker
+
+  - *run-php-cs-fixer-tests
+
+  - *run-phpstan-tests
+
+  - *run-code-architectural-analyze
+
+  #- *run-behat-tests
+
+  - *run-phpunit-tests
+
+
+after_success:
+  - if [[ $RUN_SONAR_SCANNER == "1" ]]; then sonar-scanner -Dproject.settings=sonar-project.properties -Dsonar.projectVersion=$TRAVIS_TAG; fi
+
+  #- ./cc-test-reporter after-build --coverage-input-type clover --id $CC_TEST_REPORTER_ID --exit-code $TRAVIS_TEST_RESULT

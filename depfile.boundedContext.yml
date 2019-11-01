@@ -1,0 +1,29 @@
+paths:
+  - ./proAppointments
+exclude_files:
+  - .*Test.*
+
+
+layers:
+  - name: Collaboration
+    collectors:
+      - type: directory
+        regex: proAppointments/Collaboration/.*
+
+  - name: IdentityAccess
+    collectors:
+      - type: directory
+        regex: proAppointments/IdentityAccess/.*
+
+  - name: Schedule
+    collectors:
+      - type: directory
+        regex: proAppointments/Schedule/.*
+
+
+ruleset:
+  Collaboration: ~
+
+  IdentityAccess: ~
+
+  Schedule: ~

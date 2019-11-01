@@ -1,0 +1,27 @@
+#includes:
+    #- vendor/phpstan/phpstan-phpunit/extension.neon
+    #- vendor/phpstan/phpstan-strict-rules/rules.neon
+
+parameters:
+    level: 7
+    #autoload_files:
+        #- bin/.phpunit/phpunit-6.5/vendor/autoload.php
+    paths:
+        - src
+        - tests
+        - proAppointments/Collaboration/src
+        - proAppointments/IdentityAccess/src
+        - proAppointments/Schedule/src
+
+    ignoreErrors:
+        #- '##'
+
+
+
+    excludes_analyse:
+        - '*/vendor/*'
+        - '*/Spec/*'
+        - '*/Migrations/*'
+
+        # REMOVE
+        
