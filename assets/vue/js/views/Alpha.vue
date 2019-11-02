@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row col">
-            <h1>Alpha page</h1>
+            <h1>Alpha page - -</h1>
         </div>
 
         <div class="row col">
