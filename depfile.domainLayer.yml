@@ -1,0 +1,44 @@
+paths:
+  - ./proAppointments
+exclude_files:
+  - .*Test.*
+
+
+layers:
+
+  - name: AllowedDependenciesInDomain
+    collectors:
+      - type: bool
+        must:
+
+          - type: className
+            regex: ^Psr\\.*
+
+          - type: className
+            regex: ^Ramsey\\Uuid\\\.*
+
+        must_not:
+          - type: className
+            regex: .+\\.*
+
+  - name: IdentityAccessDomain
+    collectors:
+      - type: directory
+        regex: proAppointments/IdentityAccess/src/Domain.*
+
+  - name: CollaborationDomain
+    collectors:
+      - type: directory
+        regex: proAppointments/Collaboration/src/Domain.*
+
+  - name: ScheduleDomain
+    collectors:
+      - type: directory
+        regex: proAppointments/Schedule/src/Domain.*
+
+
+ruleset:
+
+  IdentityAccessDomain:
+    - AllowedDependenciesInDomain
+

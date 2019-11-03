@@ -71,8 +71,12 @@ cache:
   - &run-code-architectural-analyze |
       ./deptrac analyze depfile.boundedContext.yml --formatter-graphviz=0
 
+  - &run-domain-dependencies-analyze |
+      ./deptrac analyze depfile.domainLayer.yml --formatter-graphviz=0
+
   - &run-sensiolabs-security-checker |
       ./bin/console security:check composer.lock
+
 before_install:
   - cp ci/.env.test.travis .env.test
 
@@ -100,6 +104,8 @@ script:
   - *run-phpstan-tests
 
   - *run-code-architectural-analyze
+
+  - *run-domain-dependencies-analyze
 
   #- *run-behat-tests
 
