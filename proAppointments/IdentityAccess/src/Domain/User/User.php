@@ -16,7 +16,7 @@ class User
     private $password;
 
     /** @var FullName|null */
-    private $fullName;
+    private $personalName;
 
     /**
      * User constructor.
@@ -33,13 +33,55 @@ class User
         $user = new User($id);
         $user->email = $email;
         $user->password = $password;
-        $user->fullName = $fullName;
+        $user->personalName = $fullName;
 
         return $user;
     }
 
-    public function changePersonalName(FullName $aPersonalName)
+    public function changePersonalName(FullName $personalName): void
     {
-        $this->fullName = $aPersonalName;
+        $this->personalName = $personalName;
+    }
+
+    /**
+     * @param User $other
+     *
+     * @return bool
+     */
+    public function sameIdentityAs(User $other): bool
+    {
+        return $this->id->equals($other->id());
+    }
+
+    /**
+     * @return UserId
+     */
+    public function id(): UserId
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return UserEmail
+     */
+    public function email(): UserEmail
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return UserPassword
+     */
+    public function password(): UserPassword
+    {
+        return $this->password;
+    }
+
+    /**
+     * @return FullName|null
+     */
+    public function personalName(): ?FullName
+    {
+        return $this->personalName;
     }
 }
