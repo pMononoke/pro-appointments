@@ -36,7 +36,8 @@
             "App\\": "src/",
             "ProAppointments\\Collaboration\\": "proAppointments/Collaboration/src/",
             "ProAppointments\\IdentityAccess\\": "proAppointments/IdentityAccess/src/",
-            "ProAppointments\\Schedule\\": "proAppointments/Schedule/src/"
+            "ProAppointments\\Schedule\\": "proAppointments/Schedule/src/",
+            "CompostDDD\\": "lib/compost/src/"
         }
     },
     "autoload-dev": {
@@ -44,7 +45,8 @@
             "App\\Tests\\": "tests/",
             "ProAppointments\\Collaboration\\Tests\\": "proAppointments/Collaboration/tests/",
             "ProAppointments\\IdentityAccess\\Tests\\": "proAppointments/IdentityAccess/tests/",
-            "ProAppointments\\Schedule\\Tests\\": "proAppointments/Schedule/tests/"
+            "ProAppointments\\Schedule\\Tests\\": "proAppointments/Schedule/tests/",
+            "CompostDDD\\Tests\\": "lib/compost/tests/"
         }
     },
     "replace": {
