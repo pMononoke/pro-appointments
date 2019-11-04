@@ -18,6 +18,7 @@ class LastNameTest extends TestCase
 
         self::assertInstanceOf(LastName::class, $firstName);
         self::assertEquals(self::LAST_NAME, $firstName->toString());
+        self::assertEquals(self::LAST_NAME, $firstName->__toString());
     }
 
     /** @test */

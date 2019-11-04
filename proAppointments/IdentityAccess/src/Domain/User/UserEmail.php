@@ -17,11 +17,6 @@ final class UserEmail
         $this->value = $value;
     }
 
-    public function value(): string
-    {
-        return $this->value;
-    }
-
     public static function fromString(string $userEmail): UserEmail
     {
         return new self($userEmail);

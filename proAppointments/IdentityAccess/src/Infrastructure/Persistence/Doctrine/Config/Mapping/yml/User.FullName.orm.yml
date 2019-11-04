@@ -1,0 +1,5 @@
+ProAppointments\IdentityAccess\Domain\User\FullName:
+    type: embeddable
+    fields:
+      firstName: { type: string }
+      lastName: { type: string }

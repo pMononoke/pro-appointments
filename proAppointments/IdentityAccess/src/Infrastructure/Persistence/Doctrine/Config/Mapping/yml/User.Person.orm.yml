@@ -1,0 +1,19 @@
+ProAppointments\IdentityAccess\Domain\User\Person:
+  type: entity
+  table: 'ia_person'
+  #repositoryClass: Medicalmundi\IngestionGazzetta\Infrastructure\Persistence\Doctrine\DoctrineGuFeedRepository
+  id:
+    userId:
+      column: user_id
+      type: identity_user_id
+      generator:
+        strategy: NONE
+  fields:
+
+  embedded:
+    name:
+      class: FullName
+      columnPrefix: false
+    contactInformation:
+      class: contactInformation
+      columnPrefix: false

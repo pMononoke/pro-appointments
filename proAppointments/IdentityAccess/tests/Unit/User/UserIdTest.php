@@ -23,6 +23,7 @@ class UserIdTest extends TestCase
         $userId = UserId::fromString(self::UUID);
 
         self::assertEquals(self::UUID, $userId->toString());
+        self::assertEquals(self::UUID, $userId->__toString());
     }
 
     /** @test */

@@ -15,8 +15,8 @@ class User
     /** @var UserPassword */
     private $password;
 
-    /** @var FullName|null */
-    private $personalName;
+    /** @var Person */
+    private $person;
 
     /**
      * User constructor.
@@ -28,19 +28,19 @@ class User
         $this->id = $id;
     }
 
-    public static function register(UserId $id, UserEmail $email, UserPassword $password, ?FullName $fullName = null): User
+    public static function register(UserId $id, UserEmail $email, UserPassword $password, Person $person): User
     {
         $user = new User($id);
         $user->email = $email;
         $user->password = $password;
-        $user->personalName = $fullName;
+        $user->person = $person;
 
         return $user;
     }
 
     public function changePersonalName(FullName $personalName): void
     {
-        $this->personalName = $personalName;
+        $this->person->changeName($personalName);
     }
 
     /**
@@ -78,10 +78,10 @@ class User
     }
 
     /**
-     * @return FullName|null
+     * @return Person
      */
-    public function personalName(): ?FullName
+    public function person(): Person
     {
-        return $this->personalName;
+        return $this->person;
     }
 }

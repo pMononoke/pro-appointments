@@ -1,0 +1,27 @@
+ProAppointments\IdentityAccess\Domain\User\User:
+  type: entity
+  table: 'ia_user'
+  #repositoryClass: Medicalmundi\IngestionGazzetta\Infrastructure\Persistence\Doctrine\DoctrineGuFeedRepository
+  id:
+    id:
+      column: user_id
+      type: identity_user_id
+      generator:
+        strategy: NONE
+  fields:
+    email:
+      column: email
+      type: string
+      nullable: false
+    password:
+      column: password
+      type: string
+      nullable: false
+  oneToOne:
+    person:
+      targetEntity: Person
+      joinColumn:
+        name: user_id
+        referencedColumnName: user_id
+
+

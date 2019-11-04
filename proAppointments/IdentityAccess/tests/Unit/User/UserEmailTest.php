@@ -18,6 +18,7 @@ class UserEmailTest extends TestCase
 
         self::assertInstanceOf(UserEmail::class, $firstName);
         self::assertEquals(self::EMAIL, $firstName->toString());
+        self::assertEquals(self::EMAIL, $firstName->__toString());
     }
 
     /** @test */

@@ -18,6 +18,7 @@ class UserPasswordTest extends TestCase
 
         self::assertInstanceOf(UserPassword::class, $firstName);
         self::assertEquals(self::PASSWORD, $firstName->toString());
+        self::assertEquals(self::PASSWORD, $firstName->__toString());
     }
 
     /** @test */
