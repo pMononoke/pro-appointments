@@ -1,7 +1,7 @@
 ProAppointments\IdentityAccess\Domain\User\User:
   type: entity
   table: 'ia_user'
-  #repositoryClass: Medicalmundi\IngestionGazzetta\Infrastructure\Persistence\Doctrine\DoctrineGuFeedRepository
+  #repositoryClass:
   id:
     id:
       column: user_id
@@ -23,5 +23,6 @@ ProAppointments\IdentityAccess\Domain\User\User:
       joinColumn:
         name: user_id
         referencedColumnName: user_id
+      cascade: ["all"]
 
 

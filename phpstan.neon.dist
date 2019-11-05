@@ -25,4 +25,6 @@ parameters:
 
         # REMOVE
         - 'proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/Config/Type/DoctrineUserIdType.php'
-        
+
+        # issue #2
+        - 'proAppointments/IdentityAccess/src/Domain/User/UserFactory.php'
