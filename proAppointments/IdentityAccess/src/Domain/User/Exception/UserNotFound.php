@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Domain\User\Exception;
 
+use ProAppointments\IdentityAccess\Domain\User\UserEmail;
 use ProAppointments\IdentityAccess\Domain\User\UserId;
 
 final class UserNotFound extends InvalidUserException
@@ -26,8 +27,8 @@ final class UserNotFound extends InvalidUserException
         return new self($id, sprintf('User %s does not exist.', $id), $code, $previous);
     }
 
-    public static function withEmail(string $email, UserId $id, int $code = 0, \Exception $previous = null): self
+    public static function withEmail(UserEmail $email, UserId $id, int $code = 0, \Exception $previous = null): self
     {
-        return new self($id, sprintf('User %s does not exist.', $email), $code, $previous);
+        return new self($id, sprintf('User with email %s does not exist.', $email), $code, $previous);
     }
 }
