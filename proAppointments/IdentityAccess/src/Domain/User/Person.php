@@ -65,11 +65,6 @@ class Person
         return $this->contactInformation;
     }
 
-    public function __toString(): string
-    {
-        return 'person';
-    }
-
     public function equals(Person $person): bool
     {
         return $this->userId->equals($person->userId)
