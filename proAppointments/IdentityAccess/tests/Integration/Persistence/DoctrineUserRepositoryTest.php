@@ -1,6 +1,10 @@
 <?php
-
-declare(strict_types=1);
+/**
+ * Created by PhpStorm.
+ * User: zero
+ * Date: 06/11/19
+ * Time: 13.58.
+ */
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence;
 
@@ -24,28 +28,18 @@ class DoctrineUserRepositoryTest extends KernelTestCase
     private const LAST_NAME = 'irrelevant';
     private const MOBILE_NUMBER = '+39-392-1111111';
 
-    /**
-     * @var \Doctrine\ORM\EntityManager
-     */
-    private $entityManager;
-
     private $userRepository;
 
     protected function setUp()
     {
         $kernel = self::bootKernel();
 
-        $this->entityManager = $kernel->getContainer()
-            ->get('doctrine')
-            ->getManager();
-
         $this->userRepository = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository')
-    ;
+            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository');
     }
 
     /** @test */
-    public function can_save_a_user(): void
+    public function can_persist_a_user(): void
     {
         $id = UserId::generate();
         $fullName = new FullName(
@@ -70,20 +64,10 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         $this->assertInstanceOf(User::class, $this->userRepository->ofId($id));
     }
 
-//    private function getUserRepository()
-//    {
-//        return $this->entityManager
-//            ->getRepository(User::class)
-//        ;
-//
-//    }
-
     protected function tearDown()
     {
         parent::tearDown();
 
-        // doing this is recommended to avoid memory leaks
-        $this->entityManager->close();
-        $this->entityManager = null;
+        $this->userRepository = null;
     }
 }
