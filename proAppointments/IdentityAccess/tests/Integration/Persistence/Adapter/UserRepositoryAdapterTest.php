@@ -1,12 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: zero
- * Date: 06/11/19
- * Time: 13.58.
- */
 
-namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence;
+declare(strict_types=1);
+
+namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Adapter;
 
 use ProAppointments\IdentityAccess\Domain\User\ContactInformation;
 use ProAppointments\IdentityAccess\Domain\User\FirstName;
@@ -20,7 +16,7 @@ use ProAppointments\IdentityAccess\Domain\User\UserId;
 use ProAppointments\IdentityAccess\Domain\User\UserPassword;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class DoctrineUserRepositoryTest extends KernelTestCase
+class UserRepositoryAdapterTest extends KernelTestCase
 {
     private const EMAIL = 'irrelevant@email.com';
     private const PASSWORD = 'irrelevant';
@@ -35,7 +31,7 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         $kernel = self::bootKernel();
 
         $this->userRepository = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository');
+            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter');
     }
 
     /** @test */
@@ -62,8 +58,36 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         $this->userRepository->remove($user);
         $userFromDatabase = $this->userRepository->ofId($secondId);
 
-        self::assertNull($this->userRepository->ofId($id));
+        //self::assertNull($this->userRepository->ofId($id));
         $this->assertTrue($secondUser->sameIdentityAs($userFromDatabase));
+    }
+
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\UserAlreadyExist
+     */
+    public function deny_persistence_and_throw_UserAlreadyExist_exception_if_user_exist(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+
+        $this->userRepository->register($user);
+
+        $this->userRepository->register($user);
+    }
+
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\UserNotFound
+     */
+    public function throw_UserNotFound_exception_if_user_not_exist(): void
+    {
+        $this->userRepository->ofId(UserId::generate());
+    }
+
+    /** @test*/
+    public function can_generate_a_new_user_identity(): void
+    {
+        self::assertInstanceOf(UserId::class, $this->userRepository->nextIdentity());
     }
 
     /**

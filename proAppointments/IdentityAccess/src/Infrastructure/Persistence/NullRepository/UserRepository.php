@@ -13,16 +13,17 @@ class UserRepository implements UserRepositoryPort
 {
     public function register(User $user): void
     {
-        return;
     }
 
     public function ofId(UserId $userId): User
     {
-        throw UserNotFound::withId($userId);
     }
 
     public function nextIdentity(): UserId
     {
-        return UserId::generate();
+    }
+
+    public function remove(User $user): void
+    {
     }
 }

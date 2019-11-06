@@ -31,4 +31,10 @@ class DoctrineUserRepository extends ServiceEntityRepository
         $this->_em->persist($user);
         $this->_em->flush($user);
     }
+
+    public function remove(User $user): void
+    {
+        $this->_em->remove($user);
+        $this->_em->flush();
+    }
 }

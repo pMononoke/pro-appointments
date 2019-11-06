@@ -52,15 +52,15 @@ class UserRepositoryAdapter implements UserRepository
         }
 
         return $user;
-//        if ($user = $this->repository->ofId($userId)) {
-//            return $user;
-//        }
-//
-//        throw  UserNotFound::withId($userId);
     }
 
     public function nextIdentity(): UserId
     {
         return UserId::generate();
+    }
+
+    public function remove(User $user): void
+    {
+        $this->repository->remove($user);
     }
 }
