@@ -54,11 +54,17 @@ class UserRepositoryAdapter implements UserRepository
         return $user;
     }
 
+    /**
+     * @return UserId
+     */
     public function nextIdentity(): UserId
     {
         return UserId::generate();
     }
 
+    /**
+     * @param User $user
+     */
     public function remove(User $user): void
     {
         $this->repository->remove($user);

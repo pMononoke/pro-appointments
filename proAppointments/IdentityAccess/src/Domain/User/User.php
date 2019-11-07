@@ -28,6 +28,14 @@ class User
         $this->id = $id;
     }
 
+    /**
+     * @param UserId       $id
+     * @param UserEmail    $email
+     * @param UserPassword $password
+     * @param Person       $person
+     *
+     * @return User
+     */
     public static function register(UserId $id, UserEmail $email, UserPassword $password, Person $person): User
     {
         $user = new User($id);
@@ -35,9 +43,14 @@ class User
         $user->password = $password;
         $user->person = $person;
 
+        //TODO DOMAIN EVENT
+
         return $user;
     }
 
+    /**
+     * @param FullName $personalName
+     */
     public function changePersonalName(FullName $personalName): void
     {
         $this->person->changeName($personalName);

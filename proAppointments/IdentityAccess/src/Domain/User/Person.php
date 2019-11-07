@@ -29,16 +29,22 @@ class Person
         $this->contactInformation = $contactInformation;
     }
 
+    /**
+     * @param ContactInformation $contactInformation
+     */
     public function changeContactInformation(ContactInformation $contactInformation): void
     {
         $this->contactInformation = $contactInformation;
-        // DOMAIN EVENT
+        // TODO DOMAIN EVENT
     }
 
+    /**
+     * @param FullName $name
+     */
     public function changeName(FullName $name)
     {
         $this->name = $name;
-        // DOMAIN EVENT
+        // TODO DOMAIN EVENT
     }
 
     /**
@@ -65,6 +71,11 @@ class Person
         return $this->contactInformation;
     }
 
+    /**
+     * @param Person $person
+     *
+     * @return bool
+     */
     public function equals(Person $person): bool
     {
         return $this->userId->equals($person->userId)

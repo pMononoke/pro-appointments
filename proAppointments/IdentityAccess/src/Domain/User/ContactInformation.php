@@ -24,15 +24,11 @@ final class ContactInformation
         $this->mobileNumber = $mobileNumber;
     }
 
-    // WHY??? CAN EXPLAIN THIS???
-//    public static function fromContactInformation(ContactInformation $aContactInformation): ContactInformation
-//    {
-//        return new ContactInformation(
-//            $aContactInformation->email(),
-//            $aContactInformation->mobileNumber()
-//        );
-//    }
-
+    /**
+     * @param MobileNumber $mobileNumber
+     *
+     * @return ContactInformation
+     */
     public function changeMobileNumber(MobileNumber $mobileNumber): ContactInformation
     {
         return new ContactInformation(

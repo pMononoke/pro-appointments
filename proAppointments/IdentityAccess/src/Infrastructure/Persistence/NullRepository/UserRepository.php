@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\NullRepository;
 
-use ProAppointments\IdentityAccess\Domain\User\Exception\UserNotFound;
 use ProAppointments\IdentityAccess\Domain\User\User;
 use ProAppointments\IdentityAccess\Domain\User\UserId;
 use ProAppointments\IdentityAccess\Domain\User\UserRepository as UserRepositoryPort;
