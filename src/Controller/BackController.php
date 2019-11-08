@@ -8,10 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class IndexController extends AbstractController
+class BackController extends AbstractController
 {
     /**
-     * @Route("/{vueRouting}", name="index", defaults={"vueRouting": null}, requirements={"vueRouting"="^(?!api).+"})
+     * @Route("/administration/{vueRouting}", name="administration", defaults={"vueRouting": null}, requirements={"vueRouting"="^(?!api).+"})
      *
      * @return Response
      */
