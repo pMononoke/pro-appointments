@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Domain\User;
 
+use CompostDDD\Aggregate\AggregateBehaviour;
+
 class User
 {
+    use AggregateBehaviour;
+
     /** @var UserId */
     private $id;
 
