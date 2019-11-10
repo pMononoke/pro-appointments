@@ -165,6 +165,9 @@
     "ocramius/proxy-manager": {
         "version": "2.2.3"
     },
+    "php-amqplib/php-amqplib": {
+        "version": "v2.10.1"
+    },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
     },

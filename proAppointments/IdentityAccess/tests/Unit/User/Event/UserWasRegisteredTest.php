@@ -40,4 +40,20 @@ class UserWasRegisteredTest extends TestCase
         self::assertEquals($password, $event->password());
         self::assertNotNull($event->occurredOn());
     }
+
+    /** @test */
+    public function can_return_the_payload(): void
+    {
+        $event = new UserWasRegistered(
+            $userId = UserId::generate(),
+            $email = UserEmail::fromString('irrelevant@excample.com')
+        );
+
+        $expectedPayload = [
+            'userId' => $userId,
+            'email' => $email,
+        ];
+
+        self::assertEquals($expectedPayload, $event->toPayload());
+    }
 }
