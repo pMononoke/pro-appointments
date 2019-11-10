@@ -9,20 +9,26 @@ use ProAppointments\IdentityAccess\Domain\User\Exception\UserNotFound;
 use ProAppointments\IdentityAccess\Domain\User\User;
 use ProAppointments\IdentityAccess\Domain\User\UserId;
 use ProAppointments\IdentityAccess\Domain\User\UserRepository;
+use ProAppointments\IdentityAccess\Infrastructure\Notification\EventStore;
+use ProAppointments\IdentityAccess\Infrastructure\Notification\NullEventStore;
 
 class UserRepositoryAdapter implements UserRepository
 {
 //    /** @var UserRepository */
     private $repository;
 
+    private $eventStore;
+
     /**
      * UserRepositoryAdapter constructor.
      *
-     * @param object $repository
+     * @param object     $repository
+     * @param EventStore $eventStore
      */
-    public function __construct(object $repository)
+    public function __construct(object $repository, ?EventStore $eventStore)
     {
         $this->repository = $repository;
+        $this->eventStore = $eventStore ? $eventStore : new NullEventStore();
     }
 
     /**
@@ -35,7 +41,13 @@ class UserRepositoryAdapter implements UserRepository
         if ($this->repository->ofId($user->id())) {
             throw  UserAlreadyExist::withId($user->id());
         }
-        $this->repository->register($user);
+
+        try {
+            $this->repository->register($user);
+            $this->appendEventToEventStore($user);
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
     }
 
     /**
@@ -67,6 +79,21 @@ class UserRepositoryAdapter implements UserRepository
      */
     public function remove(User $user): void
     {
-        $this->repository->remove($user);
+        //$this->repository->remove($user);
+        try {
+            $this->appendEventToEventStore($user);
+            $this->repository->remove($user);
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
+    }
+
+    private function appendEventToEventStore(User $user): void
+    {
+        $events = $user->releaseEvents();
+
+        foreach ($events as $event) {
+            $this->eventStore->append($event);
+        }
     }
 }

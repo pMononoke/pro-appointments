@@ -13,6 +13,7 @@ services:
 
         bind:
             CompostDDD\ApplicationService\ApplicationService $registerUserService: '@Identity\Transational\RegisterUserService'
+            CompostDDD\ApplicationService\ApplicationService $deleteUserService: '@Identity\Transational\DeleteUserService'
 
 
     # add more service definitions when explicit configuration is needed
@@ -24,18 +25,27 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
 
-    #
-    # Transactional Application Services
-    #
-    ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory: ~
 
     ProAppointments\IdentityAccess\UI\Cli\:
         resource: '../../proAppointments/IdentityAccess/src/UI/Cli'
-        #tags: ['console.command']
         tags:
             - { name: 'console.command' }
 
     ProAppointments\IdentityAccess\Domain\User\UserFactory:
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository'
+            - '@ProAppointments\IdentityAccess\Infrastructure\Notification\DoctrineEventStore'
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository:
+        public: true
+
+    #
+    # Application Services  &  Transactional Application Services
+    #
+    ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory: ~
 
     ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService:
         arguments:
@@ -47,15 +57,35 @@ services:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
             - '@identity.transactional.session'
 
-    ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter:
+    ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService:
         arguments:
-            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository'
-        public: true
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
 
-    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository:
-        public: true
-
-    ProAppointments\IdentityAccess\UI\Cli\WireUserCommand:
+    Identity\Transational\DeleteUserService:
+        factory: 'ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory:createTransationalApplicationService'
         arguments:
-            - '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
-            - '@ProAppointments\IdentityAccess\Domain\User\UserFactory'
+            - '@ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService'
+            - '@identity.transactional.session'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
+#
+#   DOMAIN EVENT NOTIFIER STUFF
+#
+    ProAppointments\IdentityAccess\Infrastructure\Notification\DoctrineEventStore: ~
+
+
