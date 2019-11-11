@@ -20,6 +20,13 @@ services:
     # please note that last definitions always *replace* previous ones
 
 
+    ProAppointments\IdentityAccess\Infrastructure\DomainService\DomainRegistry:
+        calls:
+            - method: 'setContainer'
+              arguments:
+                  - '@service_container'
+        public: true
+
     identity.transactional.session:
         class: CompostDDD\ApplicationService\DoctrineSession
         arguments:
@@ -86,6 +93,7 @@ services:
 #
 #   DOMAIN EVENT NOTIFIER STUFF
 #
-    ProAppointments\IdentityAccess\Infrastructure\Notification\DoctrineEventStore: ~
+    ProAppointments\IdentityAccess\Infrastructure\Notification\DoctrineEventStore:
+        public: true
 
 
