@@ -32,6 +32,12 @@ services:
         resource: '../../proAppointments/IdentityAccess/tests/DataFixtures/'
         tags: ['doctrine.fixture.orm']
 
+
+    test_doctrine.dbal.connection:
+        alias: 'Doctrine\DBAL\Connection'
+        public: true
+
+
     ProAppointments\IdentityAccess\UI\Cli\:
         resource: '../../proAppointments/IdentityAccess/src/UI/Cli'
         #tags: ['console.command']
