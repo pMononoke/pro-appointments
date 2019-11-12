@@ -23,8 +23,6 @@ class WireUserCommand extends Command
 
     /**
      * WireUserCommand constructor.
-     *
-     * @param RegisterUserService $registerUserService
      */
     public function __construct(RegisterUserService $registerUserService)
     {

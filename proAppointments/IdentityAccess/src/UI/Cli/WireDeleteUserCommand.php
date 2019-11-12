@@ -18,8 +18,6 @@ class WireDeleteUserCommand extends Command
 
     /**
      * WireUserCommand constructor.
-     *
-     * @param DeleteUserService $deleteUserService
      */
     public function __construct(DeleteUserService $deleteUserService)
     {

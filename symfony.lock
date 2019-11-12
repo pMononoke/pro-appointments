@@ -129,6 +129,9 @@
     "jean85/pretty-package-versions": {
         "version": "1.2"
     },
+    "lcobucci/clock": {
+        "version": "1.2.0"
+    },
     "monolog/monolog": {
         "version": "1.25.1"
     },

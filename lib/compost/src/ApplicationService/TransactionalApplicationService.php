@@ -14,9 +14,6 @@ class TransactionalApplicationService implements ApplicationService
 
     /**
      * TransactionalApplicationService constructor.
-     *
-     * @param TransactionalSession $databaseSession
-     * @param ApplicationService   $applicationService
      */
     public function __construct(TransactionalSession $databaseSession, ApplicationService $applicationService)
     {

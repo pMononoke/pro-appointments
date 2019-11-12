@@ -11,8 +11,6 @@ class EventPersistence
 
     /**
      * EventPersistence constructor.
-     *
-     * @param object $repository
      */
     public function __construct(object $repository)
     {

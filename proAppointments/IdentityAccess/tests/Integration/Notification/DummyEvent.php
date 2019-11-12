@@ -24,25 +24,16 @@ class DummyEvent
         $this->occurredOn = new DateTimeImmutable();
     }
 
-    /**
-     * @return string
-     */
     public function userId(): string
     {
         return $this->userId;
     }
 
-    /**
-     * @return string
-     */
     public function email(): string
     {
         return $this->email;
     }
 
-    /**
-     * @return \DateTimeImmutable
-     */
     public function occurredOn(): \DateTimeImmutable
     {
         return $this->occurredOn;

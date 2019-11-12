@@ -18,9 +18,6 @@ class RegisterUserService implements ApplicationService
 
     /**
      * RegisterUserService constructor.
-     *
-     * @param UserRepository $userRepository
-     * @param UserFactory    $userFactory
      */
     public function __construct(UserRepository $userRepository, UserFactory $userFactory)
     {

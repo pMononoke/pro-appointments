@@ -15,9 +15,6 @@ class DoctrineUserIdType extends UuidType
 
     /**
      * @param \Ramsey\Uuid\UuidInterface|string|null $value
-     * @param AbstractPlatform                       $platform
-     *
-     * @return UserId|null
      *
      * @throws ConversionException
      */
@@ -38,9 +35,6 @@ class DoctrineUserIdType extends UuidType
 
     /**
      * @param \Ramsey\Uuid\UuidInterface|string|null $value
-     * @param AbstractPlatform                       $platform
-     *
-     * @return string|null
      *
      * @throws ConversionException
      */

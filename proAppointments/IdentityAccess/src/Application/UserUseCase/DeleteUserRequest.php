@@ -17,9 +17,6 @@ class DeleteUserRequest implements ServiceRequest
         $this->userId = $userId;
     }
 
-    /**
-     * @return UserId
-     */
     public function userId(): UserId
     {
         return $this->userId;

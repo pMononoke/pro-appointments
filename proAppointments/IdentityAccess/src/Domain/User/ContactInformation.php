@@ -14,9 +14,6 @@ final class ContactInformation
 
     /**
      * ContactInformation constructor.
-     *
-     * @param UserEmail    $email
-     * @param MobileNumber $mobileNumber
      */
     public function __construct(UserEmail $email, MobileNumber $mobileNumber)
     {
@@ -24,11 +21,6 @@ final class ContactInformation
         $this->mobileNumber = $mobileNumber;
     }
 
-    /**
-     * @param MobileNumber $mobileNumber
-     *
-     * @return ContactInformation
-     */
     public function changeMobileNumber(MobileNumber $mobileNumber): ContactInformation
     {
         return new ContactInformation(
@@ -37,17 +29,11 @@ final class ContactInformation
         );
     }
 
-    /**
-     * @return UserEmail
-     */
     public function email(): UserEmail
     {
         return $this->email;
     }
 
-    /**
-     * @return MobileNumber
-     */
     public function mobileNumber(): MobileNumber
     {
         return $this->mobileNumber;

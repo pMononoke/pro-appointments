@@ -10,8 +10,6 @@ namespace CompostDDD\ApplicationService;
 interface TransactionalSession
 {
     /**
-     * @param callable $operation
-     *
      * @return mixed
      */
     public function executeAtomically(callable $operation);

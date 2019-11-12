@@ -27,9 +27,7 @@ class StoredEvent //implements DomainEvent
     private $typeName;
 
     /**
-     * @param string             $aTypeName
-     * @param \DateTimeImmutable $anOccurredOn
-     * @param string             $anEventBody
+     * @param string $aTypeName
      */
     public function __construct($aTypeName, \DateTimeImmutable $anOccurredOn, string $anEventBody)
     {

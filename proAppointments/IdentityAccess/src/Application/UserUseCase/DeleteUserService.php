@@ -14,8 +14,6 @@ class DeleteUserService implements ApplicationService
 
     /**
      * RegisterUserService constructor.
-     *
-     * @param UserRepository $userRepository
      */
     public function __construct(UserRepository $userRepository)
     {

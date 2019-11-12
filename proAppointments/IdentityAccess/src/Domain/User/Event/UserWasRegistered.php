@@ -27,17 +27,11 @@ class UserWasRegistered
         $this->occurredOn = new \DateTimeImmutable();
     }
 
-    /**
-     * @return UserId
-     */
     public function userId(): UserId
     {
         return $this->userId;
     }
 
-    /**
-     * @return UserEmail
-     */
     public function email(): UserEmail
     {
         return $this->email;
@@ -51,9 +45,6 @@ class UserWasRegistered
         return $this->password;
     }
 
-    /**
-     * @return \DateTimeImmutable
-     */
     public function occurredOn(): \DateTimeImmutable
     {
         return $this->occurredOn;

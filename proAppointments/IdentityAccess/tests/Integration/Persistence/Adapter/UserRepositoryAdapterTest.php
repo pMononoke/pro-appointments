@@ -90,9 +90,6 @@ class UserRepositoryAdapterTest extends KernelTestCase
         self::assertInstanceOf(UserId::class, $this->userRepository->nextIdentity());
     }
 
-    /**
-     * @return array
-     */
     protected function generateUserAggregate(): array
     {
         $id = UserId::generate();

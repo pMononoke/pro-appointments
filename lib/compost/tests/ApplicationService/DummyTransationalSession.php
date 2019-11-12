@@ -9,8 +9,6 @@ use CompostDDD\ApplicationService\TransactionalSession;
 class DummyTransationalSession implements TransactionalSession
 {
     /**
-     * @param callable $operation
-     *
      * @return mixed
      */
     public function executeAtomically(callable $operation)

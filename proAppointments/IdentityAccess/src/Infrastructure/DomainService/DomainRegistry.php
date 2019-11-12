@@ -2,8 +2,8 @@
 
 namespace ProAppointments\IdentityAccess\Infrastructure\DomainService;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use ProAppointments\IdentityAccess\Domain\Service\DomainRegistry as DomainRegistryPort;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DomainRegistry implements DomainRegistryPort
 {

@@ -12,8 +12,6 @@ class BackController extends AbstractController
 {
     /**
      * @Route("/administration/{vueRouting}", name="administration", defaults={"vueRouting": null}, requirements={"vueRouting"="^(?!api).+"})
-     *
-     * @return Response
      */
     public function indexAction(): Response
     {

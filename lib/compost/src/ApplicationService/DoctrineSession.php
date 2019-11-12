@@ -13,8 +13,6 @@ class DoctrineSession implements TransactionalSession
 
     /**
      * DoctrineSession constructor.
-     *
-     * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -22,8 +20,6 @@ class DoctrineSession implements TransactionalSession
     }
 
     /**
-     * @param callable $operation
-     *
      * @return mixed
      */
     public function executeAtomically(callable $operation)
