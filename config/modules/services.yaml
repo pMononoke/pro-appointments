@@ -20,6 +20,8 @@ services:
     # please note that last definitions always *replace* previous ones
 
 
+    CompostDDD\Time\SystemClock:
+
     ProAppointments\IdentityAccess\Infrastructure\DomainService\DomainRegistry:
         calls:
             - method: 'setContainer'
