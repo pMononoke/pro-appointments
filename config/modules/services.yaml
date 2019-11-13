@@ -20,7 +20,19 @@ services:
     # please note that last definitions always *replace* previous ones
 
 
-    CompostDDD\Time\SystemClock:
+
+    #
+    #   SYSTEM CLOCK
+    #
+    app.date_time_zone:
+        class: DateTimeZone
+        arguments:
+            - 'UTC'
+
+    app.clock.system:
+        class: CompostDDD\Time\SystemClock
+        arguments:
+            - '@app.date_time_zone'
 
     ProAppointments\IdentityAccess\Infrastructure\DomainService\DomainRegistry:
         calls:
