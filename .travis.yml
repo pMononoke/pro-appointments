@@ -96,7 +96,7 @@ before_install:
 
 install:
   - docker-compose -f tests/docker/docker-compose.yml up -d
-  - composer install --no-scripts
+  - composer install
   - ./bin/phpunit install
   - *install-deptrac-to-path
 
