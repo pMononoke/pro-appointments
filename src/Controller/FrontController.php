@@ -12,8 +12,6 @@ class FrontController extends AbstractController
 {
     /**
      * @Route("/{vueRouting}", name="index", defaults={"vueRouting": null}, requirements={"vueRouting"="^(?!api).+"})
-     *
-     * @return Response
      */
     public function indexAction(): Response
     {

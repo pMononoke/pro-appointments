@@ -29,7 +29,7 @@ class DoctrineUserRepository extends ServiceEntityRepository
     public function register(User $user): void
     {
         $this->_em->persist($user);
-        $this->_em->flush($user);
+        //$this->_em->flush($user);
     }
 
     public function remove(User $user): void

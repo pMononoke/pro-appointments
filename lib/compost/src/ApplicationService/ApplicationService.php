@@ -10,8 +10,6 @@ namespace CompostDDD\ApplicationService;
 interface ApplicationService
 {
     /**
-     * @param object $request
-     *
      * @return mixed
      */
     public function execute(object $request);

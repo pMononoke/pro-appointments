@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Tests\Unit\User;
 
 use PHPUnit\Framework\TestCase;
+use ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToSaveUser;
 use ProAppointments\IdentityAccess\Domain\User\Exception\UserAlreadyExist;
 use ProAppointments\IdentityAccess\Domain\User\Exception\UserNotFound;
 use ProAppointments\IdentityAccess\Domain\User\UserEmail;
@@ -57,6 +58,24 @@ class UserExceptionsTest extends TestCase
     public function UserAlreadyExist_exception_can_return_user_id()
     {
         $e = UserAlreadyExist::withId($userId = UserId::fromString(self::UUID));
+
+        self::assertTrue($userId->equals($e->id()));
+    }
+
+    /** @test */
+    public function ImpossibleToSaveUser_exception_can_be_throw()
+    {
+        $this->expectException(ImpossibleToSaveUser::class);
+
+        $this->expectExceptionMessage('Can not save user '.self::UUID.' persistence layer error.');
+
+        throw ImpossibleToSaveUser::withId($userId = UserId::fromString(self::UUID));
+    }
+
+    /** @test */
+    public function ImpossibleToSaveUser_exception_can_return_user_id()
+    {
+        $e = ImpossibleToSaveUser::withId($userId = UserId::fromString(self::UUID));
 
         self::assertTrue($userId->equals($e->id()));
     }

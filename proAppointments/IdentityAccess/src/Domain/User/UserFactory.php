@@ -6,23 +6,6 @@ namespace ProAppointments\IdentityAccess\Domain\User;
 
 class UserFactory
 {
-    public function build(
-        UserId $userId,
-        UserEmail $email,
-        UserPassword $password,
-        FirstName $firstName,
-        LastName $lastName,
-        MobileNumber $mobileNumber): User
-    {
-        $fullName = new FullName($firstName, $lastName);
-        $contactInformation = new ContactInformation($email, $mobileNumber);
-        $person = new Person($userId, $fullName, $contactInformation);
-
-        $user = User::register($userId, $email, $password, $person);
-
-        return $user;
-    }
-
     public function buildWithContactInformation(
         UserId $userId,
         UserEmail $email,
@@ -38,17 +21,6 @@ class UserFactory
         $person = new Person($userId, $fullName, $contactInformation);
 
         $user = User::register($userId, $email, $password, $person);
-
-        return $user;
-    }
-
-    public function buildWithAccountData(
-        UserId $userId,
-        UserEmail $email,
-        UserPassword $password
-    ): User {
-        // TODO issue #2
-        $user = User::register($userId, $email, $password);
 
         return $user;
     }

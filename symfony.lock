@@ -129,6 +129,9 @@
     "jean85/pretty-package-versions": {
         "version": "1.2"
     },
+    "lcobucci/clock": {
+        "version": "1.2.0"
+    },
     "monolog/monolog": {
         "version": "1.25.1"
     },
@@ -164,6 +167,9 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.2.3"
+    },
+    "php-amqplib/php-amqplib": {
+        "version": "v2.10.1"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"

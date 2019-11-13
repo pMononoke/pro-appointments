@@ -39,3 +39,12 @@ services:
             - { name: 'console.command' }
 
 
+
+    ProAppointments\IdentityAccess\UI\Cli\WireUserCommand:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
+            - '@ProAppointments\IdentityAccess\Domain\User\UserFactory'
+
+    ProAppointments\IdentityAccess\UI\Cli\WireDeleteUserCommand:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService'

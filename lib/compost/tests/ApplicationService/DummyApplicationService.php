@@ -9,8 +9,6 @@ use CompostDDD\ApplicationService\ApplicationService;
 class DummyApplicationService implements ApplicationService
 {
     /**
-     * @param object $request
-     *
      * @return mixed
      */
     public function execute(object $request)

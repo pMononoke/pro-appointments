@@ -34,13 +34,6 @@ class RegisterUserRequest implements ServiceRequest
 
     /**
      * RegisterUserRequest constructor.
-     *
-     * @param UserId       $userId
-     * @param UserEmail    $email
-     * @param UserPassword $password
-     * @param FirstName    $firstName
-     * @param LastName     $lastName
-     * @param MobileNumber $mobileNumber
      */
     public function __construct(UserId $userId, UserEmail $email, UserPassword $password, FirstName $firstName, LastName $lastName, MobileNumber $mobileNumber)
     {
@@ -52,49 +45,31 @@ class RegisterUserRequest implements ServiceRequest
         $this->mobileNumber = $mobileNumber;
     }
 
-    /**
-     * @return UserId
-     */
     public function userId(): UserId
     {
         return $this->userId;
     }
 
-    /**
-     * @return UserEmail
-     */
     public function email(): UserEmail
     {
         return $this->email;
     }
 
-    /**
-     * @return UserPassword
-     */
     public function password(): UserPassword
     {
         return $this->password;
     }
 
-    /**
-     * @return FirstName
-     */
     public function firstName(): FirstName
     {
         return $this->firstName;
     }
 
-    /**
-     * @return LastName
-     */
     public function lastName(): LastName
     {
         return $this->lastName;
     }
 
-    /**
-     * @return MobileNumber
-     */
     public function mobileNumber(): MobileNumber
     {
         return $this->mobileNumber;

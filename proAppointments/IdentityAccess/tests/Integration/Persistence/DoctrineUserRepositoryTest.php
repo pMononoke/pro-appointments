@@ -66,9 +66,6 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         $this->assertTrue($secondUser->sameIdentityAs($userFromDatabase));
     }
 
-    /**
-     * @return array
-     */
     protected function generateUserAggregate(): array
     {
         $id = UserId::generate();

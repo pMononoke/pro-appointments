@@ -113,7 +113,7 @@ before_script:
 script:
   - *app-clear-test-cache
 
-  - *run-sensiolabs-security-checker
+  #- *run-sensiolabs-security-checker
 
   - *run-php-cs-fixer-tests
 

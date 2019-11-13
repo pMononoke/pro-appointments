@@ -5,6 +5,7 @@
         "php": "^7.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "php-amqplib/php-amqplib": "^2.10",
         "ramsey/uuid": "^3.8",
         "ramsey/uuid-doctrine": "^1.5",
         "symfony/console": "4.3.*",
