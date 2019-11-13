@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter;
 
+use ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToSaveUser;
 use ProAppointments\IdentityAccess\Domain\User\Exception\UserAlreadyExist;
 use ProAppointments\IdentityAccess\Domain\User\Exception\UserNotFound;
 use ProAppointments\IdentityAccess\Domain\User\User;
@@ -24,7 +25,7 @@ class UserRepositoryAdapter implements UserRepository
      *
      * @param EventStore $eventStore
      */
-    public function __construct(object $repository, ?EventStore $eventStore)
+    public function __construct(object $repository, ?EventStore $eventStore = null)
     {
         $this->repository = $repository;
         $this->eventStore = $eventStore ? $eventStore : new NullEventStore();
@@ -32,6 +33,7 @@ class UserRepositoryAdapter implements UserRepository
 
     /**
      * @throws UserAlreadyExist
+     * @throws ImpossibleToSaveUser
      */
     public function register(User $user): void
     {
@@ -43,7 +45,7 @@ class UserRepositoryAdapter implements UserRepository
             $this->repository->register($user);
             $this->appendEventToEventStore($user);
         } catch (\Exception $exception) {
-            throw $exception;
+            throw ImpossibleToSaveUser::withId($user->id());
         }
     }
 
@@ -66,7 +68,6 @@ class UserRepositoryAdapter implements UserRepository
 
     public function remove(User $user): void
     {
-        //$this->repository->remove($user);
         try {
             $this->appendEventToEventStore($user);
             $this->repository->remove($user);

@@ -14,6 +14,9 @@ use ProAppointments\IdentityAccess\Domain\User\User;
 use ProAppointments\IdentityAccess\Domain\User\UserEmail;
 use ProAppointments\IdentityAccess\Domain\User\UserId;
 use ProAppointments\IdentityAccess\Domain\User\UserPassword;
+use ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter;
+use ProAppointments\IdentityAccess\Tests\Integration\Persistence\Adapter\UserRepositoryWithDoctrineError\UserRepositoryWithDBALException;
+use ProAppointments\IdentityAccess\Tests\Integration\Persistence\Adapter\UserRepositoryWithDoctrineError\UserRepositoryWithORMException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class UserRepositoryAdapterTest extends KernelTestCase
@@ -88,6 +91,32 @@ class UserRepositoryAdapterTest extends KernelTestCase
     public function can_generate_a_new_user_identity(): void
     {
         self::assertInstanceOf(UserId::class, $this->userRepository->nextIdentity());
+    }
+
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToSaveUser
+     */
+    public function detect_doctrine_ORMException_on_register_and_throw_ImpossibeToSaveUser_exception(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+
+        $userRepositoryAdapter = new UserRepositoryAdapter(new UserRepositoryWithORMException());
+
+        $userRepositoryAdapter->register($user);
+    }
+
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToSaveUser
+     */
+    public function detect_doctrine_DBALException_on_register_and_throw_ImpossibeToSaveUser_exception(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+
+        $userRepositoryAdapter = new UserRepositoryAdapter(new UserRepositoryWithDBALException());
+
+        $userRepositoryAdapter->register($user);
     }
 
     protected function generateUserAggregate(): array

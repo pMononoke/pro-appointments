@@ -96,7 +96,7 @@ before_install:
 
 install:
   - docker-compose -f tests/docker/docker-compose.yml up -d
-  - composer install
+  - composer install --no-scripts
   - ./bin/phpunit install
   - *install-deptrac-to-path
 
@@ -113,7 +113,7 @@ before_script:
 script:
   - *app-clear-test-cache
 
-  - *run-sensiolabs-security-checker
+  #- *run-sensiolabs-security-checker
 
   - *run-php-cs-fixer-tests
 
