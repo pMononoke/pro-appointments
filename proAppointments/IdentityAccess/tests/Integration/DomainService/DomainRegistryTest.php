@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\DomainService;
 
+use CompostDDD\Time\Clock;
 use ProAppointments\IdentityAccess\Domain\Service\DomainRegistry;
 use ProAppointments\IdentityAccess\Domain\User\UserRepository;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter;
@@ -23,9 +24,11 @@ class DomainRegistryTest extends KernelTestCase
     }
 
     /** @test */
-    public function can_provide_the_ClockService(): void
+    public function can_provide_the_ClockSystemService(): void
     {
-        self::markTestSkipped('IMPLEMENTARE !!!');
+        $clockSystemService = $this->domainRegistry->clockSystemService();
+
+        self::assertInstanceOf(Clock::class, $clockSystemService);
     }
 
     /** @test */

@@ -6,7 +6,7 @@ namespace ProAppointments\IdentityAccess\Domain\Service;
 
 interface DomainRegistry
 {
-    public static function clockService();
+    public static function clockSystemService();
 
     public static function userRepository();
 }

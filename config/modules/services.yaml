@@ -33,6 +33,7 @@ services:
         class: CompostDDD\Time\SystemClock
         arguments:
             - '@app.date_time_zone'
+        public: true
 
     ProAppointments\IdentityAccess\Infrastructure\DomainService\DomainRegistry:
         calls:

@@ -12,9 +12,9 @@ class DomainRegistry implements DomainRegistryPort
      */
     private static $container;
 
-    public static function clockService()
+    public static function clockSystemService()
     {
-        // TODO: Implement clockService() method.
+        return static::$container->get('app.clock.system');
     }
 
     public static function userRepository()
