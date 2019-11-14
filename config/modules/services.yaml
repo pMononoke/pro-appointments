@@ -67,6 +67,10 @@ services:
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserQuery:
         public: true
 
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UsersQuery:
+        public: true
+
+
     #
     # Application Services  &  Transactional Application Services
     #

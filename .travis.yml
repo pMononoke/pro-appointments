@@ -108,7 +108,7 @@ before_script:
 
   - *app-database-schema-update
 
-  - *app-load-test-fixtures
+  #- *app-load-test-fixtures
 
 script:
   - *app-clear-test-cache
