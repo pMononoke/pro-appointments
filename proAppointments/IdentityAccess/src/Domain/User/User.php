@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Domain\User;
 
 use CompostDDD\Aggregate\AggregateBehaviour;
+use ProAppointments\IdentityAccess\Domain\User\Event\PersonalNameWasChanged;
 use ProAppointments\IdentityAccess\Domain\User\Event\UserWasDeleted;
 use ProAppointments\IdentityAccess\Domain\User\Event\UserWasRegistered;
 
@@ -39,7 +40,6 @@ class User
         $user->password = $password;
         $user->person = $person;
 
-        //TODO DOMAIN EVENT
         $user->recordThat(
             new UserWasRegistered($id, $email)
         );
@@ -50,11 +50,14 @@ class User
     public function changePersonalName(FullName $personalName): void
     {
         $this->person->changeName($personalName);
+
+        $this->recordThat(
+            new PersonalNameWasChanged($this->id, $this->person()->name()->firstName(), $this->person()->name()->lastName())
+        );
     }
 
     public function delete(): void
     {
-        //TODO DOMAIN EVENT
         $this->recordThat(
             new UserWasDeleted($this->id)
         );
