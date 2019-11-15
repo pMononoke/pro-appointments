@@ -39,7 +39,7 @@ class DoctrineUserRepositoryTest extends KernelTestCase
     }
 
     /** @test */
-    public function can_persist_and_retrieve_a_user(): void
+    public function can_register_and_retrieve_a_user(): void
     {
         list($id, $user) = $this->generateUserAggregate();
 
@@ -50,7 +50,7 @@ class DoctrineUserRepositoryTest extends KernelTestCase
     }
 
     /** @test */
-    public function can_persist_and_remove_a_user(): void
+    public function can_register_and_remove_a_user(): void
     {
         $first = list($id, $user) = $this->generateUserAggregate();
         $second = list($secondId, $secondUser) = $this->generateUserAggregate();
@@ -64,6 +64,17 @@ class DoctrineUserRepositoryTest extends KernelTestCase
 
         self::assertNull($this->userRepository->ofId($id));
         $this->assertTrue($secondUser->sameIdentityAs($userFromDatabase));
+    }
+
+    /** @test */
+    public function can_save_and_retrieve_a_user(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+
+        $this->userRepository->save($user);
+        $userFromDatabase = $this->userRepository->ofId($id);
+
+        $this->assertTrue($user->sameIdentityAs($userFromDatabase));
     }
 
     protected function generateUserAggregate(): array

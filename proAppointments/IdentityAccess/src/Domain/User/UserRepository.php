@@ -19,4 +19,6 @@ interface UserRepository
     public function nextIdentity(): UserId;
 
     public function remove(User $user): void;
+
+    public function save(User $user): void;
 }

@@ -28,4 +28,9 @@ class UserRepositoryWithORMException
     {
         throw ORMException::entityManagerClosed();
     }
+
+    public function save(User $user): void
+    {
+        throw ORMException::entityManagerClosed();
+    }
 }

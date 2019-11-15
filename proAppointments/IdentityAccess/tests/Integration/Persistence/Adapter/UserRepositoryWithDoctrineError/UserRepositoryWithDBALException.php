@@ -28,4 +28,9 @@ class UserRepositoryWithDBALException
     {
         throw DBALException:: invalidPlatformSpecified();
     }
+
+    public function save(User $user): void
+    {
+        throw DBALException:: invalidPlatformSpecified();
+    }
 }

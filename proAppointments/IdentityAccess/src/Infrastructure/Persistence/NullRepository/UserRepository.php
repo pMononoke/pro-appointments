@@ -25,4 +25,8 @@ class UserRepository implements UserRepositoryPort
     public function remove(User $user): void
     {
     }
+
+    public function save(User $user): void
+    {
+    }
 }

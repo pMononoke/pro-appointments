@@ -38,7 +38,7 @@ class UserRepositoryAdapterTest extends KernelTestCase
     }
 
     /** @test */
-    public function can_persist_and_retrieve_a_user(): void
+    public function can_register_and_retrieve_a_user(): void
     {
         list($id, $user) = $this->generateUserAggregate();
 
@@ -49,7 +49,7 @@ class UserRepositoryAdapterTest extends KernelTestCase
     }
 
     /** @test */
-    public function can_persist_and_remove_a_user(): void
+    public function can_register_and_remove_a_user(): void
     {
         $first = list($id, $user) = $this->generateUserAggregate();
         $second = list($secondId, $secondUser) = $this->generateUserAggregate();
@@ -63,6 +63,17 @@ class UserRepositoryAdapterTest extends KernelTestCase
 
         //self::assertNull($this->userRepository->ofId($id));
         $this->assertTrue($secondUser->sameIdentityAs($userFromDatabase));
+    }
+
+    /** @test */
+    public function can_save_and_retrieve_a_user(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+
+        $this->userRepository->save($user);
+        $userFromDatabase = $this->userRepository->ofId($id);
+
+        $this->assertTrue($user->sameIdentityAs($userFromDatabase));
     }
 
     /**
@@ -117,6 +128,32 @@ class UserRepositoryAdapterTest extends KernelTestCase
         $userRepositoryAdapter = new UserRepositoryAdapter(new UserRepositoryWithDBALException());
 
         $userRepositoryAdapter->register($user);
+    }
+
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToSaveUser
+     */
+    public function detect_doctrine_ORMException_on_save_and_throw_ImpossibeToSaveUser_exception(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+
+        $userRepositoryAdapter = new UserRepositoryAdapter(new UserRepositoryWithORMException());
+
+        $userRepositoryAdapter->save($user);
+    }
+
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToSaveUser
+     */
+    public function detect_doctrine_DBALException_on_save_and_throw_ImpossibeToSaveUser_exception(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+
+        $userRepositoryAdapter = new UserRepositoryAdapter(new UserRepositoryWithDBALException());
+
+        $userRepositoryAdapter->save($user);
     }
 
     protected function generateUserAggregate(): array

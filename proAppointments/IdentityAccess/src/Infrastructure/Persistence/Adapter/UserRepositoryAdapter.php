@@ -76,6 +76,19 @@ class UserRepositoryAdapter implements UserRepository
         }
     }
 
+    /**
+     * @throws ImpossibleToSaveUser
+     */
+    public function save(User $user): void
+    {
+        try {
+            $this->repository->save($user);
+            $this->appendEventToEventStore($user);
+        } catch (\Exception $exception) {
+            throw ImpossibleToSaveUser::withId($user->id());
+        }
+    }
+
     private function appendEventToEventStore(User $user): void
     {
         $events = $user->releaseEvents();
