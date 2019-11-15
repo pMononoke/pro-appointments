@@ -14,9 +14,9 @@ doctrine:
 #
 #        url: '%env(resolve:DATABASE_URL)%'
         types:
-            #user_id:  Humble\Infrastructure\Persistance\Doctrine\config\Type\UserIdDoctrineType
             identity_user_id:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineUserIdType
             identity_last_name:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineLastNameType
+            identity_first_name:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineFirstNameType
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore
