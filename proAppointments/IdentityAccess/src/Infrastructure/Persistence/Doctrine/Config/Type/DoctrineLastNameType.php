@@ -39,6 +39,11 @@ class DoctrineLastNameType extends StringType
         throw ConversionException::conversionFailed($value, self::NAME);
     }
 
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    {
+        return true;
+    }
+
     public function getName()
     {
         return self::NAME;
