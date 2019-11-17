@@ -58,7 +58,7 @@ class DoctrineEventStoreTest extends KernelTestCase
     /** @test */
     public function can_retrieve_all_event_since(): void
     {
-        //self::markTestSkipped();
+        self::markTestSkipped();
         /** @var EventStore $eventStore */
         $eventStore = $this->eventStore;
 

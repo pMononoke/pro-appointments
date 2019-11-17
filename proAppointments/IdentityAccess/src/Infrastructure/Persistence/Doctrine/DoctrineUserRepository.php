@@ -41,5 +41,7 @@ class DoctrineUserRepository extends ServiceEntityRepository
     public function save(User $user): void
     {
         $this->_em->persist($user);
+        // TODO IS transational same as register
+        $this->_em->flush($user);
     }
 }

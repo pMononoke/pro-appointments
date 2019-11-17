@@ -34,7 +34,6 @@ services:
 
     ProAppointments\IdentityAccess\UI\Cli\:
         resource: '../../proAppointments/IdentityAccess/src/UI/Cli'
-        #tags: ['console.command']
         tags:
             - { name: 'console.command' }
 
@@ -48,3 +47,7 @@ services:
     ProAppointments\IdentityAccess\UI\Cli\WireDeleteUserCommand:
         arguments:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService'
+
+    ProAppointments\IdentityAccess\UI\Cli\WireChangeFirstNameCommand:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService'

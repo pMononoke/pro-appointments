@@ -54,9 +54,30 @@ services:
             - '@ProAppointments\IdentityAccess\Domain\User\UserFactory'
 
 
+
+    identity.transactional.session:
+        class: CompostDDD\ApplicationService\DoctrineSession
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        public: true
+    ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory:
+        public: true
+
     ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService:
         arguments:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+        public: true
+    Identity\Transational\RegisterUserService:
+        factory: 'ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory:createTransationalApplicationService'
+        arguments:
+            - '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
+            - '@identity.transactional.session'
+        public: true
+
+    ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+        public: true
 
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter:
         arguments:
@@ -64,4 +85,9 @@ services:
         public: true
 
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository:
+        public: true
+
+    ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
         public: true

@@ -14,6 +14,7 @@ services:
         bind:
             CompostDDD\ApplicationService\ApplicationService $registerUserService: '@Identity\Transational\RegisterUserService'
             CompostDDD\ApplicationService\ApplicationService $deleteUserService: '@Identity\Transational\DeleteUserService'
+            CompostDDD\ApplicationService\ApplicationService $changeFirstNameService: '@Identity\Transational\ChangeFirstNameService'
 
 
     # add more service definitions when explicit configuration is needed
@@ -76,6 +77,7 @@ services:
     #
     ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory: ~
 
+
     ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService:
         arguments:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
@@ -96,6 +98,15 @@ services:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService'
             - '@identity.transactional.session'
 
+    ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+
+    Identity\Transational\ChangeFirstNameService:
+        factory: 'ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory:createTransationalApplicationService'
+        arguments:
+            - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService'
+            - '@identity.transactional.session'
 
 
 
