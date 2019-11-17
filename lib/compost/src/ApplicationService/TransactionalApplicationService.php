@@ -28,7 +28,7 @@ class TransactionalApplicationService implements ApplicationService
      */
     public function execute($request = null)
     {
-        if (empty($this->service)) {
+        if (empty($this->applicationService)) {
             throw new \LogicException('A use case must be specified');
         }
 
