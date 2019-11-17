@@ -23,6 +23,5 @@ ProAppointments\IdentityAccess\Domain\User\User:
       joinColumn:
         name: user_id
         referencedColumnName: user_id
+      fetch: EXTRA_LAZY
       cascade: ["all"]
-
-
