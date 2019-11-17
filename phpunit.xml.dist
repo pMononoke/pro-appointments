@@ -34,6 +34,12 @@
         <whitelist>
             <directory>src</directory>
             <directory>proAppointments/IdentityAccess/src</directory>
+            <exclude>
+                <file>src/Kernel.php</file>
+                <directory>src/Migrations/</directory>
+                <directory>src/DataFixtures/</directory>
+                <directory>proAppointments/IdentityAccess/src/Infrastructure/Persistence/NullRepository/</directory>
+            </exclude>
         </whitelist>
     </filter>
     <extensions>
