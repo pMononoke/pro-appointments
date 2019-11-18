@@ -18,6 +18,8 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class UsersQueryTest extends KernelTestCase
 {
+    private const TABLES = ['ia_user', 'ia_person'];
+
     private const EMAIL = 'irrelevant@email.com';
     private const PASSWORD = 'irrelevant';
     private const FIRST_NAME = 'irrelevant';
@@ -95,5 +97,22 @@ class UsersQueryTest extends KernelTestCase
     {
         $this->entityManager->persist($data);
         $this->entityManager->flush();
+    }
+
+    private function truncateTables(): void
+    {
+        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS = 0;');
+        foreach (self::TABLES as $table) {
+            //$this->entityManager->getConnection()->executeQuery(sprintf('TRUNCATE "%s" CASCADE;', $table));
+            $this->entityManager->getConnection()->executeQuery(sprintf('TRUNCATE `%s`;', $table));
+        }
+        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS = 1;');
+    }
+
+    protected function tearDown()
+    {
+        $this->truncateTables();
+        $this->userQuery = null;
+        parent::tearDown();
     }
 }

@@ -18,7 +18,7 @@ use ProAppointments\IdentityAccess\Domain\User\UserRepository;
 
 abstract class UserServiceTestCase extends ApplicationServiceTestCase
 {
-    private const TABLES = ['ia_user'];
+    private const TABLES = ['ia_user', 'ia_domain_event', 'ia_person'];
 
     private const EMAIL = 'irrelevant@email.com';
     private const PASSWORD = 'irrelevant';
@@ -81,10 +81,12 @@ abstract class UserServiceTestCase extends ApplicationServiceTestCase
 
     private function truncateTables(): void
     {
+        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS = 0;');
         foreach (self::TABLES as $table) {
             //$this->entityManager->getConnection()->executeQuery(sprintf('TRUNCATE "%s" CASCADE;', $table));
             $this->entityManager->getConnection()->executeQuery(sprintf('TRUNCATE `%s`;', $table));
         }
+        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS = 1;');
     }
 
     protected function tearDown()
