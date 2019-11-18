@@ -74,7 +74,7 @@ abstract class UserServiceTestCase extends ApplicationServiceTestCase
             ->where('User.id = :UserId')
             ->setParameter('UserId', $userId->toString());
 
-        $user = $queryBuilder->getQuery()->getOneOrNullResult(); //var_dump($user->person()->name()->firstName());
+        $user = $queryBuilder->getQuery()->getOneOrNullResult();
 
         return $user;
     }
@@ -83,15 +83,10 @@ abstract class UserServiceTestCase extends ApplicationServiceTestCase
     {
         foreach (self::TABLES as $table) {
             //$this->entityManager->getConnection()->executeQuery(sprintf('TRUNCATE "%s" CASCADE;', $table));
-            $this->entityManager->getConnection()->executeQuery(sprintf('TRUNCATE `%s`;', $table)); //TRUNCATE `ia_user`;
+            $this->entityManager->getConnection()->executeQuery(sprintf('TRUNCATE `%s`;', $table));
         }
     }
 
-//    public static function tearDownAfterClass(): void
-//    {
-//        $x = self;
-//        $x-> truncateTables();
-//    }
     protected function tearDown()
     {
         $this->truncateTables();

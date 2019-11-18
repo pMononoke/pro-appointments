@@ -69,7 +69,7 @@ class DoctrineEventStoreTest extends KernelTestCase
         $eventStore->append($firstDummyEvent);
         $eventStore->append($secondDummyEvent);
         $eventStore->append($thirdDummyEvent);
-        $eventsFromDatabase = $eventStore->allStoredEventsSince(1); // var_dump($eventsFromDatabase);
+        $eventsFromDatabase = $eventStore->allStoredEventsSince(1);
 
         $this->assertEquals(2, count($eventsFromDatabase));
     }

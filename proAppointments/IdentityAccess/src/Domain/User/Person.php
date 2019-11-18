@@ -34,7 +34,6 @@ class Person
     public function changeName(FullName $name)
     {
         $this->name = $name;
-        // TODO DOMAIN EVENT
     }
 
     public function userId(): UserId

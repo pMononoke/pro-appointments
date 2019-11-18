@@ -11,10 +11,8 @@ use ProAppointments\IdentityAccess\Domain\User\FullName;
 use ProAppointments\IdentityAccess\Domain\User\LastName;
 use ProAppointments\IdentityAccess\Domain\User\MobileNumber;
 use ProAppointments\IdentityAccess\Domain\User\Person;
-use ProAppointments\IdentityAccess\Domain\User\User;
 use ProAppointments\IdentityAccess\Domain\User\UserEmail;
 use ProAppointments\IdentityAccess\Domain\User\UserId;
-use ProAppointments\IdentityAccess\Domain\User\UserPassword;
 
 class PersonTest extends TestCase
 {
@@ -42,19 +40,6 @@ class PersonTest extends TestCase
         self::assertEquals($fullName, $person->name());
         self::assertEquals($contactInformation, $person->contactInformation());
     }
-
-//    /** @test */
-//    public function can_be_created_without_personalName(): void
-//    {
-//        $user = User::register(
-//            $id = UserId::generate(),
-//            $email = UserEmail::fromString(self::EMAIL),
-//            $password = UserPassword::fromString(self::PASSWORD)
-//        );
-//
-//        self::assertInstanceOf(User::class, $user);
-//        self::assertNull($user->personalName());
-//    }
 
     /** @test */
     public function can_change_name(): void

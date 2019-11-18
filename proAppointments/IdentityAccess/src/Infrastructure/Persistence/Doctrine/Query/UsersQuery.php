@@ -27,11 +27,7 @@ class UsersQuery implements UsersQueryPort
         $queryBuilder = $this->entityManager->createQueryBuilder()
             ->select('User')
             ->from(User::class, 'User')
-            //->where('Article.publishedAt <= :now')
-            //->orderBy('Article.publishedAt', 'DESC')
-            ->setMaxResults($limit)
-            //->setParameter('now', new \DateTimeImmutable())
-        ;
+            ->setMaxResults($limit);
 
         $users = $queryBuilder->getQuery()->getResult();
 
