@@ -11,7 +11,7 @@ ProAppointments\IdentityAccess\Domain\User\User:
   fields:
     email:
       column: email
-      type: string
+      type: identity_email
       nullable: false
     password:
       column: password
