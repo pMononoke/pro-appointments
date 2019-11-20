@@ -18,6 +18,7 @@ doctrine:
             identity_email:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineUserEmailType
             identity_last_name:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineLastNameType
             identity_first_name:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineFirstNameType
+            identity_mobile_number:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineMobileNumberType
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore
