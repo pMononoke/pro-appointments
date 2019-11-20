@@ -39,6 +39,7 @@
                 <directory>src/Migrations/</directory>
                 <directory>src/DataFixtures/</directory>
                 <directory>proAppointments/IdentityAccess/src/Infrastructure/Persistence/NullRepository/</directory>
+                <file>proAppointments/IdentityAccess/src/Infrastructure/DomainService/NullPasswordEncoder.php</file>
             </exclude>
         </whitelist>
     </filter>
