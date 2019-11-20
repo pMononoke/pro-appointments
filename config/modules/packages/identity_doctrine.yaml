@@ -16,6 +16,7 @@ doctrine:
         types:
             identity_user_id:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineUserIdType
             identity_email:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineUserEmailType
+            identity_password:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineUserPasswordType
             identity_last_name:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineLastNameType
             identity_first_name:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineFirstNameType
             identity_mobile_number:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineMobileNumberType

@@ -15,7 +15,7 @@ ProAppointments\IdentityAccess\Domain\User\User:
       nullable: false
     password:
       column: password
-      type: string
+      type: identity_password
       nullable: false
   oneToOne:
     person:
