@@ -22,6 +22,12 @@ class DomainRegistry implements DomainRegistryPort
         return static::$container->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter');
     }
 
+    public static function passwordEncoder()
+    {
+        //return static::$container->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter');
+        return new NullPasswordEncoder();
+    }
+
     public static function setContainer(ContainerInterface $container)
     {
         self::$container = $container;

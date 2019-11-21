@@ -9,4 +9,6 @@ interface DomainRegistry
     public static function clockSystemService();
 
     public static function userRepository();
+
+    public static function passwordEncoder();
 }

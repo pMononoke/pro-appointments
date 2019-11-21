@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Domain\User;
 
 use CompostDDD\Aggregate\AggregateBehaviour;
+use ProAppointments\IdentityAccess\Domain\User\Event\AccessCredentialsWasChanged;
 use ProAppointments\IdentityAccess\Domain\User\Event\PersonalNameWasChanged;
 use ProAppointments\IdentityAccess\Domain\User\Event\UserWasDeleted;
 use ProAppointments\IdentityAccess\Domain\User\Event\UserWasRegistered;
@@ -53,6 +54,15 @@ class User
 
         $this->recordThat(
             new PersonalNameWasChanged($this->id, $this->person()->name()->firstName(), $this->person()->name()->lastName())
+        );
+    }
+
+    public function changeAccessCredentials(UserPassword $password): void
+    {
+        $this->password = $password;
+
+        $this->recordThat(
+            new AccessCredentialsWasChanged($this->id, $this->password)
         );
     }
 

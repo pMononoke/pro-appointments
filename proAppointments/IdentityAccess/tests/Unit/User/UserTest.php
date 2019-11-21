@@ -81,6 +81,32 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    public function can_change_access_credentials(): void
+    {
+        $id = UserId::generate();
+        $fullName = new FullName(
+            $firstName = FirstName::fromString(self::FIRST_NAME),
+            $lastName = LastName::fromString(self::LAST_NAME)
+        );
+        $contactInformation = new ContactInformation(
+            $email = UserEmail::fromString(self::EMAIL),
+            $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
+        );
+        $person = new Person($id, $fullName, $contactInformation);
+        $user = User::register(
+            $id,
+            $email = UserEmail::fromString(self::EMAIL),
+            $password = UserPassword::fromString(self::PASSWORD),
+            $person
+        );
+        $newPassword = UserPassword::fromString('new-password');
+
+        $user->changeAccessCredentials($newPassword);
+
+        self::assertTrue($user->password()->equals($newPassword));
+    }
+
+    /** @test */
     public function can_be_compared(): void
     {
         $firstUser = User::register(

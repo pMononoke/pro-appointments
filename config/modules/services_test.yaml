@@ -91,3 +91,13 @@ services:
         arguments:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
         public: true
+
+    ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+            - '@ProAppointments\IdentityAccess\Infrastructure\DomainService\NullPasswordEncoder'
+        public: true
+
+    # REMOVE
+    ProAppointments\IdentityAccess\Infrastructure\DomainService\NullPasswordEncoder:
+        public: true
