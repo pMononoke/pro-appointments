@@ -84,7 +84,7 @@ services:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
 
     Identity\Transational\RegisterUserService:
-        factory: 'ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory:createTransationalApplicationService'
+        factory: ['@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory', 'createTransationalApplicationService']
         arguments:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
             - '@identity.transactional.session'
@@ -94,7 +94,7 @@ services:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
 
     Identity\Transational\DeleteUserService:
-        factory: 'ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory:createTransationalApplicationService'
+        factory: ['@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory', 'createTransationalApplicationService']
         arguments:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService'
             - '@identity.transactional.session'
@@ -104,7 +104,7 @@ services:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
 
     Identity\Transational\ChangeFirstNameService:
-        factory: 'ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory:createTransationalApplicationService'
+        factory: ['@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory', 'createTransationalApplicationService']
         arguments:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService'
             - '@identity.transactional.session'
@@ -114,7 +114,7 @@ services:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
 
     Identity\Transational\ChangePasswordService:
-        factory: 'ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory:createTransationalApplicationService'
+        factory: ['@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory', 'createTransationalApplicationService']
         arguments:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService'
             - '@identity.transactional.session'

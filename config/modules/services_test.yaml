@@ -67,12 +67,6 @@ services:
         arguments:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
         public: true
-    Identity\Transational\RegisterUserService:
-        factory: 'ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory:createTransationalApplicationService'
-        arguments:
-            - '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
-            - '@identity.transactional.session'
-        public: true
 
     ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService:
         arguments:
