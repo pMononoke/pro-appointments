@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter;
 
+use ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToRemoveUser;
 use ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToSaveUser;
 use ProAppointments\IdentityAccess\Domain\User\Exception\UserAlreadyExist;
 use ProAppointments\IdentityAccess\Domain\User\Exception\UserNotFound;
@@ -72,7 +73,7 @@ class UserRepositoryAdapter implements UserRepository
             $this->appendEventToEventStore($user);
             $this->repository->remove($user);
         } catch (\Exception $exception) {
-            throw $exception;
+            throw ImpossibleToRemoveUser::withId($user->id());
         }
     }
 

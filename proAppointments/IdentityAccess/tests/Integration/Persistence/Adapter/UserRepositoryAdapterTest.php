@@ -156,6 +156,32 @@ class UserRepositoryAdapterTest extends KernelTestCase
         $userRepositoryAdapter->save($user);
     }
 
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToRemoveUser
+     */
+    public function detect_doctrine_ORMException_on_remove_and_throw_ImpossibeToRemoveUser_exception(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+
+        $userRepositoryAdapter = new UserRepositoryAdapter(new UserRepositoryWithORMException());
+
+        $userRepositoryAdapter->remove($user);
+    }
+
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToRemoveUser
+     */
+    public function detect_doctrine_DBALException_on_remove_and_throw_ImpossibeToRemoveUser_exception(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+
+        $userRepositoryAdapter = new UserRepositoryAdapter(new UserRepositoryWithDBALException());
+
+        $userRepositoryAdapter->remove($user);
+    }
+
     protected function generateUserAggregate(): array
     {
         $id = UserId::generate();
