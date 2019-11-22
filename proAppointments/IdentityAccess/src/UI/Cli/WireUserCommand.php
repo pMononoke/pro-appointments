@@ -21,9 +21,6 @@ class WireUserCommand extends Command
     /** @var RegisterUserService */
     private $registerUserService;
 
-    /**
-     * WireUserCommand constructor.
-     */
     public function __construct(RegisterUserService $registerUserService)
     {
         parent::__construct('wire:user');
@@ -49,6 +46,6 @@ class WireUserCommand extends Command
 
         $this->registerUserService->execute($request);
 
-        return null;
+        return 0;
     }
 }

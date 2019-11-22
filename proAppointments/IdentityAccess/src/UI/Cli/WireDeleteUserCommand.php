@@ -16,9 +16,6 @@ class WireDeleteUserCommand extends Command
     /** @var DeleteUserService */
     private $deleteUserService;
 
-    /**
-     * WireUserCommand constructor.
-     */
     public function __construct(DeleteUserService $deleteUserService)
     {
         parent::__construct('wire:user:delete');
@@ -40,6 +37,6 @@ class WireDeleteUserCommand extends Command
 
         $this->deleteUserService->execute($request);
 
-        return null;
+        return 0;
     }
 }
