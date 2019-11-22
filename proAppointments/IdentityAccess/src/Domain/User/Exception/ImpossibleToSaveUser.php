@@ -6,7 +6,7 @@ namespace ProAppointments\IdentityAccess\Domain\User\Exception;
 
 use ProAppointments\IdentityAccess\Domain\User\UserId;
 
-class ImpossibleToSaveUser extends InvalidUserException
+class ImpossibleToSaveUser extends UserException
 {
     private $id;
 

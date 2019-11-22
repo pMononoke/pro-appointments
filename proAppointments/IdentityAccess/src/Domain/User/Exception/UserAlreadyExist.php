@@ -6,7 +6,7 @@ namespace ProAppointments\IdentityAccess\Domain\User\Exception;
 
 use ProAppointments\IdentityAccess\Domain\User\UserId;
 
-final class UserAlreadyExist extends InvalidUserException
+final class UserAlreadyExist extends UserException
 {
     private $id;
 

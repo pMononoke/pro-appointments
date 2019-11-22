@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Domain\User\Exception;
 
-class InvalidUserException extends \RuntimeException implements UserException
+final class InvalidUserException extends UserException implements UserExceptionInterface
 {
     public function __construct(string $message = '', int $code = 0, \Exception $previous = null)
     {
