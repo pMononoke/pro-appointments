@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Domain\Access;
 
-final class Role
+use CompostDDD\Aggregate\AggregateBehaviour;
+
+class Role
 {
+    use AggregateBehaviour;
+
     private $id;
 
     private $name;
