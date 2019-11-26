@@ -1,0 +1,19 @@
+ProAppointments\IdentityAccess\Domain\Access\Role:
+  type: entity
+  table: 'ia_role'
+  #repositoryClass:
+  id:
+    id:
+      column: role_id
+      type: identity_role_id
+      generator:
+        strategy: NONE
+  fields:
+    name:
+      column: name
+      type: string
+      nullable: false
+    description:
+      column: description
+      type: string
+      nullable: false

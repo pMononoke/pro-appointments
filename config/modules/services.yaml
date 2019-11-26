@@ -66,6 +66,9 @@ services:
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository:
         public: true
 
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository:
+        public: true
+
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserQuery:
         public: true
 

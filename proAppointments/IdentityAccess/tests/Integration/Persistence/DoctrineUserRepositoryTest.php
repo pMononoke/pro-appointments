@@ -1,10 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: zero
- * Date: 06/11/19
- * Time: 13.58.
- */
+
+declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence;
 
