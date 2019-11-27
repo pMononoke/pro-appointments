@@ -9,15 +9,15 @@ use ProAppointments\IdentityAccess\Domain\Access\Role;
 use ProAppointments\IdentityAccess\Domain\Access\RoleDescription;
 use ProAppointments\IdentityAccess\Domain\Access\RoleId;
 use ProAppointments\IdentityAccess\Domain\Access\RoleName;
-use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InfrastructureRoleRepository;
+use ProAppointments\IdentityAccess\Domain\Access\RoleRepository;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleCollection;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleQuery;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class InMemoryRoleQueryTest extends KernelTestCase
+class DoctrineRoleQueryTest extends KernelTestCase
 {
-    private const TABLES = ['ia_user', 'ia_person'];
+    private const TABLES = ['ia_role'];
 
     private const ROLE_NAME = 'irrelevant';
     private const ROLE_DESCRIPTION = 'irrelevant';
@@ -25,16 +25,29 @@ class InMemoryRoleQueryTest extends KernelTestCase
     /** @var RoleQuery */
     private $roleQuery;
 
-    /** @var InfrastructureRoleRepository */
+    /** @var RoleRepository */
     private $repository;
+
+    private $entityManager;
 
     protected function setUp()
     {
-        $this->repository = new InMemoryRoleRepository();
+        $kernel = self::bootKernel();
 
-        $this->roleQuery = new InMemoryRoleQuery(
-            new InMemoryRoleCollection($this->repository)
-        );
+        $this->repository = $kernel->getContainer()
+            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository');
+
+        $this->roleQuery = $kernel->getContainer()
+            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleQuery');
+
+        $this->entityManager = $kernel->getContainer()
+            ->get('doctrine.orm.default_entity_manager');
+
+//        $this->repository = new InMemoryRoleRepository();
+//
+//        $this->roleQuery = new InMemoryRoleQuery(
+//            new InMemoryRoleCollection($this->repository)
+//        );
     }
 
     /** @test */
@@ -75,11 +88,27 @@ class InMemoryRoleQueryTest extends KernelTestCase
 
     protected function writeData(object $data): void
     {
-        $this->repository->add($data);
+        $this->entityManager->persist($data);
+        $this->entityManager->flush();
+    }
+
+    private function clearDatabase(): void
+    {
+        $this->truncateTables();
+    }
+
+    private function truncateTables(): void
+    {
+        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS = 0;');
+        foreach (self::TABLES as $table) {
+            $this->entityManager->getConnection()->executeQuery(sprintf('TRUNCATE `%s`;', $table));
+        }
+        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS = 1;');
     }
 
     protected function tearDown()
     {
+        $this->clearDatabase();
         $this->repository = null;
         $this->roleQuery = null;
         parent::tearDown();
