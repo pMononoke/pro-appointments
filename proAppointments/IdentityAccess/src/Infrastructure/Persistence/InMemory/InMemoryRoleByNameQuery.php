@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory;
 
-use ProAppointments\IdentityAccess\Application\Service\Query\RoleQuery;
 use ProAppointments\IdentityAccess\Domain\Access\Role;
-use ProAppointments\IdentityAccess\Domain\Access\RoleId;
+use ProAppointments\IdentityAccess\Domain\Access\RoleName;
+use ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName\RoleByNameQuery;
 
-class InMemoryRoleQuery implements RoleQuery
+class InMemoryRoleByNameQuery implements RoleByNameQuery
 {
     private $roleRepository;
 
@@ -20,8 +20,8 @@ class InMemoryRoleQuery implements RoleQuery
         $this->roleRepository = $roleRepository;
     }
 
-    public function execute(RoleId $id): ?Role
+    public function execute(RoleName $roleName): ?Role
     {
-        return $this->roleRepository->findById($id);
+        return $this->roleRepository->findByRoleName($roleName);
     }
 }

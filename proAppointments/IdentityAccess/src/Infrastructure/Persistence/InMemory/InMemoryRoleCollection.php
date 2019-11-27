@@ -6,6 +6,9 @@ namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ProAppointments\IdentityAccess\Domain\Access\Role;
+use ProAppointments\IdentityAccess\Domain\Access\RoleId;
+use ProAppointments\IdentityAccess\Domain\Access\RoleName;
 
 class InMemoryRoleCollection
 {
@@ -21,7 +24,27 @@ class InMemoryRoleCollection
     public function __construct(InfrastructureRoleRepository $roleRepository)
     {
         $this->roleRepository = $roleRepository;
+    }
 
-        $this->roleCollection = new ArrayCollection($roleRepository->allRoles());
+    public function findById(RoleId $id): ?Role
+    {
+        $this->roleCollection = new ArrayCollection($this->roleRepository->allRoles());
+
+        return $this->roleCollection->get($id->toString());
+    }
+
+    public function findByRoleName(RoleName $roleName): ?Role
+    {
+        $this->roleCollection = new ArrayCollection($this->roleRepository->allRoles());
+
+        $rolesByName = $this->roleCollection->filter(function (Role $role) use ($roleName) {
+            return $role->name()->equals($roleName);
+        });
+
+        if ($rolesByName->isEmpty()) {
+            return null;
+        }
+
+        return $rolesByName->first();
     }
 }
