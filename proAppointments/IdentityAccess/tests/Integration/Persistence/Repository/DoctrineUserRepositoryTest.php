@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence;
+namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Repository;
 
 use ProAppointments\IdentityAccess\Domain\User\ContactInformation;
 use ProAppointments\IdentityAccess\Domain\User\FirstName;
@@ -16,38 +16,59 @@ use ProAppointments\IdentityAccess\Domain\User\UserId;
 use ProAppointments\IdentityAccess\Domain\User\UserPassword;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class UserQueryTest extends KernelTestCase
+class DoctrineUserRepositoryTest extends KernelTestCase
 {
-    private const TABLES = ['ia_user', 'ia_person'];
-
     private const EMAIL = 'irrelevant@email.com';
     private const PASSWORD = 'irrelevant';
     private const FIRST_NAME = 'irrelevant';
     private const LAST_NAME = 'irrelevant';
     private const MOBILE_NUMBER = '+39-392-1111111';
 
-    private $userQuery;
-
-    private $entityManager;
+    private $userRepository;
 
     protected function setUp()
     {
         $kernel = self::bootKernel();
 
-        $this->userQuery = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserQuery');
-
-        $this->entityManager = $kernel->getContainer()
-            ->get('doctrine.orm.default_entity_manager');
+        $this->userRepository = $kernel->getContainer()
+            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository');
     }
 
     /** @test */
-    public function can_find_a_user_by_user_id(): void
+    public function can_register_and_retrieve_a_user(): void
     {
         list($id, $user) = $this->generateUserAggregate();
-        $this->writeData($user);
 
-        $userFromDatabase = $this->userQuery->execute($id);
+        $this->userRepository->register($user);
+        $userFromDatabase = $this->userRepository->ofId($id);
+
+        $this->assertTrue($user->sameIdentityAs($userFromDatabase));
+    }
+
+    /** @test */
+    public function can_register_and_remove_a_user(): void
+    {
+        $first = list($id, $user) = $this->generateUserAggregate();
+        $second = list($secondId, $secondUser) = $this->generateUserAggregate();
+
+        $this->userRepository->register($user);
+        $this->userRepository->register($secondUser);
+
+        // remove first
+        $this->userRepository->remove($user);
+        $userFromDatabase = $this->userRepository->ofId($secondId);
+
+        self::assertNull($this->userRepository->ofId($id));
+        $this->assertTrue($secondUser->sameIdentityAs($userFromDatabase));
+    }
+
+    /** @test */
+    public function can_save_and_retrieve_a_user(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+
+        $this->userRepository->save($user);
+        $userFromDatabase = $this->userRepository->ofId($id);
 
         $this->assertTrue($user->sameIdentityAs($userFromDatabase));
     }
@@ -74,26 +95,10 @@ class UserQueryTest extends KernelTestCase
         return [$id, $user];
     }
 
-    protected function writeData(object $data): void
-    {
-        $this->entityManager->persist($data);
-        $this->entityManager->flush();
-    }
-
-    private function truncateTables(): void
-    {
-        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS = 0;');
-        foreach (self::TABLES as $table) {
-            //$this->entityManager->getConnection()->executeQuery(sprintf('TRUNCATE "%s" CASCADE;', $table));
-            $this->entityManager->getConnection()->executeQuery(sprintf('TRUNCATE `%s`;', $table));
-        }
-        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS = 1;');
-    }
-
     protected function tearDown()
     {
-        $this->truncateTables();
-        $this->userQuery = null;
         parent::tearDown();
+
+        $this->userRepository = null;
     }
 }

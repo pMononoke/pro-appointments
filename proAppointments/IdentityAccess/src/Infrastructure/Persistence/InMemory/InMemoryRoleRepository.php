@@ -8,9 +8,8 @@ use ProAppointments\IdentityAccess\Domain\Access\Exception\RoleAlreadyExist;
 use ProAppointments\IdentityAccess\Domain\Access\Exception\RoleNotFound;
 use ProAppointments\IdentityAccess\Domain\Access\Role;
 use ProAppointments\IdentityAccess\Domain\Access\RoleId;
-use ProAppointments\IdentityAccess\Domain\Access\RoleRepository;
 
-class InMemoryRoleRepository implements RoleRepository
+class InMemoryRoleRepository implements InfrastructureRoleRepository
 {
     private $rolesCollection = [];
 
@@ -65,5 +64,10 @@ class InMemoryRoleRepository implements RoleRepository
         }
 
         return $exist;
+    }
+
+    public function allRoles(): array
+    {
+        return $this->rolesCollection;
     }
 }

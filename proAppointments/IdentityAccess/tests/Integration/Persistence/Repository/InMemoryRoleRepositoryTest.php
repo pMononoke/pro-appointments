@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence;
+namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Repository;
 
 use PHPUnit\Framework\TestCase;
 use ProAppointments\IdentityAccess\Domain\Access\Role;
