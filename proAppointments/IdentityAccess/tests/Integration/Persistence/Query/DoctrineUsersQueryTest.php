@@ -16,7 +16,7 @@ use ProAppointments\IdentityAccess\Domain\User\UserId;
 use ProAppointments\IdentityAccess\Domain\User\UserPassword;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class UserQueryTest extends KernelTestCase
+class DoctrineUsersQueryTest extends KernelTestCase
 {
     private const TABLES = ['ia_user', 'ia_person'];
 
@@ -35,21 +35,40 @@ class UserQueryTest extends KernelTestCase
         $kernel = self::bootKernel();
 
         $this->userQuery = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserQuery');
+            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UsersQuery');
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine.orm.default_entity_manager');
     }
 
     /** @test */
-    public function can_find_a_user_by_user_id(): void
+    public function can_find_all_users(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+        $this->pupulateDatabase($user);
+        list($id2, $user2) = $this->generateUserAggregate();
+        $this->pupulateDatabase($user2);
+        list($id3, $user3) = $this->generateUserAggregate();
+        $this->pupulateDatabase($user3);
+
+        $allUsersFromDatabase = $this->userQuery->execute();
+
+        $this->assertEquals(3, count($allUsersFromDatabase));
+    }
+
+    /** @test */
+    public function can_find_all_users_with_Limit_parameter(): void
     {
         list($id, $user) = $this->generateUserAggregate();
         $this->writeData($user);
+        list($id2, $user2) = $this->generateUserAggregate();
+        $this->writeData($user2);
+        list($id3, $user3) = $this->generateUserAggregate();
+        $this->writeData($user3);
 
-        $userFromDatabase = $this->userQuery->execute($id);
+        $allUsersFromDatabase = $this->userQuery->execute(2);
 
-        $this->assertTrue($user->sameIdentityAs($userFromDatabase));
+        $this->assertEquals(2, count($allUsersFromDatabase));
     }
 
     protected function generateUserAggregate(): array
@@ -72,6 +91,11 @@ class UserQueryTest extends KernelTestCase
         );
 
         return [$id, $user];
+    }
+
+    private function pupulateDatabase(object $data): void
+    {
+        $this->writeData($data);
     }
 
     protected function writeData(object $data): void
