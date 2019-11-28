@@ -33,9 +33,19 @@
     <filter>
         <whitelist>
             <directory>src</directory>
+            <directory>proAppointments/IdentityAccess/src</directory>
+            <exclude>
+                <file>src/Kernel.php</file>
+                <directory>src/Migrations/</directory>
+                <directory>src/DataFixtures/</directory>
+                <directory>proAppointments/IdentityAccess/src/Infrastructure/Persistence/NullRepository/</directory>
+                <file>proAppointments/IdentityAccess/src/Infrastructure/DomainService/NullPasswordEncoder.php</file>
+            </exclude>
         </whitelist>
     </filter>
-
+    <extensions>
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+    </extensions>
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>

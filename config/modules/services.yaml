@@ -1,0 +1,149 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+        bind:
+            CompostDDD\ApplicationService\ApplicationService $registerUserService: '@Identity\Transational\RegisterUserService'
+            CompostDDD\ApplicationService\ApplicationService $deleteUserService: '@Identity\Transational\DeleteUserService'
+            CompostDDD\ApplicationService\ApplicationService $changeFirstNameService: '@Identity\Transational\ChangeFirstNameService'
+            CompostDDD\ApplicationService\ApplicationService $changePasswordService: '@Identity\Transational\ChangePasswordService'
+
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+
+
+    #
+    #   SYSTEM CLOCK
+    #
+    app.date_time_zone:
+        class: DateTimeZone
+        arguments:
+            - 'UTC'
+
+    app.clock.system:
+        class: CompostDDD\Time\SystemClock
+        arguments:
+            - '@app.date_time_zone'
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\DomainService\DomainRegistry:
+        calls:
+            - method: 'setContainer'
+              arguments:
+                  - '@service_container'
+        public: true
+
+    identity.transactional.session:
+        class: CompostDDD\ApplicationService\DoctrineSession
+        arguments:
+            - '@doctrine.orm.entity_manager'
+
+
+    ProAppointments\IdentityAccess\UI\Cli\:
+        resource: '../../proAppointments/IdentityAccess/src/UI/Cli'
+        tags:
+            - { name: 'console.command' }
+
+    ProAppointments\IdentityAccess\Domain\User\UserFactory:
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository'
+            - '@ProAppointments\IdentityAccess\Infrastructure\Notification\DoctrineEventStore'
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository:
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository:
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserQuery:
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UsersQuery:
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleQuery:
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleByNameQuery:
+        public: true
+
+    #
+    # Application Services  &  Transactional Application Services
+    #
+    ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory: ~
+
+
+    ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+
+    Identity\Transational\RegisterUserService:
+        factory: ['@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory', 'createTransationalApplicationService']
+        arguments:
+            - '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
+            - '@identity.transactional.session'
+
+    ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+
+    Identity\Transational\DeleteUserService:
+        factory: ['@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory', 'createTransationalApplicationService']
+        arguments:
+            - '@ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService'
+            - '@identity.transactional.session'
+
+    ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+
+    Identity\Transational\ChangeFirstNameService:
+        factory: ['@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory', 'createTransationalApplicationService']
+        arguments:
+            - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService'
+            - '@identity.transactional.session'
+
+    ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+
+    Identity\Transational\ChangePasswordService:
+        factory: ['@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory', 'createTransationalApplicationService']
+        arguments:
+            - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService'
+            - '@identity.transactional.session'
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
+#
+#   DOMAIN EVENT NOTIFIER STUFF
+#
+    ProAppointments\IdentityAccess\Infrastructure\Notification\DoctrineEventStore:
+        public: true
+
+

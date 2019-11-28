@@ -5,18 +5,29 @@
         "php": "^7.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "php-amqplib/php-amqplib": "^2.10",
+        "ramsey/uuid": "^3.8",
+        "ramsey/uuid-doctrine": "^1.5",
         "symfony/console": "4.3.*",
         "symfony/dotenv": "4.3.*",
         "symfony/flex": "^1.3.1",
         "symfony/framework-bundle": "4.3.*",
+        "symfony/monolog-bundle": "^3.4",
+        "symfony/orm-pack": "^1.0",
+        "symfony/twig-pack": "^1.0",
+        "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "4.3.*"
     },
     "require-dev": {
+        "dama/doctrine-test-bundle": "^6.2",
+        "doctrine/doctrine-fixtures-bundle": "^3.2",
         "friendsofphp/php-cs-fixer": "^2.15",
         "phpstan/phpstan": "^0.11.19",
         "prolic/fpp": "dev-master",
         "sensiolabs/security-checker": "^6.0",
-        "symfony/test-pack": "^1.0"
+        "symfony/profiler-pack": "^1.0",
+        "symfony/test-pack": "^1.0",
+        "symfony/web-server-bundle": "4.3.*"
     },
     "config": {
         "preferred-install": {
@@ -29,7 +40,8 @@
             "App\\": "src/",
             "ProAppointments\\Collaboration\\": "proAppointments/Collaboration/src/",
             "ProAppointments\\IdentityAccess\\": "proAppointments/IdentityAccess/src/",
-            "ProAppointments\\Schedule\\": "proAppointments/Schedule/src/"
+            "ProAppointments\\Schedule\\": "proAppointments/Schedule/src/",
+            "CompostDDD\\": "lib/compost/src/"
         }
     },
     "autoload-dev": {
@@ -37,7 +49,8 @@
             "App\\Tests\\": "tests/",
             "ProAppointments\\Collaboration\\Tests\\": "proAppointments/Collaboration/tests/",
             "ProAppointments\\IdentityAccess\\Tests\\": "proAppointments/IdentityAccess/tests/",
-            "ProAppointments\\Schedule\\Tests\\": "proAppointments/Schedule/tests/"
+            "ProAppointments\\Schedule\\Tests\\": "proAppointments/Schedule/tests/",
+            "CompostDDD\\Tests\\": "lib/compost/tests/"
         }
     },
     "replace": {

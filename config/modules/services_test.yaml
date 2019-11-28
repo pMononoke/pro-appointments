@@ -1,0 +1,97 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+#    App\:
+#        resource: '../src/*'
+#        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+#    App\Controller\:
+#        resource: '../src/Controller'
+#        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    # makes classes in src/AppBundle/DataFixtures available to be used as services
+    # and have a tag that allows actions to type-hint services
+    ProAppointments\IdentityAccess\Tests\DataFixtures\:
+        resource: '../../proAppointments/IdentityAccess/tests/DataFixtures/'
+        tags: ['doctrine.fixture.orm']
+
+
+    test_doctrine.dbal.connection:
+        alias: 'Doctrine\DBAL\Connection'
+        public: true
+
+
+    ProAppointments\IdentityAccess\UI\Cli\:
+        resource: '../../proAppointments/IdentityAccess/src/UI/Cli'
+        #tags: ['console.command']
+        tags:
+            - { name: 'console.command' }
+
+
+    ProAppointments\IdentityAccess\Domain\User\UserFactory:
+
+
+    ProAppointments\IdentityAccess\UI\Cli\WireUserCommand:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
+            - '@ProAppointments\IdentityAccess\Domain\User\UserFactory'
+
+
+
+    identity.transactional.session:
+        class: CompostDDD\ApplicationService\DoctrineSession
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        public: true
+    ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory:
+        public: true
+
+    ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+        public: true
+
+    ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository'
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository:
+        public: true
+
+    ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+        public: true
+
+    ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+            - '@ProAppointments\IdentityAccess\Infrastructure\DomainService\NullPasswordEncoder'
+        public: true
+
+    # REMOVE
+    ProAppointments\IdentityAccess\Infrastructure\DomainService\NullPasswordEncoder:
+        public: true
