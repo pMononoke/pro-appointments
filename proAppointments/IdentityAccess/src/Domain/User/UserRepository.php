@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Domain\User;
 
+use ProAppointments\IdentityAccess\Domain\User\Exception\UserAlreadyExist;
+use ProAppointments\IdentityAccess\Domain\User\Exception\UserNotFound;
+
 interface UserRepository
 {
     /**
-     * @throws Exception\UserAlreadyExist
+     * @throws UserAlreadyExist
      */
     public function register(User $user): void;
 
     /**
-     * @throws Exception\UserNotFound
+     * @throws UserNotFound
      */
     public function ofId(UserId $userId): User;
 

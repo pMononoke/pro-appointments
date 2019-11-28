@@ -1,12 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: zero
- * Date: 06/11/19
- * Time: 13.58.
- */
 
-namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence;
+declare(strict_types=1);
+
+namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Repository;
 
 use ProAppointments\IdentityAccess\Domain\User\ContactInformation;
 use ProAppointments\IdentityAccess\Domain\User\FirstName;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence;
+namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Query;
 
 use ProAppointments\IdentityAccess\Domain\User\ContactInformation;
 use ProAppointments\IdentityAccess\Domain\User\FirstName;
@@ -16,7 +16,7 @@ use ProAppointments\IdentityAccess\Domain\User\UserId;
 use ProAppointments\IdentityAccess\Domain\User\UserPassword;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class UserQueryTest extends KernelTestCase
+class DoctrineUserQueryTest extends KernelTestCase
 {
     private const TABLES = ['ia_user', 'ia_person'];
 
@@ -45,7 +45,7 @@ class UserQueryTest extends KernelTestCase
     public function can_find_a_user_by_user_id(): void
     {
         list($id, $user) = $this->generateUserAggregate();
-        $this->writeData($user);
+        $this->pupulateDatabase($user);
 
         $userFromDatabase = $this->userQuery->execute($id);
 
@@ -72,6 +72,11 @@ class UserQueryTest extends KernelTestCase
         );
 
         return [$id, $user];
+    }
+
+    private function pupulateDatabase(object $data): void
+    {
+        $this->writeData($data);
     }
 
     protected function writeData(object $data): void
