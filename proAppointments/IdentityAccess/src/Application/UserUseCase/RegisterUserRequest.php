@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Application\UserUseCase;
 
 use CompostDDD\ApplicationService\ServiceRequest;
-use ProAppointments\IdentityAccess\Domain\User\FirstName;
-use ProAppointments\IdentityAccess\Domain\User\LastName;
-use ProAppointments\IdentityAccess\Domain\User\MobileNumber;
-use ProAppointments\IdentityAccess\Domain\User\UserEmail;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
-use ProAppointments\IdentityAccess\Domain\User\UserPassword;
+use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
+use ProAppointments\IdentityAccess\Domain\Identity\LastName;
+use ProAppointments\IdentityAccess\Domain\Identity\MobileNumber;
+use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 
 class RegisterUserRequest implements ServiceRequest
 {

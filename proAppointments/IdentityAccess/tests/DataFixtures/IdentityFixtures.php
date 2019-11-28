@@ -5,16 +5,16 @@ namespace ProAppointments\IdentityAccess\Tests\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use ProAppointments\IdentityAccess\Domain\User\ContactInformation;
-use ProAppointments\IdentityAccess\Domain\User\FirstName;
-use ProAppointments\IdentityAccess\Domain\User\FullName;
-use ProAppointments\IdentityAccess\Domain\User\LastName;
-use ProAppointments\IdentityAccess\Domain\User\MobileNumber;
-use ProAppointments\IdentityAccess\Domain\User\Person;
-use ProAppointments\IdentityAccess\Domain\User\User;
-use ProAppointments\IdentityAccess\Domain\User\UserEmail;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
-use ProAppointments\IdentityAccess\Domain\User\UserPassword;
+use ProAppointments\IdentityAccess\Domain\Identity\ContactInformation;
+use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
+use ProAppointments\IdentityAccess\Domain\Identity\FullName;
+use ProAppointments\IdentityAccess\Domain\Identity\LastName;
+use ProAppointments\IdentityAccess\Domain\Identity\MobileNumber;
+use ProAppointments\IdentityAccess\Domain\Identity\Person;
+use ProAppointments\IdentityAccess\Domain\Identity\User;
+use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 
 class IdentityFixtures extends Fixture implements FixtureGroupInterface
 {

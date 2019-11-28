@@ -6,8 +6,8 @@ namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use ProAppointments\IdentityAccess\Domain\User\User;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\User;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
 /**
  * Class DoctrineUserRepository.
@@ -29,7 +29,6 @@ class DoctrineUserRepository extends ServiceEntityRepository
     public function register(User $user): void
     {
         $this->_em->persist($user);
-        //$this->_em->flush($user);
     }
 
     public function remove(User $user): void

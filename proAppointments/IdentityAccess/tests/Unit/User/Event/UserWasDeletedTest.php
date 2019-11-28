@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Tests\Unit\User\Event;
 
 use PHPUnit\Framework\TestCase;
-use ProAppointments\IdentityAccess\Domain\User\Event\UserWasDeleted;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\Event\UserWasDeleted;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
 class UserWasDeletedTest extends TestCase
 {

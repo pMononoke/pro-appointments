@@ -6,8 +6,8 @@ namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Que
 
 use Doctrine\ORM\EntityManagerInterface;
 use ProAppointments\IdentityAccess\Application\Service\Query\UserQuery as UserQueryPort;
-use ProAppointments\IdentityAccess\Domain\User\User;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\User;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
 class UserQuery implements UserQueryPort
 {
@@ -30,8 +30,6 @@ class UserQuery implements UserQueryPort
             ->where('User.id = :UserId')
             ->setParameter('UserId', $id->toString());
 
-        $user = $queryBuilder->getQuery()->getOneOrNullResult();
-
-        return $user;
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter;
 
-use ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToRemoveUser;
-use ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToSaveUser;
-use ProAppointments\IdentityAccess\Domain\User\Exception\UserAlreadyExist;
-use ProAppointments\IdentityAccess\Domain\User\Exception\UserNotFound;
-use ProAppointments\IdentityAccess\Domain\User\User;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
-use ProAppointments\IdentityAccess\Domain\User\UserRepository;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\ImpossibleToRemoveUser;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\ImpossibleToSaveUser;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserAlreadyExist;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserNotFound;
+use ProAppointments\IdentityAccess\Domain\Identity\User;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserRepository;
 use ProAppointments\IdentityAccess\Infrastructure\Notification\EventStore;
 use ProAppointments\IdentityAccess\Infrastructure\Notification\NullEventStore;
 

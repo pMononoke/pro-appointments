@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Tests\Unit\User;
 
 use PHPUnit\Framework\TestCase;
-use ProAppointments\IdentityAccess\Domain\User\FirstName;
-use ProAppointments\IdentityAccess\Domain\User\FullName;
-use ProAppointments\IdentityAccess\Domain\User\LastName;
+use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
+use ProAppointments\IdentityAccess\Domain\Identity\FullName;
+use ProAppointments\IdentityAccess\Domain\Identity\LastName;
 
 class FullNameTest extends TestCase
 {

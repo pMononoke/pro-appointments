@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Infrastructure\DomainService;
 
+use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 use ProAppointments\IdentityAccess\Domain\Service\PasswordEncoder;
-use ProAppointments\IdentityAccess\Domain\User\UserPassword;
 
 class NullPasswordEncoder implements PasswordEncoder
 {

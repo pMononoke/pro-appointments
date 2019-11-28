@@ -6,7 +6,7 @@ namespace ProAppointments\IdentityAccess\Tests\Integration\ApplicationService\Us
 
 use CompostDDD\ApplicationService\TransationalApplicationServiceFactory;
 use ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserRequest;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
 class DeleteUserServiceTest extends UserServiceTestCase
 {

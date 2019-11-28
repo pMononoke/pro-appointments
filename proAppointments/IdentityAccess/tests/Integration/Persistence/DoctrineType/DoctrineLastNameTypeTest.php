@@ -10,7 +10,7 @@ use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 use PHPUnit\Framework\TestCase;
-use ProAppointments\IdentityAccess\Domain\User\LastName;
+use ProAppointments\IdentityAccess\Domain\Identity\LastName;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineLastNameType;
 
 class DoctrineLastNameTypeTest extends TestCase

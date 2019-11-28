@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Tests\Unit\User\Event;
 
 use PHPUnit\Framework\TestCase;
-use ProAppointments\IdentityAccess\Domain\User\Event\AccessCredentialsWasChanged;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
-use ProAppointments\IdentityAccess\Domain\User\UserPassword;
+use ProAppointments\IdentityAccess\Domain\Identity\Event\AccessCredentialsWasChanged;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 
 class AccessCredentialsWasChangedTest extends TestCase
 {

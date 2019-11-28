@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ProAppointments\IdentityAccess\Domain\User\Exception;
+namespace ProAppointments\IdentityAccess\Domain\Identity\Exception;
 
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
-class ImpossibleToSaveUser extends UserException
+final class ImpossibleToRemoveUser extends UserException
 {
     private $id;
 
@@ -23,6 +23,6 @@ class ImpossibleToSaveUser extends UserException
 
     public static function withId(UserId $id, int $code = 0, \Exception $previous = null): self
     {
-        return new self($id, sprintf('Can not save user %s persistence layer error.', $id), $code, $previous);
+        return new self($id, sprintf('Can not remove user %s persistence layer error.', $id), $code, $previous);
     }
 }

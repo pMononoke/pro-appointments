@@ -10,7 +10,7 @@ use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 use PHPUnit\Framework\TestCase;
-use ProAppointments\IdentityAccess\Domain\User\UserEmail;
+use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineUserEmailType;
 
 class DoctrineUserEmailTypeTest extends TestCase

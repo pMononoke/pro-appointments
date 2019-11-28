@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Query;
 
-use ProAppointments\IdentityAccess\Domain\User\ContactInformation;
-use ProAppointments\IdentityAccess\Domain\User\FirstName;
-use ProAppointments\IdentityAccess\Domain\User\FullName;
-use ProAppointments\IdentityAccess\Domain\User\LastName;
-use ProAppointments\IdentityAccess\Domain\User\MobileNumber;
-use ProAppointments\IdentityAccess\Domain\User\Person;
-use ProAppointments\IdentityAccess\Domain\User\User;
-use ProAppointments\IdentityAccess\Domain\User\UserEmail;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
-use ProAppointments\IdentityAccess\Domain\User\UserPassword;
+use ProAppointments\IdentityAccess\Domain\Identity\ContactInformation;
+use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
+use ProAppointments\IdentityAccess\Domain\Identity\FullName;
+use ProAppointments\IdentityAccess\Domain\Identity\LastName;
+use ProAppointments\IdentityAccess\Domain\Identity\MobileNumber;
+use ProAppointments\IdentityAccess\Domain\Identity\Person;
+use ProAppointments\IdentityAccess\Domain\Identity\User;
+use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class DoctrineUsersQueryTest extends KernelTestCase

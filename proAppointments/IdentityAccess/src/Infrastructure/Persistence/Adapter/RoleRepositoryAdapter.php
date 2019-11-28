@@ -103,7 +103,6 @@ class RoleRepositoryAdapter implements RoleRepositoryPort
             $this->appendEventToEventStore($role);
             $this->innerRepository->remove($role);
         } catch (\Exception $exception) {
-            //throw ImpossibleToRemoveRole::withId($role->id());
             throw new ImpossibleToRemoveRole('Persistence error, impossible to remove role: '.$role->name()->toString());
         }
     }

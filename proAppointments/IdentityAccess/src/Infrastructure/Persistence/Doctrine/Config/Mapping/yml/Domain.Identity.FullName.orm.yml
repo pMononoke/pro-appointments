@@ -1,4 +1,4 @@
-ProAppointments\IdentityAccess\Domain\User\FullName:
+ProAppointments\IdentityAccess\Domain\Identity\FullName:
     type: embeddable
     fields:
       firstName: { type: identity_first_name }

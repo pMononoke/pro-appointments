@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace ProAppointments\IdentityAccess\Domain\User\Event;
+namespace ProAppointments\IdentityAccess\Domain\Identity\Event;
 
 use DateTimeImmutable;
-use ProAppointments\IdentityAccess\Domain\User\FirstName;
-use ProAppointments\IdentityAccess\Domain\User\LastName;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
+use ProAppointments\IdentityAccess\Domain\Identity\LastName;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
 class PersonalNameWasChanged
 {

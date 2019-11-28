@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use ProAppointments\IdentityAccess\Domain\User\Exception\UserAlreadyExist;
-use ProAppointments\IdentityAccess\Domain\User\Exception\UserNotFound;
-use ProAppointments\IdentityAccess\Domain\User\User;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserAlreadyExist;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserNotFound;
+use ProAppointments\IdentityAccess\Domain\Identity\User;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
 class InMemoryUserRepository implements InfrastructureUserRepository
 {
@@ -37,7 +37,6 @@ class InMemoryUserRepository implements InfrastructureUserRepository
      */
     public function ofId(UserId $userId): User
     {
-        //var_dump($this->userExist($userId));
         if ($this->userExist($userId)) {
             return $this->userCollection->get($userId->toString());
         }

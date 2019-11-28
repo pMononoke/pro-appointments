@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Tests\Unit\User;
 
 use PHPUnit\Framework\TestCase;
-use ProAppointments\IdentityAccess\Domain\User\MobileNumber;
+use ProAppointments\IdentityAccess\Domain\Identity\MobileNumber;
 
 class MobileNumberTest extends TestCase
 {

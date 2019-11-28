@@ -1,4 +1,4 @@
-ProAppointments\IdentityAccess\Domain\User\Person:
+ProAppointments\IdentityAccess\Domain\Identity\Person:
   type: entity
   table: 'ia_person'
   id:

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Adapter;
 
-use ProAppointments\IdentityAccess\Domain\User\ContactInformation;
-use ProAppointments\IdentityAccess\Domain\User\FirstName;
-use ProAppointments\IdentityAccess\Domain\User\FullName;
-use ProAppointments\IdentityAccess\Domain\User\LastName;
-use ProAppointments\IdentityAccess\Domain\User\MobileNumber;
-use ProAppointments\IdentityAccess\Domain\User\Person;
-use ProAppointments\IdentityAccess\Domain\User\User;
-use ProAppointments\IdentityAccess\Domain\User\UserEmail;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
-use ProAppointments\IdentityAccess\Domain\User\UserPassword;
+use ProAppointments\IdentityAccess\Domain\Identity\ContactInformation;
+use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
+use ProAppointments\IdentityAccess\Domain\Identity\FullName;
+use ProAppointments\IdentityAccess\Domain\Identity\LastName;
+use ProAppointments\IdentityAccess\Domain\Identity\MobileNumber;
+use ProAppointments\IdentityAccess\Domain\Identity\Person;
+use ProAppointments\IdentityAccess\Domain\Identity\User;
+use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter;
 use ProAppointments\IdentityAccess\Tests\Integration\Persistence\Adapter\UserRepositoryWithDoctrineError\UserRepositoryWithDBALException;
 use ProAppointments\IdentityAccess\Tests\Integration\Persistence\Adapter\UserRepositoryWithDoctrineError\UserRepositoryWithORMException;
@@ -78,7 +78,7 @@ class RoleRepositoryAdapterTest extends KernelTestCase
 
     /**
      * @test
-     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\UserAlreadyExist
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\UserAlreadyExist
      */
     public function deny_persistence_and_throw_UserAlreadyExist_exception_if_user_exist(): void
     {
@@ -91,7 +91,7 @@ class RoleRepositoryAdapterTest extends KernelTestCase
 
     /**
      * @test
-     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\UserNotFound
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\UserNotFound
      */
     public function throw_UserNotFound_exception_if_user_not_exist(): void
     {
@@ -106,7 +106,7 @@ class RoleRepositoryAdapterTest extends KernelTestCase
 
     /**
      * @test
-     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToSaveUser
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\ImpossibleToSaveUser
      */
     public function detect_doctrine_ORMException_on_register_and_throw_ImpossibeToSaveUser_exception(): void
     {
@@ -119,7 +119,7 @@ class RoleRepositoryAdapterTest extends KernelTestCase
 
     /**
      * @test
-     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToSaveUser
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\ImpossibleToSaveUser
      */
     public function detect_doctrine_DBALException_on_register_and_throw_ImpossibeToSaveUser_exception(): void
     {
@@ -132,7 +132,7 @@ class RoleRepositoryAdapterTest extends KernelTestCase
 
     /**
      * @test
-     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToSaveUser
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\ImpossibleToSaveUser
      */
     public function detect_doctrine_ORMException_on_save_and_throw_ImpossibeToSaveUser_exception(): void
     {
@@ -145,7 +145,7 @@ class RoleRepositoryAdapterTest extends KernelTestCase
 
     /**
      * @test
-     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToSaveUser
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\ImpossibleToSaveUser
      */
     public function detect_doctrine_DBALException_on_save_and_throw_ImpossibeToSaveUser_exception(): void
     {
@@ -158,7 +158,7 @@ class RoleRepositoryAdapterTest extends KernelTestCase
 
     /**
      * @test
-     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToRemoveUser
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\ImpossibleToRemoveUser
      */
     public function detect_doctrine_ORMException_on_remove_and_throw_ImpossibeToRemoveUser_exception(): void
     {
@@ -171,7 +171,7 @@ class RoleRepositoryAdapterTest extends KernelTestCase
 
     /**
      * @test
-     * @expectedException \ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToRemoveUser
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\ImpossibleToRemoveUser
      */
     public function detect_doctrine_DBALException_on_remove_and_throw_ImpossibeToRemoveUser_exception(): void
     {

@@ -30,13 +30,12 @@ class RoleRepositoryAdapterInfrastructureExceptionTest extends TestCase
      * @test
      * @expectedException \ProAppointments\IdentityAccess\Domain\Access\Exception\ImpossibleToSaveRole
      */
-    //public function detect_doctrine_ORMException_on_add_role_and_throw_ImpossibeToSaveRole_exception(): void
     public function method_add_throw_ImpossibeToSaveRole_exception_on_ORMException(): void
     {
         $role = $this->generateRoleAggregate();
         $RoleRepositoryWithORMException = $this->createMock(NullRoleRepository::class);
         $RoleRepositoryWithORMException->method('roleExist')
-            ->willReturn(false); //->willThrowException(ORMException::entityManagerClosed());
+            ->willReturn(false);
         $RoleRepositoryWithORMException->method('add')
             ->willThrowException(ORMException::entityManagerClosed());
 

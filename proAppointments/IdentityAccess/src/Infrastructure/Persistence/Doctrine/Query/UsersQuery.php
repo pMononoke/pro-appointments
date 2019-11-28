@@ -6,7 +6,7 @@ namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Que
 
 use Doctrine\ORM\EntityManagerInterface;
 use ProAppointments\IdentityAccess\Application\Service\Query\UsersQuery as UsersQueryPort;
-use ProAppointments\IdentityAccess\Domain\User\User;
+use ProAppointments\IdentityAccess\Domain\Identity\User;
 
 class UsersQuery implements UsersQueryPort
 {
@@ -29,8 +29,6 @@ class UsersQuery implements UsersQueryPort
             ->from(User::class, 'User')
             ->setMaxResults($limit);
 
-        $users = $queryBuilder->getQuery()->getResult();
-
-        return $users;
+        return $queryBuilder->getQuery()->getResult();
     }
 }

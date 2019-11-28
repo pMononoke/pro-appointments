@@ -1,4 +1,4 @@
-ProAppointments\IdentityAccess\Domain\User\User:
+ProAppointments\IdentityAccess\Domain\Identity\User:
   type: entity
   table: 'ia_user'
   #repositoryClass:

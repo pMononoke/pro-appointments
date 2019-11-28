@@ -7,7 +7,7 @@ namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Con
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\StringType;
-use ProAppointments\IdentityAccess\Domain\User\FirstName;
+use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
 
 class DoctrineFirstNameType extends StringType
 {

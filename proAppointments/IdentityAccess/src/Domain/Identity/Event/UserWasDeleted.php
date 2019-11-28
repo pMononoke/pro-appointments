@@ -1,8 +1,8 @@
 <?php
 
-namespace ProAppointments\IdentityAccess\Domain\User\Event;
+namespace ProAppointments\IdentityAccess\Domain\Identity\Event;
 
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
 class UserWasDeleted
 {

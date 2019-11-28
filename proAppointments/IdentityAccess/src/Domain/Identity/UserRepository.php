@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ProAppointments\IdentityAccess\Domain\User;
+namespace ProAppointments\IdentityAccess\Domain\Identity;
 
-use ProAppointments\IdentityAccess\Domain\User\Exception\UserAlreadyExist;
-use ProAppointments\IdentityAccess\Domain\User\Exception\UserNotFound;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserAlreadyExist;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserNotFound;
 
 interface UserRepository
 {

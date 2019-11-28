@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Tests\Integration\DomainService;
 
 use CompostDDD\Time\Clock;
+use ProAppointments\IdentityAccess\Domain\Identity\UserRepository;
 use ProAppointments\IdentityAccess\Domain\Service\DomainRegistry;
-use ProAppointments\IdentityAccess\Domain\User\UserRepository;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
