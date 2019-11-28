@@ -14,4 +14,7 @@ interface InfrastructureUserRepository extends UserRepository
 
     /** READ SIDE QUERY */
     public function findById(UserId $userId): ?User;
+
+    /** READ SIDE QUERY */
+    public function findAll(int $limit): array;
 }

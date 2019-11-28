@@ -75,4 +75,10 @@ class InMemoryUserRepository implements InfrastructureUserRepository
     {
         return $this->userCollection->get($userId->toString());
     }
+
+    /** READ SIDE QUERY */
+    public function findAll(int $limit = 1000): array
+    {
+        return $this->userCollection->toArray();
+    }
 }

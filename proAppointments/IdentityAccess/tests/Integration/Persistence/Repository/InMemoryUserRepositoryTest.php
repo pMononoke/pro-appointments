@@ -79,6 +79,42 @@ class InMemoryUserRepositoryTest extends KernelTestCase
         $this->assertTrue($user->sameIdentityAs($userFromDatabase));
     }
 
+    /** READ SIDE QUERY */
+
+    /** @test */
+    public function can_execute_findById_query(): void
+    {
+        $first = list($id, $user) = $this->generateUserAggregate();
+        $this->userRepository->register($user);
+
+        $userFromDatabase = $this->userRepository->findById($id);
+
+        $this->assertTrue($user->sameIdentityAs($userFromDatabase));
+    }
+
+    /** @test */
+    public function execution_of_findById_query_return_null(): void
+    {
+        $userFromDatabase = $this->userRepository->findById(UserId::generate());
+
+        $this->assertNull($userFromDatabase);
+    }
+
+    /** @test */
+    public function can_execute_findeAll_query(): void
+    {
+        $first = list($id, $user) = $this->generateUserAggregate();
+        $second = list($secondId, $secondUser) = $this->generateUserAggregate();
+        $third = list($thirdId, $thirdUser) = $this->generateUserAggregate();
+        $this->userRepository->register($user);
+        $this->userRepository->register($secondUser);
+        $this->userRepository->register($thirdUser);
+
+        $usersFromDatabase = $this->userRepository->findAll();
+
+        $this->assertEquals(3, count($usersFromDatabase));
+    }
+
     protected function generateUserAggregate(): array
     {
         $id = UserId::generate();
