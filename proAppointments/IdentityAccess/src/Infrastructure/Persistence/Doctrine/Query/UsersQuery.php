@@ -29,8 +29,6 @@ class UsersQuery implements UsersQueryPort
             ->from(User::class, 'User')
             ->setMaxResults($limit);
 
-        $users = $queryBuilder->getQuery()->getResult();
-
-        return $users;
+        return $queryBuilder->getQuery()->getResult();
     }
 }

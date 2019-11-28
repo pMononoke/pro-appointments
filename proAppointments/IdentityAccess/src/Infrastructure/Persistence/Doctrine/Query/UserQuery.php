@@ -30,8 +30,6 @@ class UserQuery implements UserQueryPort
             ->where('User.id = :UserId')
             ->setParameter('UserId', $id->toString());
 
-        $user = $queryBuilder->getQuery()->getOneOrNullResult();
-
-        return $user;
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }

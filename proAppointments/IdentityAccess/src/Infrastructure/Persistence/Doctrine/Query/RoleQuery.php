@@ -27,8 +27,6 @@ class RoleQuery implements RoleQueryPort
             ->where('Role.id = :RoleId')
             ->setParameter('RoleId', $id->toString());
 
-        $role = $queryBuilder->getQuery()->getOneOrNullResult();
-
-        return $role;
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }

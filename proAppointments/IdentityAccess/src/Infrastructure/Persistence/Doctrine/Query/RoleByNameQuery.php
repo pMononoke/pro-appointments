@@ -27,8 +27,6 @@ class RoleByNameQuery implements RoleByNameQueryPort
             ->where('Role.name = :roleName')
             ->setParameter('roleName', $roleName->toString());
 
-        $role = $queryBuilder->getQuery()->getOneOrNullResult();
-
-        return $role;
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }

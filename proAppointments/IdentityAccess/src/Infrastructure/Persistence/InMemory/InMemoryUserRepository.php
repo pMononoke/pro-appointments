@@ -37,7 +37,6 @@ class InMemoryUserRepository implements InfrastructureUserRepository
      */
     public function ofId(UserId $userId): User
     {
-        //var_dump($this->userExist($userId));
         if ($this->userExist($userId)) {
             return $this->userCollection->get($userId->toString());
         }

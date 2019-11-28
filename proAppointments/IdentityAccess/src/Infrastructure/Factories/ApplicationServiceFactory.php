@@ -13,8 +13,6 @@ class ApplicationServiceFactory implements TransationalApplicationServiceFactory
 {
     public static function createTransationalApplicationService(ApplicationService $applicationService, TransactionalSession $transactionalSession): ApplicationService
     {
-        $transationalApplicationService = new TransactionalApplicationService($transactionalSession, $applicationService);
-
-        return $transationalApplicationService;
+        return new TransactionalApplicationService($transactionalSession, $applicationService);
     }
 }
