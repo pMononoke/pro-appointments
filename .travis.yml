@@ -15,9 +15,9 @@ services:
 
 addons:
   sonarcloud:
-    organization: "xxxx"
+    organization: "pmononoke"
     token:
-      secure: "xxxxx"
+      secure: "529aa20af7026a8ab7f5a91297145a0fe92dcdbb"
 
 matrix:
     fast_finish: true
