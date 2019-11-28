@@ -9,6 +9,7 @@ use ProAppointments\IdentityAccess\Domain\Access\Role;
 use ProAppointments\IdentityAccess\Domain\Access\RoleDescription;
 use ProAppointments\IdentityAccess\Domain\Access\RoleId;
 use ProAppointments\IdentityAccess\Domain\Access\RoleName;
+use ProAppointments\IdentityAccess\Domain\Access\RoleRepository;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleRepository;
 
 class InMemoryRoleRepositoryTest extends TestCase
@@ -16,6 +17,7 @@ class InMemoryRoleRepositoryTest extends TestCase
     private const ROLE_NAME = 'irrelevant';
     private const ROLE_DESCRIPTION = 'irrelevant';
 
+    /** @var RoleRepository */
     private $repository;
 
     protected function setUp()
@@ -41,6 +43,20 @@ class InMemoryRoleRepositoryTest extends TestCase
         $this->assertTrue($this->repository->roleExist($role->id()));
     }
 
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Access\Exception\RoleAlreadyExist
+     */
+    public function can_not_add_a_role_and_throw_RoleAlreadyExist_exception()
+    {
+        $role = $this->generateRoleAggregate();
+
+        $this->repository->add($role);
+        $this->repository->add($role);
+
+        //$this->assertTrue($this->repository->roleExist($role->id()));
+    }
+
     /** @test */
     public function can_retrieve_a_role_by_roleId()
     {
@@ -52,10 +68,42 @@ class InMemoryRoleRepositoryTest extends TestCase
         $this->assertTrue($role->sameIdentityAs($roleFromDatabase));
     }
 
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Access\Exception\RoleNotFound
+     */
+    public function can_not_retrieve_a_role_by_roleId_and_throw_RoleNotFound_exception()
+    {
+        $this->repository->ofId(RoleId::generate());
+    }
+
     /** @test */
     public function can_update_a_role()
     {
-        self::markTestSkipped('No update methods in Role aggregate for now.');
+        //self::markTestSkipped('No update methods in Role aggregate for now.');
+
+        $role = $this->generateRoleAggregate();
+        $this->repository->add($role);
+
+        //TODO add modify method call here.
+        $this->repository->update($role);
+
+        //TODO check modification here. (for now it check existence)
+        $this->assertTrue($this->repository->roleExist($role->id()));
+    }
+
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Access\Exception\RoleNotFound
+     */
+    public function can_not_update_a_role_and_throw_RoleNotFound()
+    {
+        //self::markTestSkipped('No update methods in Role aggregate for now.');
+
+        $role = $this->generateRoleAggregate();
+
+        //TODO add modify method call here.
+        $this->repository->update($role);
     }
 
     /** @test */

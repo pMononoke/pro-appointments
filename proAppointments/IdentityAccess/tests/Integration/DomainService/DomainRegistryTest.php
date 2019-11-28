@@ -7,6 +7,7 @@ namespace ProAppointments\IdentityAccess\Tests\Integration\DomainService;
 use CompostDDD\Time\Clock;
 use ProAppointments\IdentityAccess\Domain\Identity\UserRepository;
 use ProAppointments\IdentityAccess\Domain\Service\DomainRegistry;
+use ProAppointments\IdentityAccess\Domain\Service\PasswordEncoder;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -24,7 +25,7 @@ class DomainRegistryTest extends KernelTestCase
     }
 
     /** @test */
-    public function can_provide_the_ClockSystemService(): void
+    public function can_provide_a_ClockSystemService(): void
     {
         $clockSystemService = $this->domainRegistry->clockSystemService();
 
@@ -32,11 +33,19 @@ class DomainRegistryTest extends KernelTestCase
     }
 
     /** @test */
-    public function can_provide_the_UserRepository(): void
+    public function can_provide_a_UserRepository(): void
     {
         $userRepository = $this->domainRegistry->userRepository();
 
         self::assertInstanceOf(UserRepository::class, $userRepository);
         self::assertInstanceOf(UserRepositoryAdapter::class, $userRepository);
+    }
+
+    /** @test */
+    public function can_provide_a_PasswordEncoder(): void
+    {
+        $passwordEncoder = $this->domainRegistry->passwordEncoder();
+
+        self::assertInstanceOf(PasswordEncoder::class, $passwordEncoder);
     }
 }

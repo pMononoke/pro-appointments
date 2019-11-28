@@ -8,10 +8,9 @@ use ProAppointments\IdentityAccess\Domain\Access\Role;
 use ProAppointments\IdentityAccess\Domain\Access\RoleDescription;
 use ProAppointments\IdentityAccess\Domain\Access\RoleId;
 use ProAppointments\IdentityAccess\Domain\Access\RoleName;
+use ProAppointments\IdentityAccess\Domain\Access\RoleRepository;
 use ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName\RoleByNameQuery;
-use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InfrastructureRoleRepository;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleByNameQuery;
-use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleCollection;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -25,7 +24,7 @@ class InMemoryRoleByNameQueryTest extends KernelTestCase
     /** @var RoleByNameQuery */
     private $roleQuery;
 
-    /** @var InfrastructureRoleRepository */
+    /** @var RoleRepository */
     private $repository;
 
     protected function setUp()
@@ -33,7 +32,7 @@ class InMemoryRoleByNameQueryTest extends KernelTestCase
         $this->repository = new InMemoryRoleRepository();
 
         $this->roleQuery = new InMemoryRoleByNameQuery(
-            new InMemoryRoleCollection($this->repository)
+            $this->repository
         );
     }
 

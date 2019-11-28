@@ -43,6 +43,20 @@ class DoctrineRoleRepositoryTest extends KernelTestCase
         $this->assertTrue($this->repository->roleExist($role->id()));
     }
 
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Access\Exception\RoleAlreadyExist
+     */
+    public function can_not_add_a_role_and_throw_RoleAlreadyExist()
+    {
+        $role = $this->generateRoleAggregate();
+
+        $this->repository->add($role);
+        $this->repository->add($role);
+
+        //$this->assertTrue($this->repository->roleExist($role->id()));
+    }
+
     /** @test */
     public function can_retrieve_a_role_by_roleId()
     {
@@ -58,6 +72,15 @@ class DoctrineRoleRepositoryTest extends KernelTestCase
     public function can_update_a_role()
     {
         self::markTestSkipped('No update methods in Role aggregate for now.');
+
+        $role = $this->generateRoleAggregate();
+        $this->repository->add($role);
+
+        //TODO add modify method call here.
+        $this->repository->update($role);
+
+        //TODO check modification here. (for now it check existence)
+        $this->assertTrue($this->repository->roleExist($role->id()));
     }
 
     /** @test */
