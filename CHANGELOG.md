@@ -4,8 +4,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [0.2.x] - 2019-xx-xx
+
+## [0.2.1] - 2019-11-28
+###### (Maintenance release)
 ### Added
 - System clock.
+- Scaffold IdentityAccess management.
 
 ## [0.2.0] - 2019-11-01
 ### Added
