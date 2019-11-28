@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Application\UserUseCase;
 
 use CompostDDD\ApplicationService\ServiceRequest;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
 class DeleteUserRequest implements ServiceRequest
 {

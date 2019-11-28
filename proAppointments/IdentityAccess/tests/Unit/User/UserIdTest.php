@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Tests\Unit\User;
 
 use PHPUnit\Framework\TestCase;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
 class UserIdTest extends TestCase
 {

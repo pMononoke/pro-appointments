@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\NullRepository;
 
-use ProAppointments\IdentityAccess\Domain\User\User;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
-use ProAppointments\IdentityAccess\Domain\User\UserRepository as UserRepositoryPort;
+use ProAppointments\IdentityAccess\Domain\Identity\User;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserRepository as UserRepositoryPort;
 
 class UserRepository implements UserRepositoryPort
 {

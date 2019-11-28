@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Domain\Service;
 
-use ProAppointments\IdentityAccess\Domain\User\UserPassword;
+use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 
 interface PasswordEncoder
 {

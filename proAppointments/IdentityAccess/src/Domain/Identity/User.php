@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace ProAppointments\IdentityAccess\Domain\User;
+namespace ProAppointments\IdentityAccess\Domain\Identity;
 
 use CompostDDD\Aggregate\AggregateBehaviour;
-use ProAppointments\IdentityAccess\Domain\User\Event\AccessCredentialsWasChanged;
-use ProAppointments\IdentityAccess\Domain\User\Event\PersonalNameWasChanged;
-use ProAppointments\IdentityAccess\Domain\User\Event\UserWasDeleted;
-use ProAppointments\IdentityAccess\Domain\User\Event\UserWasRegistered;
+use ProAppointments\IdentityAccess\Domain\Identity\Event\AccessCredentialsWasChanged;
+use ProAppointments\IdentityAccess\Domain\Identity\Event\PersonalNameWasChanged;
+use ProAppointments\IdentityAccess\Domain\Identity\Event\UserWasDeleted;
+use ProAppointments\IdentityAccess\Domain\Identity\Event\UserWasRegistered;
 
 class User
 {

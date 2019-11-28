@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Tests\Unit\User;
 
 use PHPUnit\Framework\TestCase;
-use ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToRemoveUser;
-use ProAppointments\IdentityAccess\Domain\User\Exception\ImpossibleToSaveUser;
-use ProAppointments\IdentityAccess\Domain\User\Exception\UserAlreadyExist;
-use ProAppointments\IdentityAccess\Domain\User\Exception\UserNotFound;
-use ProAppointments\IdentityAccess\Domain\User\UserEmail;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\ImpossibleToRemoveUser;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\ImpossibleToSaveUser;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserAlreadyExist;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserNotFound;
+use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
 class UserExceptionsTest extends TestCase
 {

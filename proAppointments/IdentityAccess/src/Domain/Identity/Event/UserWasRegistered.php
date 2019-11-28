@@ -1,10 +1,10 @@
 <?php
 
-namespace ProAppointments\IdentityAccess\Domain\User\Event;
+namespace ProAppointments\IdentityAccess\Domain\Identity\Event;
 
-use ProAppointments\IdentityAccess\Domain\User\UserEmail;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
-use ProAppointments\IdentityAccess\Domain\User\UserPassword;
+use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 
 class UserWasRegistered
 {

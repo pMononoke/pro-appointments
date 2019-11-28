@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Tests\Integration\DomainService;
 
 use PHPUnit\Framework\TestCase;
-use ProAppointments\IdentityAccess\Domain\User\FirstName;
-use ProAppointments\IdentityAccess\Domain\User\LastName;
-use ProAppointments\IdentityAccess\Domain\User\MobileNumber;
-use ProAppointments\IdentityAccess\Domain\User\User;
-use ProAppointments\IdentityAccess\Domain\User\UserEmail;
-use ProAppointments\IdentityAccess\Domain\User\UserFactory;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
-use ProAppointments\IdentityAccess\Domain\User\UserPassword;
+use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
+use ProAppointments\IdentityAccess\Domain\Identity\LastName;
+use ProAppointments\IdentityAccess\Domain\Identity\MobileNumber;
+use ProAppointments\IdentityAccess\Domain\Identity\User;
+use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
+use ProAppointments\IdentityAccess\Domain\Identity\UserFactory;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 
 class UserFactoryTest extends TestCase
 {

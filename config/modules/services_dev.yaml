@@ -42,7 +42,7 @@ services:
     ProAppointments\IdentityAccess\UI\Cli\WireUserCommand:
         arguments:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
-            - '@ProAppointments\IdentityAccess\Domain\User\UserFactory'
+            - '@ProAppointments\IdentityAccess\Domain\Identity\UserFactory'
 
     ProAppointments\IdentityAccess\UI\Cli\WireDeleteUserCommand:
         arguments:

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use ProAppointments\IdentityAccess\Domain\User\Exception\UserAlreadyExist;
-use ProAppointments\IdentityAccess\Domain\User\Exception\UserNotFound;
-use ProAppointments\IdentityAccess\Domain\User\User;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserAlreadyExist;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserNotFound;
+use ProAppointments\IdentityAccess\Domain\Identity\User;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
 class InMemoryUserRepository implements InfrastructureUserRepository
 {

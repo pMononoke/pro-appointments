@@ -6,7 +6,7 @@ namespace ProAppointments\IdentityAccess\UI\Cli;
 
 use ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserRequest;
 use ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

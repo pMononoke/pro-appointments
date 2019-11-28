@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Application\UserUseCase;
 
 use CompostDDD\ApplicationService\ApplicationService;
-use ProAppointments\IdentityAccess\Domain\User\UserFactory;
-use ProAppointments\IdentityAccess\Domain\User\UserRepository;
+use ProAppointments\IdentityAccess\Domain\Identity\UserFactory;
+use ProAppointments\IdentityAccess\Domain\Identity\UserRepository;
 
 class RegisterUserService implements ApplicationService
 {
@@ -16,9 +16,6 @@ class RegisterUserService implements ApplicationService
     /** @var UserFactory */
     private $userFactory;
 
-    /**
-     * RegisterUserService constructor.
-     */
     public function __construct(UserRepository $userRepository, UserFactory $userFactory)
     {
         $this->userRepository = $userRepository;

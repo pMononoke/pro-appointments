@@ -6,12 +6,12 @@ namespace ProAppointments\IdentityAccess\UI\Cli;
 
 use ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserRequest;
 use ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService;
-use ProAppointments\IdentityAccess\Domain\User\FirstName;
-use ProAppointments\IdentityAccess\Domain\User\LastName;
-use ProAppointments\IdentityAccess\Domain\User\MobileNumber;
-use ProAppointments\IdentityAccess\Domain\User\UserEmail;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
-use ProAppointments\IdentityAccess\Domain\User\UserPassword;
+use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
+use ProAppointments\IdentityAccess\Domain\Identity\LastName;
+use ProAppointments\IdentityAccess\Domain\Identity\MobileNumber;
+use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

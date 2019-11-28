@@ -6,7 +6,7 @@ namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Con
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 use Ramsey\Uuid\Doctrine\UuidType;
 
 class DoctrineUserIdType extends UuidType

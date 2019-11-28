@@ -6,7 +6,7 @@ namespace ProAppointments\IdentityAccess\Tests\Integration\ApplicationService\Us
 
 use CompostDDD\ApplicationService\TransationalApplicationServiceFactory;
 use ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameRequest;
-use ProAppointments\IdentityAccess\Domain\User\FirstName;
+use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
 
 class ChangeFirstNameServiceTest extends UserServiceTestCase
 {

@@ -1,4 +1,4 @@
-ProAppointments\IdentityAccess\Domain\User\ContactInformation:
+ProAppointments\IdentityAccess\Domain\Identity\ContactInformation:
     type: embeddable
     fields:
       email: { type: identity_email }

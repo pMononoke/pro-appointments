@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ProAppointments\IdentityAccess\Domain\User\Exception;
+namespace ProAppointments\IdentityAccess\Domain\Identity\Exception;
 
-use ProAppointments\IdentityAccess\Domain\User\UserId;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
 final class UserAlreadyExist extends UserException
 {
