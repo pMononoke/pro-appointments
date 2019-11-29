@@ -5,22 +5,16 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Query;
 
 use ProAppointments\IdentityAccess\Application\Service\Query\RoleQuery;
-use ProAppointments\IdentityAccess\Domain\Access\Role;
-use ProAppointments\IdentityAccess\Domain\Access\RoleDescription;
 use ProAppointments\IdentityAccess\Domain\Access\RoleId;
-use ProAppointments\IdentityAccess\Domain\Access\RoleName;
 use ProAppointments\IdentityAccess\Domain\Access\RoleRepository;
-use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleCollection;
-use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleQuery;
-use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleRepository;
+use ProAppointments\IdentityAccess\Tests\DataFixtures\RoleFixtureBehavior;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class DoctrineRoleQueryTest extends KernelTestCase
 {
-    private const TABLES = ['ia_role'];
+    use RoleFixtureBehavior;
 
-    private const ROLE_NAME = 'irrelevant';
-    private const ROLE_DESCRIPTION = 'irrelevant';
+    private const TABLES = ['ia_role'];
 
     /** @var RoleQuery */
     private $roleQuery;
@@ -42,12 +36,6 @@ class DoctrineRoleQueryTest extends KernelTestCase
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine.orm.default_entity_manager');
-
-//        $this->repository = new InMemoryRoleRepository();
-//
-//        $this->roleQuery = new InMemoryRoleQuery(
-//            new InMemoryRoleCollection($this->repository)
-//        );
     }
 
     /** @test */
@@ -69,16 +57,6 @@ class DoctrineRoleQueryTest extends KernelTestCase
         $userFromQuery = $this->roleQuery->execute(RoleId::generate());
 
         self::assertNull($userFromQuery);
-    }
-
-    protected function generateRoleAggregate(): Role
-    {
-        $id = RoleId::generate();
-        $name = RoleName::fromString(self::ROLE_NAME);
-        $description = RoleDescription::fromString(self::ROLE_DESCRIPTION);
-        $role = new Role($id, $name, $description);
-
-        return $role;
     }
 
     private function pupulateDatabase(object $data): void

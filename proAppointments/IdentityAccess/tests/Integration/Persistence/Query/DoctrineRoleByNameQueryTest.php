@@ -4,23 +4,20 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Query;
 
-use ProAppointments\IdentityAccess\Domain\Access\Role;
-use ProAppointments\IdentityAccess\Domain\Access\RoleDescription;
-use ProAppointments\IdentityAccess\Domain\Access\RoleId;
 use ProAppointments\IdentityAccess\Domain\Access\RoleName;
 use ProAppointments\IdentityAccess\Domain\Access\RoleRepository;
 use ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName\RoleByNameQuery;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleByNameQuery;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleCollection;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleRepository;
+use ProAppointments\IdentityAccess\Tests\DataFixtures\RoleFixtureBehavior;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class DoctrineRoleByNameQueryTest extends KernelTestCase
 {
-    private const TABLES = ['ia_role'];
+    use RoleFixtureBehavior;
 
-    private const ROLE_NAME = 'irrelevant';
-    private const ROLE_DESCRIPTION = 'irrelevant';
+    private const TABLES = ['ia_role'];
 
     /** @var RoleByNameQuery */
     private $roleQuery;
@@ -66,19 +63,9 @@ class DoctrineRoleByNameQueryTest extends KernelTestCase
     /** @test */
     public function query_by_RoleName_return_a_null_value(): void
     {
-        $userFromQuery = $this->roleQuery->execute(RoleName::fromString(self::ROLE_NAME));
+        $userFromQuery = $this->roleQuery->execute(RoleName::fromString('irrelevant'));
 
         self::assertNull($userFromQuery);
-    }
-
-    protected function generateRoleAggregate(): Role
-    {
-        $id = RoleId::generate();
-        $name = RoleName::fromString(self::ROLE_NAME);
-        $description = RoleDescription::fromString(self::ROLE_DESCRIPTION);
-        $role = new Role($id, $name, $description);
-
-        return $role;
     }
 
     private function pupulateDatabase(object $data): void

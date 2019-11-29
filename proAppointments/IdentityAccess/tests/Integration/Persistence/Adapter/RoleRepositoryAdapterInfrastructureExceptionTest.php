@@ -8,17 +8,13 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\ORMException;
 use PDOException;
 use PHPUnit\Framework\TestCase;
-use ProAppointments\IdentityAccess\Domain\Access\Role;
-use ProAppointments\IdentityAccess\Domain\Access\RoleDescription;
-use ProAppointments\IdentityAccess\Domain\Access\RoleId;
-use ProAppointments\IdentityAccess\Domain\Access\RoleName;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\RoleRepositoryAdapter;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\NullRepository\NullRoleRepository;
+use ProAppointments\IdentityAccess\Tests\DataFixtures\RoleFixtureBehavior;
 
 class RoleRepositoryAdapterInfrastructureExceptionTest extends TestCase
 {
-    private const ROLE_NAME = 'irrelevant';
-    private const ROLE_DESCRIPTION = 'irrelevant';
+    use RoleFixtureBehavior;
 
     private $roleRepositoryAdapter;
 
@@ -233,16 +229,6 @@ class RoleRepositoryAdapterInfrastructureExceptionTest extends TestCase
         $roleRepositoryAdapter = new RoleRepositoryAdapter($RoleRepositoryMock);
 
         $roleRepositoryAdapter->ofId($role->id());
-    }
-
-    protected function generateRoleAggregate(): Role
-    {
-        $id = RoleId::generate();
-        $name = RoleName::fromString(self::ROLE_NAME);
-        $description = RoleDescription::fromString(self::ROLE_DESCRIPTION);
-        $role = new Role($id, $name, $description);
-
-        return $role;
     }
 
     protected function tearDown()

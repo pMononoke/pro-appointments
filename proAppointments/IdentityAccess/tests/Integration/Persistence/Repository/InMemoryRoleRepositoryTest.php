@@ -6,16 +6,14 @@ namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Repositor
 
 use PHPUnit\Framework\TestCase;
 use ProAppointments\IdentityAccess\Domain\Access\Role;
-use ProAppointments\IdentityAccess\Domain\Access\RoleDescription;
 use ProAppointments\IdentityAccess\Domain\Access\RoleId;
-use ProAppointments\IdentityAccess\Domain\Access\RoleName;
 use ProAppointments\IdentityAccess\Domain\Access\RoleRepository;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleRepository;
+use ProAppointments\IdentityAccess\Tests\DataFixtures\RoleFixtureBehavior;
 
 class InMemoryRoleRepositoryTest extends TestCase
 {
-    private const ROLE_NAME = 'irrelevant';
-    private const ROLE_DESCRIPTION = 'irrelevant';
+    use RoleFixtureBehavior;
 
     /** @var RoleRepository */
     private $repository;
@@ -115,16 +113,6 @@ class InMemoryRoleRepositoryTest extends TestCase
         $this->repository->remove($role);
 
         $this->assertFalse($this->repository->roleExist($role->id()));
-    }
-
-    protected function generateRoleAggregate(): Role
-    {
-        $id = RoleId::generate();
-        $name = RoleName::fromString(self::ROLE_NAME);
-        $description = RoleDescription::fromString(self::ROLE_DESCRIPTION);
-        $role = new Role($id, $name, $description);
-
-        return $role;
     }
 
     protected function tearDown()

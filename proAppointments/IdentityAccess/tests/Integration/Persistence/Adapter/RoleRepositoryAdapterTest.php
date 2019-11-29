@@ -4,18 +4,13 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Adapter;
 
-use ProAppointments\IdentityAccess\Domain\Access\Role;
-use ProAppointments\IdentityAccess\Domain\Access\RoleDescription;
 use ProAppointments\IdentityAccess\Domain\Access\RoleId;
-use ProAppointments\IdentityAccess\Domain\Access\RoleName;
-use ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter;
-use ProAppointments\IdentityAccess\Tests\Integration\Persistence\Adapter\UserRepositoryWithDoctrineError\UserRepositoryWithORMException;
+use ProAppointments\IdentityAccess\Tests\DataFixtures\RoleFixtureBehavior;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class RoleRepositoryAdapterTest extends KernelTestCase
 {
-    private const ROLE_NAME = 'irrelevant';
-    private const ROLE_DESCRIPTION = 'irrelevant';
+    use RoleFixtureBehavior;
 
     private $roleRepository;
 
@@ -104,29 +99,6 @@ class RoleRepositoryAdapterTest extends KernelTestCase
         $role = $this->generateRoleAggregate();
 
         $this->roleRepository->update($role);
-    }
-
-//    /**
-//     * @test
-//     * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\ImpossibleToRemoveUser
-//     */
-//    public function detect_doctrine_ORMException_on_remove_and_throw_ImpossibeToRemoveUser_exception(): void
-//    {
-//        list($id, $role) = $this->generateUserAggregate();
-//
-//        $roleRepositoryAdapter = new UserRepositoryAdapter(new UserRepositoryWithORMException());
-//
-//        $roleRepositoryAdapter->remove($role);
-//    }
-//
-    protected function generateRoleAggregate(): Role
-    {
-        $id = RoleId::generate();
-        $name = RoleName::fromString(self::ROLE_NAME);
-        $description = RoleDescription::fromString(self::ROLE_DESCRIPTION);
-        $role = new Role($id, $name, $description);
-
-        return $role;
     }
 
     protected function tearDown()
