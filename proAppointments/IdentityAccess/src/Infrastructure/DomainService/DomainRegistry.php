@@ -2,7 +2,9 @@
 
 namespace ProAppointments\IdentityAccess\Infrastructure\DomainService;
 
+use ProAppointments\IdentityAccess\Domain\Identity\UserRepository;
 use ProAppointments\IdentityAccess\Domain\Service\DomainRegistry as DomainRegistryPort;
+use ProAppointments\IdentityAccess\Domain\Service\PasswordEncoder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DomainRegistry implements DomainRegistryPort
@@ -17,14 +19,13 @@ class DomainRegistry implements DomainRegistryPort
         return static::$container->get('app.clock.system');
     }
 
-    public static function userRepository()
+    public static function userRepository(): UserRepository
     {
         return static::$container->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter');
     }
 
-    public static function passwordEncoder()
+    public static function passwordEncoder(): PasswordEncoder
     {
-        //return static::$container->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter');
         return new NullPasswordEncoder();
     }
 

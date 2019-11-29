@@ -17,11 +17,6 @@ final class RoleDescription
         $this->value = $value;
     }
 
-    public function value(): string
-    {
-        return $this->value;
-    }
-
     public static function fromString(string $roleDescription): RoleDescription
     {
         return new self($roleDescription);

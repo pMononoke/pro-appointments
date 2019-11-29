@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Repository;
 
 use ProAppointments\IdentityAccess\Domain\Access\Role;
-use ProAppointments\IdentityAccess\Domain\Access\RoleDescription;
 use ProAppointments\IdentityAccess\Domain\Access\RoleId;
-use ProAppointments\IdentityAccess\Domain\Access\RoleName;
+use ProAppointments\IdentityAccess\Tests\DataFixtures\RoleFixtureBehavior;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class DoctrineRoleRepositoryTest extends KernelTestCase
 {
-    private const ROLE_NAME = 'irrelevant';
-    private const ROLE_DESCRIPTION = 'irrelevant';
+    use RoleFixtureBehavior;
 
     private $repository;
 
@@ -43,6 +41,20 @@ class DoctrineRoleRepositoryTest extends KernelTestCase
         $this->assertTrue($this->repository->roleExist($role->id()));
     }
 
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Access\Exception\RoleAlreadyExist
+     */
+    public function can_not_add_a_role_and_throw_RoleAlreadyExist()
+    {
+        $role = $this->generateRoleAggregate();
+
+        $this->repository->add($role);
+        $this->repository->add($role);
+
+        //$this->assertTrue($this->repository->roleExist($role->id()));
+    }
+
     /** @test */
     public function can_retrieve_a_role_by_roleId()
     {
@@ -57,7 +69,16 @@ class DoctrineRoleRepositoryTest extends KernelTestCase
     /** @test */
     public function can_update_a_role()
     {
-        self::markTestSkipped('No update methods in Role aggregate for now.');
+        //self::markTestSkipped('No update methods in Role aggregate for now.');
+
+        $role = $this->generateRoleAggregate();
+        $this->repository->add($role);
+
+        //TODO add modify method call here.
+        $this->repository->update($role);
+
+        //TODO check modification here. (for now it check existence)
+        $this->assertTrue($this->repository->roleExist($role->id()));
     }
 
     /** @test */
@@ -69,16 +90,6 @@ class DoctrineRoleRepositoryTest extends KernelTestCase
         $this->repository->remove($role);
 
         $this->assertFalse($this->repository->roleExist($role->id()));
-    }
-
-    protected function generateRoleAggregate(): Role
-    {
-        $id = RoleId::generate();
-        $name = RoleName::fromString(self::ROLE_NAME);
-        $description = RoleDescription::fromString(self::ROLE_DESCRIPTION);
-        $role = new Role($id, $name, $description);
-
-        return $role;
     }
 
     protected function tearDown(): void

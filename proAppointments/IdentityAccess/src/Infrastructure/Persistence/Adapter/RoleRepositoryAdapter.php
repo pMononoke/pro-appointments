@@ -69,12 +69,12 @@ class RoleRepositoryAdapter implements RoleRepositoryPort
             throw  RoleNotFound::withId($roleId);
         }
         try {
-            $user = $this->innerRepository->ofId($roleId);
+            $role = $this->innerRepository->ofId($roleId);
         } catch (Exception $e) {
             throw new ImpossibleToRetrieveRole('Persistence error, impossible to retrieve role with id: '.$roleId->toString());
         }
 
-        return $user;
+        return $role;
     }
 
     /**

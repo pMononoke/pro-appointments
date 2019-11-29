@@ -4,14 +4,22 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use ProAppointments\IdentityAccess\Domain\Access\Exception\RoleAlreadyExist;
 use ProAppointments\IdentityAccess\Domain\Access\Exception\RoleNotFound;
 use ProAppointments\IdentityAccess\Domain\Access\Role;
 use ProAppointments\IdentityAccess\Domain\Access\RoleId;
+use ProAppointments\IdentityAccess\Domain\Access\RoleName;
 
-class InMemoryRoleRepository implements InfrastructureRoleRepository
+class InMemoryRoleRepository implements ReadWriteRoleRepository
 {
-    private $rolesCollection = [];
+    /** @var ArrayCollection */
+    private $rolesCollection;
+
+    public function __construct()
+    {
+        $this->rolesCollection = new ArrayCollection([]);
+    }
 
     public function nextIdentity(): RoleId
     {
@@ -23,7 +31,11 @@ class InMemoryRoleRepository implements InfrastructureRoleRepository
      */
     public function add(Role $role): void
     {
-        $this->rolesCollection[$role->Id()->toString()] = $role;
+        if ($this->roleExist($role->id())) {
+            throw RoleAlreadyExist::withId($role->id());
+        }
+
+        $this->rolesCollection->set($role->id()->toString(), $role);
     }
 
     /**
@@ -43,31 +55,49 @@ class InMemoryRoleRepository implements InfrastructureRoleRepository
      */
     public function update(Role $role): void
     {
-        $this->rolesCollection[$role->Id()->toString()] = $role;
+        if (!$this->roleExist($role->id())) {
+            throw RoleNotFound::withId($role->id());
+        }
+
+        $this->rolesCollection->set($role->id()->toString(), $role);
     }
 
     public function remove(Role $role): void
     {
-        if (array_key_exists($role->Id()->toString(), $this->rolesCollection)) {
-            unset($this->rolesCollection[$role->Id()->toString()]);
-        }
+        $this->rolesCollection->remove($role->id()->toString());
+
         // TODO should throw exception? or should silent logging e continue the flow?
         //throw new RoleNotFound($role->Id());
     }
 
     public function roleExist(RoleId $roleId): bool
     {
-        $exist = false;
-
-        if (array_key_exists($roleId->toString(), $this->rolesCollection)) {
-            $exist = true;
-        }
-
-        return $exist;
+        return $this->rolesCollection->containsKey($roleId->toString());
     }
 
-    public function allRoles(): array
+    /** READ SIDE QUERY */
+    public function findById(RoleId $roleId): ?Role
     {
-        return $this->rolesCollection;
+        return $this->rolesCollection->get($roleId->toString());
+    }
+
+    /** READ SIDE QUERY */
+    public function findAll(int $limit): array
+    {
+        return $this->rolesCollection->toArray();
+    }
+
+    /** READ SIDE QUERY */
+    public function findByRoleName(RoleName $roleName): ?Role
+    {
+        $rolesByName = $this->rolesCollection->filter(function (Role $role) use ($roleName) {
+            return $role->name()->equals($roleName);
+        });
+
+        if ($rolesByName->isEmpty()) {
+            return null;
+        }
+
+        return $rolesByName->first();
     }
 }
