@@ -5,30 +5,18 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Query;
 
 use ProAppointments\IdentityAccess\Application\Service\Query\UserQuery;
-use ProAppointments\IdentityAccess\Domain\Identity\ContactInformation;
-use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
-use ProAppointments\IdentityAccess\Domain\Identity\FullName;
-use ProAppointments\IdentityAccess\Domain\Identity\LastName;
-use ProAppointments\IdentityAccess\Domain\Identity\MobileNumber;
-use ProAppointments\IdentityAccess\Domain\Identity\Person;
-use ProAppointments\IdentityAccess\Domain\Identity\User;
-use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
-use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InfrastructureRoleRepository;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryUserQuery;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryUserRepository;
+use ProAppointments\IdentityAccess\Tests\DataFixtures\UserFixtureBehavior;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class InMemoryUserQueryTest extends KernelTestCase
 {
-    private const TABLES = ['ia_user', 'ia_person'];
+    use UserFixtureBehavior;
 
-    private const EMAIL = 'irrelevant@email.com';
-    private const PASSWORD = 'irrelevant';
-    private const FIRST_NAME = 'irrelevant';
-    private const LAST_NAME = 'irrelevant';
-    private const MOBILE_NUMBER = '+39-392-1111111';
+    private const TABLES = ['ia_user', 'ia_person'];
 
     /** @var UserQuery */
     private $userQuery;
@@ -62,28 +50,6 @@ class InMemoryUserQueryTest extends KernelTestCase
         $userFromQuery = $this->userQuery->execute(UserId::generate());
 
         self::assertNull($userFromQuery);
-    }
-
-    protected function generateUserAggregate(): array
-    {
-        $id = UserId::generate();
-        $fullName = new FullName(
-            $firstName = FirstName::fromString(self::FIRST_NAME),
-            $lastName = LastName::fromString(self::LAST_NAME)
-        );
-        $contactInformation = new ContactInformation(
-            $email = UserEmail::fromString(self::EMAIL),
-            $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
-        );
-        $person = new Person($id, $fullName, $contactInformation);
-        $user = User::register(
-            $id,
-            $email = UserEmail::fromString(self::EMAIL),
-            $password = UserPassword::fromString(self::PASSWORD),
-            $person
-        );
-
-        return [$id, $user];
     }
 
     private function pupulateDatabase(object $data): void
