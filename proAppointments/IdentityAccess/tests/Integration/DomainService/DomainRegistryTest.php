@@ -48,4 +48,9 @@ class DomainRegistryTest extends KernelTestCase
 
         self::assertInstanceOf(PasswordEncoder::class, $passwordEncoder);
     }
+
+    protected function tearDown(): void
+    {
+        $this->domainRegistry = null;
+    }
 }

@@ -25,6 +25,7 @@ class RoleByNameQuery implements RoleByNameQueryPort
             ->select('Role')
             ->from(Role::class, 'Role')
             ->where('Role.name = :roleName')
+            ->setMaxResults(1)
             ->setParameter('roleName', $roleName->toString());
 
         return $queryBuilder->getQuery()->getOneOrNullResult();

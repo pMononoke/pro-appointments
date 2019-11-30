@@ -66,6 +66,15 @@ class DoctrineRoleRepositoryTest extends KernelTestCase
         $this->assertTrue($role->sameIdentityAs($roleFromDatabase));
     }
 
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Access\Exception\RoleNotFound
+     */
+    public function can_retrieve_a_role_by_roleId_and_throw_RoleNotFound()
+    {
+        $this->repository->ofId(RoleId::generate());
+    }
+
     /** @test */
     public function can_update_a_role()
     {

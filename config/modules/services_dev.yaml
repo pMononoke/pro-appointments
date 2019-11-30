@@ -51,3 +51,7 @@ services:
     ProAppointments\IdentityAccess\UI\Cli\WireChangeFirstNameCommand:
         arguments:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService'
+
+    ProAppointments\IdentityAccess\UI\Cli\WireRoleCommand:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\RoleRepositoryAdapter'

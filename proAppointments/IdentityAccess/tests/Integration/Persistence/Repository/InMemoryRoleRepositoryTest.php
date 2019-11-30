@@ -7,6 +7,7 @@ namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Repositor
 use PHPUnit\Framework\TestCase;
 use ProAppointments\IdentityAccess\Domain\Access\Role;
 use ProAppointments\IdentityAccess\Domain\Access\RoleId;
+use ProAppointments\IdentityAccess\Domain\Access\RoleName;
 use ProAppointments\IdentityAccess\Domain\Access\RoleRepository;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleRepository;
 use ProAppointments\IdentityAccess\Tests\DataFixtures\RoleFixtureBehavior;
@@ -113,6 +114,50 @@ class InMemoryRoleRepositoryTest extends TestCase
         $this->repository->remove($role);
 
         $this->assertFalse($this->repository->roleExist($role->id()));
+    }
+
+    /** READ SIDE QUERY */
+
+    /** @test */
+    public function can_execute_findById_query(): void
+    {
+        $role = $this->generateRoleAggregate();
+        $this->repository->add($role);
+
+        $roleFromDatabase = $this->repository->findById($role->id());
+
+        $this->assertTrue($role->sameIdentityAs($roleFromDatabase));
+    }
+
+    /** READ SIDE QUERY */
+
+    /** @test */
+    public function execution_of_findById_query_return_null(): void
+    {
+        $roleFromDatabase = $this->repository->findById(RoleId::generate());
+
+        $this->assertNull($roleFromDatabase);
+    }
+
+    /** READ SIDE QUERY */
+
+    /** @test */
+    public function can_execute_findByRoleName_query(): void
+    {
+        $role = $this->generateRoleAggregate();
+        $this->repository->add($role);
+
+        $roleFromDatabase = $this->repository->findByRoleName(RoleName::fromString('irrelevant'));
+
+        $this->assertTrue($role->sameIdentityAs($roleFromDatabase));
+    }
+
+    /** READ SIDE QUERY */
+
+    /** @test */
+    public function execution_of_findByRoleName_query_return_null(): void
+    {
+        $this->assertNull($this->repository->findByRoleName(RoleName::fromString('irrelevant')));
     }
 
     protected function tearDown()

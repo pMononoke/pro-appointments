@@ -7,17 +7,12 @@ namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Query;
 use ProAppointments\IdentityAccess\Domain\Access\RoleName;
 use ProAppointments\IdentityAccess\Domain\Access\RoleRepository;
 use ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName\RoleByNameQuery;
-use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleByNameQuery;
-use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleCollection;
-use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryRoleRepository;
 use ProAppointments\IdentityAccess\Tests\DataFixtures\RoleFixtureBehavior;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class DoctrineRoleByNameQueryTest extends KernelTestCase
 {
     use RoleFixtureBehavior;
-
-    private const TABLES = ['ia_role'];
 
     /** @var RoleByNameQuery */
     private $roleQuery;
@@ -39,12 +34,6 @@ class DoctrineRoleByNameQueryTest extends KernelTestCase
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine.orm.default_entity_manager');
-
-//        $this->repository = new InMemoryRoleRepository();
-//
-//        $this->roleQuery = new InMemoryRoleByNameQuery(
-//            new InMemoryRoleCollection($this->repository)
-//        );
     }
 
     /** @test */
@@ -79,23 +68,8 @@ class DoctrineRoleByNameQueryTest extends KernelTestCase
         $this->entityManager->flush();
     }
 
-    private function clearDatabase(): void
-    {
-        $this->truncateTables();
-    }
-
-    private function truncateTables(): void
-    {
-        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS = 0;');
-        foreach (self::TABLES as $table) {
-            $this->entityManager->getConnection()->executeQuery(sprintf('TRUNCATE `%s`;', $table));
-        }
-        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS = 1;');
-    }
-
     protected function tearDown()
     {
-        $this->clearDatabase();
         $this->repository = null;
         $this->roleQuery = null;
         parent::tearDown();

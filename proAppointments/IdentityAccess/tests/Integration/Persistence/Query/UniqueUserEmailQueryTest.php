@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Query;
 
+use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
+use ProAppointments\IdentityAccess\Domain\Service\UniqueUserEmail\UniqueUserEmailQuery;
 use ProAppointments\IdentityAccess\Tests\DataFixtures\UserFixtureBehavior;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class DoctrineUserQueryTest extends KernelTestCase
+class UniqueUserEmailQueryTest extends KernelTestCase
 {
     use UserFixtureBehavior;
 
-    private $userQuery;
+    /** @var uniqueUserEmailQuery */
+    private $uniqueUserEmailQuery;
 
     private $entityManager;
 
@@ -19,22 +22,26 @@ class DoctrineUserQueryTest extends KernelTestCase
     {
         $kernel = self::bootKernel();
 
-        $this->userQuery = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserQuery');
+        $this->uniqueUserEmailQuery = $kernel->getContainer()
+            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueUserEmailQuery');
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine.orm.default_entity_manager');
     }
 
     /** @test */
-    public function can_find_a_user_by_user_id(): void
+    public function can_return_not_unique_email_if_email_exist(): void
     {
         list($id, $user) = $this->generateUserAggregate();
         $this->pupulateDatabase($user);
 
-        $userFromDatabase = $this->userQuery->execute($id);
+        $this->assertFalse($this->uniqueUserEmailQuery->execute($user->email()));
+    }
 
-        $this->assertTrue($user->sameIdentityAs($userFromDatabase));
+    /** @test */
+    public function can_return_unique_email_if_email_not_exist(): void
+    {
+        $this->assertTrue($this->uniqueUserEmailQuery->execute(UserEmail::fromString('unknown@example.com')));
     }
 
     private function pupulateDatabase(object $data): void
@@ -50,7 +57,8 @@ class DoctrineUserQueryTest extends KernelTestCase
 
     protected function tearDown()
     {
-        $this->userQuery = null;
+        $this->entityManager = null;
+        $this->uniqueUserEmailQuery = null;
         parent::tearDown();
     }
 }

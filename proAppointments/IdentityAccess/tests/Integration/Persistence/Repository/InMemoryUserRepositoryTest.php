@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Repository;
 
+use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory\InMemoryUserRepository;
@@ -146,6 +147,26 @@ class InMemoryUserRepositoryTest extends KernelTestCase
         $usersFromDatabase = $this->userRepository->findAll();
 
         $this->assertEquals(3, count($usersFromDatabase));
+    }
+
+    /** READ SIDE QUERY */
+
+    /** @test */
+    public function findUniqueUserEmail_query_execution_return_false_if_email_exist(): void
+    {
+        self::markTestSkipped();
+        $first = list($id, $user) = $this->generateUserAggregate();
+        $this->userRepository->register($user);
+
+        $this->assertFalse($this->userRepository->findUniqueUserEmail($user->email()));
+    }
+
+    /** READ SIDE QUERY */
+
+    /** @test */
+    public function findUniqueUserEmail_query_execution_return_true_if_email_not_exist(): void
+    {
+        $this->assertTrue($this->userRepository->findUniqueUserEmail(UserEmail::fromString('unknown@example.com')));
     }
 
     protected function tearDown()
