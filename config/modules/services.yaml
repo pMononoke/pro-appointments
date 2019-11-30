@@ -54,6 +54,11 @@ services:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleByNameQuery'
         public: true
 
+    ProAppointments\IdentityAccess\Domain\Service\UniqueUserEmail\UniqueUserEmail:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueUserEmailQuery'
+        public: true
+
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter:
         arguments:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository'
@@ -148,6 +153,8 @@ services:
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleByNameQuery:
         public: true
 
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueUserEmailQuery:
+        public: true
 
 
 

@@ -30,7 +30,6 @@ class UniqueRoleNameTest extends kernelTestCase
             ->get('ProAppointments\IdentityAccess\Infrastructure\DomainService\UniqueRoleName');
         $this->roleRepository = $kernel->getContainer()
             ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\RoleRepositoryAdapter');
-        //->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository');
     }
 
     /** @test */

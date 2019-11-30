@@ -52,7 +52,6 @@ class RoleRepositoryAdapterTest extends KernelTestCase
         $this->roleRepository->remove($firstRole);
         $userFromDatabase = $this->roleRepository->ofId($secondRole->id());
 
-        //self::assertNull($this->userRepository->ofId($id));
         $this->assertTrue($secondRole->sameIdentityAs($userFromDatabase));
     }
 

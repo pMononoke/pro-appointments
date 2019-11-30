@@ -11,8 +11,6 @@ class DoctrineUsersQueryTest extends KernelTestCase
 {
     use UserFixtureBehavior;
 
-    private const TABLES = ['ia_user', 'ia_person'];
-
     private $userQuery;
 
     private $entityManager;

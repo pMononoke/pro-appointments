@@ -14,8 +14,6 @@ class DoctrineRoleByNameQueryTest extends KernelTestCase
 {
     use RoleFixtureBehavior;
 
-    private const TABLES = ['ia_role'];
-
     /** @var RoleByNameQuery */
     private $roleQuery;
 

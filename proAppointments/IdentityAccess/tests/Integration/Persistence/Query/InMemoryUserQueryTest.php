@@ -16,8 +16,6 @@ class InMemoryUserQueryTest extends KernelTestCase
 {
     use UserFixtureBehavior;
 
-    private const TABLES = ['ia_user', 'ia_person'];
-
     /** @var UserQuery */
     private $userQuery;
 

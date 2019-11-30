@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserAlreadyExist;
 use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserNotFound;
 use ProAppointments\IdentityAccess\Domain\Identity\User;
+use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
 class InMemoryUserRepository implements InfrastructureUserRepository
@@ -79,5 +80,21 @@ class InMemoryUserRepository implements InfrastructureUserRepository
     public function findAll(int $limit = 1000): array
     {
         return $this->userCollection->toArray();
+    }
+
+    /** READ SIDE QUERY */
+    public function findUniqueUserEmail(UserEmail $userEmail): bool
+    {
+        $isUniqueUserEmail = false;
+
+        $usersByEmail = $this->userCollection->filter(function (User $user) use ($userEmail) {
+            return $user->email()->equals($userEmail);
+        });
+
+        if ($usersByEmail->isEmpty()) {
+            $isUniqueUserEmail = true;
+        }
+
+        return $isUniqueUserEmail;
     }
 }

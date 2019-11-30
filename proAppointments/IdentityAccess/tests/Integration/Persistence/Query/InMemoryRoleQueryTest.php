@@ -16,8 +16,6 @@ class InMemoryRoleQueryTest extends KernelTestCase
 {
     use RoleFixtureBehavior;
 
-    private const TABLES = ['ia_user', 'ia_person'];
-
     /** @var RoleQuery */
     private $roleQuery;
 
