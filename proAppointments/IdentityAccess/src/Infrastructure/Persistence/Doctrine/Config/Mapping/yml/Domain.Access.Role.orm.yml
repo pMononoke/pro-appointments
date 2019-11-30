@@ -11,9 +11,9 @@ ProAppointments\IdentityAccess\Domain\Access\Role:
   fields:
     name:
       column: name
-      type: string
+      type: identity_role_name
       nullable: false
     description:
       column: description
-      type: string
-      nullable: false
+      type: identity_role_description
+      nullable: true

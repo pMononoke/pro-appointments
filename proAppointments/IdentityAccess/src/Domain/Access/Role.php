@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Domain\Access;
 
 use CompostDDD\Aggregate\AggregateBehaviour;
+use ProAppointments\IdentityAccess\Domain\Access\Event\RoleWasProvisioned;
 
 class Role
 {
@@ -21,6 +22,9 @@ class Role
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
+//        $this->recordThat(
+//            new RoleWasProvisioned($this->id, $this->name, $this->description)
+//        );
     }
 
     public function sameIdentityAs(Role $other): bool

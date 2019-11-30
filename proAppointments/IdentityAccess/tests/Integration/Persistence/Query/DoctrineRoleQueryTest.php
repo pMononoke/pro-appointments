@@ -70,23 +70,8 @@ class DoctrineRoleQueryTest extends KernelTestCase
         $this->entityManager->flush();
     }
 
-    private function clearDatabase(): void
-    {
-        $this->truncateTables();
-    }
-
-    private function truncateTables(): void
-    {
-        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS = 0;');
-        foreach (self::TABLES as $table) {
-            $this->entityManager->getConnection()->executeQuery(sprintf('TRUNCATE `%s`;', $table));
-        }
-        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS = 1;');
-    }
-
     protected function tearDown()
     {
-        $this->clearDatabase();
         $this->repository = null;
         $this->roleQuery = null;
         parent::tearDown();

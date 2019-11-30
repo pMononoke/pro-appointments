@@ -36,6 +36,15 @@ abstract class ApplicationServiceTestCase extends KernelTestCase
         StaticDriver::setKeepStaticConnections(false);
     }
 
+    /**
+     * @after
+     */
+    protected function tearDownApplicationService(): void
+    {
+        // enable DAMA TRANSACTION
+        StaticDriver::setKeepStaticConnections(true);
+    }
+
     protected function clock(): Clock
     {
         return $this->clock;

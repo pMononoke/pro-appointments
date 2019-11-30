@@ -21,6 +21,8 @@ doctrine:
             identity_first_name:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineFirstNameType
             identity_mobile_number:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineMobileNumberType
             identity_role_id:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineRoleIdType
+            identity_role_name:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineRoleNameType
+            identity_role_description:  ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Config\Type\DoctrineRoleDescriptionType
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore

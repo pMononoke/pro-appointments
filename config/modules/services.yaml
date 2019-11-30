@@ -37,6 +37,9 @@ services:
             - '@app.date_time_zone'
         public: true
 
+    #
+    #   DOMAIN SERVICE
+    #
     ProAppointments\IdentityAccess\Infrastructure\DomainService\DomainRegistry:
         calls:
             - method: 'setContainer'
@@ -44,18 +47,12 @@ services:
                   - '@service_container'
         public: true
 
-    identity.transactional.session:
-        class: CompostDDD\ApplicationService\DoctrineSession
-        arguments:
-            - '@doctrine.orm.entity_manager'
-
-
-    ProAppointments\IdentityAccess\UI\Cli\:
-        resource: '../../proAppointments/IdentityAccess/src/UI/Cli'
-        tags:
-            - { name: 'console.command' }
-
     ProAppointments\IdentityAccess\Domain\Identity\UserFactory:
+
+    ProAppointments\IdentityAccess\Infrastructure\DomainService\UniqueRoleName:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleByNameQuery'
+        public: true
 
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter:
         arguments:
@@ -69,29 +66,16 @@ services:
             - '@ProAppointments\IdentityAccess\Infrastructure\Notification\DoctrineEventStore'
         public: true
 
-    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository:
-        public: true
-
-    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository:
-        public: true
-
-    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserQuery:
-        public: true
-
-    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UsersQuery:
-        public: true
-
-    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleQuery:
-        public: true
-
-    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleByNameQuery:
-        public: true
 
     #
-    # Application Services  &  Transactional Application Services
+    #   APPLICATION SERVICE &  TRANSACTIONAL APPLICATION SERVICES
     #
+    identity.transactional.session:
+        class: CompostDDD\ApplicationService\DoctrineSession
+        arguments:
+            - '@doctrine.orm.entity_manager'
+
     ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory: ~
-
 
     ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService:
         arguments:
@@ -132,6 +116,38 @@ services:
         arguments:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService'
             - '@identity.transactional.session'
+
+    #
+    #   UI PRESENTATION LAYER
+    #
+    ProAppointments\IdentityAccess\UI\Cli\:
+        resource: '../../proAppointments/IdentityAccess/src/UI/Cli'
+        tags:
+            - { name: 'console.command' }
+
+
+    #
+    #   INFRASTUCTURE LAYER
+    #
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository:
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository:
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserQuery:
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UsersQuery:
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleQuery:
+        public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleByNameQuery:
+        public: true
+
 
 
 

@@ -40,6 +40,8 @@ class DoctrineRoleRepository extends ServiceEntityRepository implements RoleRepo
         }
 
         $this->_em->persist($role);
+        //TODO remove
+        $this->_em->flush($role);
     }
 
     /**
@@ -68,6 +70,8 @@ class DoctrineRoleRepository extends ServiceEntityRepository implements RoleRepo
     public function remove(Role $role): void
     {
         $this->_em->remove($role);
+        //TODO remove
+        $this->_em->flush($role);
     }
 
     public function roleExist(RoleId $roleId): bool
