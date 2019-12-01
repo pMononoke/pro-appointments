@@ -10,6 +10,9 @@ use ProAppointments\IdentityAccess\Domain\Access\RoleRepository;
 use ProAppointments\IdentityAccess\Tests\DataFixtures\RoleFixtureBehavior;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
+/**
+ * @group doctrine
+ */
 class DoctrineRoleQueryTest extends KernelTestCase
 {
     use RoleFixtureBehavior;

@@ -10,7 +10,10 @@ use ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName\UniqueRoleNameQ
 use ProAppointments\IdentityAccess\Tests\DataFixtures\RoleFixtureBehavior;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class DoctrineRoleByNameQueryTest extends KernelTestCase
+/**
+ * @group doctrine
+ */
+class DoctrineUniqueRoleNameQueryTest extends KernelTestCase
 {
     use RoleFixtureBehavior;
 
