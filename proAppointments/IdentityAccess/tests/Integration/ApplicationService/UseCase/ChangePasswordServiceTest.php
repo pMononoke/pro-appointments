@@ -57,6 +57,21 @@ class ChangePasswordServiceTest extends UserServiceTestCase
         $this->assertEquals($userFromDatabase->password()->toString(), $plainPassword);
     }
 
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\UserNotFound
+     */
+    public function change_Password_service_throw_exception_if_user_not_fount(): void
+    {
+        $user = $this->generateUserAggregate();
+        $applicationRequest = new ChangePasswordRequest(
+            $user->id(),
+            $plainPassword = 'new changed password'
+        );
+
+        $this->txApplicationService->execute($applicationRequest);
+    }
+
     protected function tearDown()
     {
         $this->applicationService = null;
