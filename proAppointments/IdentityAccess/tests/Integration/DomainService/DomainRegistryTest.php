@@ -8,6 +8,7 @@ use CompostDDD\Time\Clock;
 use ProAppointments\IdentityAccess\Domain\Identity\UserRepository;
 use ProAppointments\IdentityAccess\Domain\Service\DomainRegistry;
 use ProAppointments\IdentityAccess\Domain\Service\PasswordEncoder;
+use ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName\UniqueRoleNameInterface;
 use ProAppointments\IdentityAccess\Domain\Service\UniqueUserEmail\UniqueUserEmailInterface;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -56,6 +57,14 @@ class DomainRegistryTest extends KernelTestCase
         $uniqueUserEmailService = $this->domainRegistry->uniqueUserEmail();
 
         self::assertInstanceOf(UniqueUserEmailInterface::class, $uniqueUserEmailService);
+    }
+
+    /** @test */
+    public function can_provide_a_UniqueRoleName(): void
+    {
+        $uniqueRoleNamelService = $this->domainRegistry->uniqueRoleName();
+
+        self::assertInstanceOf(UniqueRoleNameInterface::class, $uniqueRoleNamelService);
     }
 
     protected function tearDown(): void
