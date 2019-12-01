@@ -6,7 +6,7 @@ namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Query;
 
 use ProAppointments\IdentityAccess\Domain\Access\RoleName;
 use ProAppointments\IdentityAccess\Domain\Access\RoleRepository;
-use ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName\RoleByNameQuery;
+use ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName\UniqueRoleNameQuery;
 use ProAppointments\IdentityAccess\Tests\DataFixtures\RoleFixtureBehavior;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -14,7 +14,7 @@ class DoctrineRoleByNameQueryTest extends KernelTestCase
 {
     use RoleFixtureBehavior;
 
-    /** @var RoleByNameQuery */
+    /** @var UniqueRoleNameQuery */
     private $roleQuery;
 
     /** @var RoleRepository */
@@ -30,31 +30,25 @@ class DoctrineRoleByNameQueryTest extends KernelTestCase
             ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository');
 
         $this->roleQuery = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleByNameQuery');
+            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueRoleNameQuery');
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine.orm.default_entity_manager');
     }
 
     /** @test */
-    public function can_find_a_role_by_roleName(): void
+    public function can_return_not_unique_role_name_if_role_name_exist(): void
     {
         $role = $this->generateRoleAggregate();
         $this->pupulateDatabase($role);
 
-        $userFromQuery = $this->roleQuery->execute($role->name());
-
-        self::assertTrue($role->name()->equals($userFromQuery->name()));
-        self::assertTrue($role->name()->equals($userFromQuery->name()));
-        self::assertTrue($role->description()->equals($userFromQuery->description()));
+        $this->assertFalse($this->roleQuery->execute($role->name()));
     }
 
     /** @test */
-    public function query_by_RoleName_return_a_null_value(): void
+    public function can_return_unique_role_name_if_role_name_not_exist(): void
     {
-        $userFromQuery = $this->roleQuery->execute(RoleName::fromString('irrelevant'));
-
-        self::assertNull($userFromQuery);
+        $this->assertTrue($this->roleQuery->execute(RoleName::fromString('unknown-role-name')));
     }
 
     private function pupulateDatabase(object $data): void

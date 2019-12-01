@@ -88,16 +88,18 @@ class InMemoryRoleRepository implements ReadWriteRoleRepository
     }
 
     /** READ SIDE QUERY */
-    public function findByRoleName(RoleName $roleName): ?Role
+    public function findUniqueRoleName(RoleName $roleName): bool
     {
+        $isUniqueRoleName = false;
+
         $rolesByName = $this->rolesCollection->filter(function (Role $role) use ($roleName) {
             return $role->name()->equals($roleName);
         });
 
         if ($rolesByName->isEmpty()) {
-            return null;
+            $isUniqueRoleName = true;
         }
 
-        return $rolesByName->first();
+        return $isUniqueRoleName;
     }
 }

@@ -17,7 +17,7 @@ interface ReadWriteRoleRepository extends RoleRepository
     public function findById(RoleId $roleId): ?Role;
 
     /** READ SIDE QUERY */
-    public function findByRoleName(RoleName $roleName): ?Role;
+    public function findUniqueRoleName(RoleName $roleName): bool;
 
     /** READ SIDE QUERY */
     public function findAll(int $limit): array;

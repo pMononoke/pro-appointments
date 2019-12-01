@@ -49,9 +49,9 @@ services:
 
     ProAppointments\IdentityAccess\Domain\Identity\UserFactory:
 
-    ProAppointments\IdentityAccess\Infrastructure\DomainService\UniqueRoleName:
+    ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName\UniqueRoleName:
         arguments:
-            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleByNameQuery'
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueRoleNameQuery'
         public: true
 
     ProAppointments\IdentityAccess\Domain\Service\UniqueUserEmail\UniqueUserEmail:
@@ -150,7 +150,7 @@ services:
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleQuery:
         public: true
 
-    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleByNameQuery:
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueRoleNameQuery:
         public: true
 
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueUserEmailQuery:

@@ -52,8 +52,6 @@ class InMemoryRoleRepositoryTest extends TestCase
 
         $this->repository->add($role);
         $this->repository->add($role);
-
-        //$this->assertTrue($this->repository->roleExist($role->id()));
     }
 
     /** @test */
@@ -139,25 +137,44 @@ class InMemoryRoleRepositoryTest extends TestCase
         $this->assertNull($roleFromDatabase);
     }
 
+//    /** READ SIDE QUERY */
+//
+//    /** @test */
+//    public function can_execute_findByRoleName_query(): void
+//    {
+//        $role = $this->generateRoleAggregate();
+//        $this->repository->add($role);
+//
+//        $roleFromDatabase = $this->repository->findByRoleName(RoleName::fromString('irrelevant'));
+//
+//        $this->assertTrue($role->sameIdentityAs($roleFromDatabase));
+//    }
+//
+//    /** READ SIDE QUERY */
+//
+//    /** @test */
+//    public function execution_of_findByRoleName_query_return_null(): void
+//    {
+//        $this->assertNull($this->repository->findByRoleName(RoleName::fromString('irrelevant')));
+//    }
+
     /** READ SIDE QUERY */
 
     /** @test */
-    public function can_execute_findByRoleName_query(): void
+    public function findUniqueRoleName_query_execution_return_false_if_role_name_exist(): void
     {
         $role = $this->generateRoleAggregate();
         $this->repository->add($role);
 
-        $roleFromDatabase = $this->repository->findByRoleName(RoleName::fromString('irrelevant'));
-
-        $this->assertTrue($role->sameIdentityAs($roleFromDatabase));
+        $this->assertFalse($this->repository->findUniqueRoleName(RoleName::fromString('irrelevant')));
     }
 
     /** READ SIDE QUERY */
 
     /** @test */
-    public function execution_of_findByRoleName_query_return_null(): void
+    public function findUniqueRoleName_query_execution_return_true_if_role_name_not_exist(): void
     {
-        $this->assertNull($this->repository->findByRoleName(RoleName::fromString('irrelevant')));
+        $this->assertTrue($this->repository->findUniqueRoleName(RoleName::fromString('unknown@example.com')));
     }
 
     protected function tearDown()
