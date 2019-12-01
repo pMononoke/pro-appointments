@@ -7,9 +7,12 @@ namespace ProAppointments\IdentityAccess\Tests\Integration\ApplicationService\Us
 use CompostDDD\ApplicationService\TransationalApplicationServiceFactory;
 use ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameRequest;
 use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
+use ProAppointments\IdentityAccess\Tests\DataFixtures\IrrelevantUserFixtureBehavior;
 
 class ChangeFirstNameServiceTest extends UserServiceTestCase
 {
+    use IrrelevantUserFixtureBehavior;
+
     private $applicationService;
 
     private $transationalSession;
@@ -40,17 +43,17 @@ class ChangeFirstNameServiceTest extends UserServiceTestCase
     /** @test */
     public function can_execute_service_request(): void
     {
-        list($id, $user) = $this->generateUserAggregate();
+        $user = $this->generateUserAggregate();
         $this->populateDatabase($user);
         $applicationRequest = new ChangeFirstNameRequest(
-            $id,
+            $user->id(),
             $firstName = FirstName::fromString('new first name')
         );
 
         $this->txApplicationService->execute($applicationRequest);
 
-        $userFromDatabase = $this->retrieveUserById($id);
-        $this->assertTrue($userFromDatabase->id()->equals($id));
+        $userFromDatabase = $this->retrieveUserById($user->id());
+        $this->assertTrue($userFromDatabase->id()->equals($user->id()));
         $this->assertTrue($userFromDatabase->person()->name()->firstName()->equals($firstName));
     }
 

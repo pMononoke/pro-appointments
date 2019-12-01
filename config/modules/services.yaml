@@ -40,6 +40,7 @@ services:
     #
     #   DOMAIN SERVICE
     #
+    ProAppointments\IdentityAccess\Domain\Service\DomainRegistry: '@ProAppointments\IdentityAccess\Infrastructure\DomainService\DomainRegistry'
     ProAppointments\IdentityAccess\Infrastructure\DomainService\DomainRegistry:
         calls:
             - method: 'setContainer'

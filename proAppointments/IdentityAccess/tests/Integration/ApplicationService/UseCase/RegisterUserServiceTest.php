@@ -12,9 +12,12 @@ use ProAppointments\IdentityAccess\Domain\Identity\MobileNumber;
 use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
+use ProAppointments\IdentityAccess\Tests\DataFixtures\IrrelevantUserFixtureBehavior;
 
 class RegisterUserServiceTest extends UserServiceTestCase
 {
+    use IrrelevantUserFixtureBehavior;
+
     private $applicationService;
 
     private $transationalSession;
@@ -39,6 +42,9 @@ class RegisterUserServiceTest extends UserServiceTestCase
 
         $this->txApplicationService = $this->applicationServiceFactory->createTransationalApplicationService($this->applicationService, $this->transationalSession);
 
+        $this->userRepository = $kernel->getContainer()
+            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter');
+
         parent::setUp();
     }
 
@@ -58,6 +64,36 @@ class RegisterUserServiceTest extends UserServiceTestCase
 
         $userFromDatabase = $this->retrieveUserById($id);
         $this->assertTrue($userFromDatabase->id()->equals($id));
+    }
+
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\UserException
+     */
+    public function register_service_throw_exception_if_email_already_exist(): void
+    {
+        $user = $this->generateUserAggregate();
+        $this->userRepository->register($user);
+
+        $applicationRequest = new RegisterUserRequest(
+            //$id = UserId::generate(),
+            $user->id(),
+            //$email = UserEmail::fromString('irrelevant@example.com'),
+            $user->email(),
+            //UserPassword::fromString('irrelevant'),
+            $user->password(),
+            //FirstName::fromString('pippo'),
+            $user->person()->name()->firstName(),
+            //LastName::fromString('pluto'),
+            $user->person()->name()->lastName(),
+            //MobileNumber::fromString('+39-5555555')
+            $user->person()->contactInformation()->mobileNumber()
+        );
+
+        $this->txApplicationService->execute($applicationRequest);
+
+        //$userFromDatabase = $this->retrieveUserById($id);
+        //$this->assertTrue($userFromDatabase->id()->equals($id));
     }
 
     protected function tearDown()

@@ -7,9 +7,12 @@ namespace ProAppointments\IdentityAccess\Tests\Integration\ApplicationService\Us
 use CompostDDD\ApplicationService\TransationalApplicationServiceFactory;
 use ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserRequest;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
+use ProAppointments\IdentityAccess\Tests\DataFixtures\IrrelevantUserFixtureBehavior;
 
 class DeleteUserServiceTest extends UserServiceTestCase
 {
+    use IrrelevantUserFixtureBehavior;
+
     private $applicationService;
 
     private $transationalSession;
@@ -40,15 +43,15 @@ class DeleteUserServiceTest extends UserServiceTestCase
     /** @test */
     public function can_execute_service_request()
     {
-        list($id, $user) = $this->generateUserAggregate();
+        $user = $this->generateUserAggregate();
         $this->populateDatabase($user);
         $applicationRequest = new DeleteUserRequest(
-            $id
+            $user->id()
         );
 
         $this->txApplicationService->execute($applicationRequest);
 
-        self::assertTrue($this->isDeleted($id));
+        self::assertTrue($this->isDeleted($user->id()));
     }
 
     private function isDeleted(UserId $id): bool
