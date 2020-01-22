@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "de40f259bcd0acf8e12f8e945ea57d2c",
+    "content-hash": "c641c459065aab9ddfe0f68b19dd47de",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2383,28 +2383,28 @@
         },
         {
             "name": "symfony/dotenv",
-            "version": "v4.3.8",
+            "version": "v4.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dotenv.git",
-                "reference": "62d93bf07edd0d76f033d65a7fd1c1ce50d28b50"
+                "reference": "b74a1638f53e3c65e4bbfc2a03c23fdc400fd243"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dotenv/zipball/62d93bf07edd0d76f033d65a7fd1c1ce50d28b50",
-                "reference": "62d93bf07edd0d76f033d65a7fd1c1ce50d28b50",
+                "url": "https://api.github.com/repos/symfony/dotenv/zipball/b74a1638f53e3c65e4bbfc2a03c23fdc400fd243",
+                "reference": "b74a1638f53e3c65e4bbfc2a03c23fdc400fd243",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3"
             },
             "require-dev": {
-                "symfony/process": "^3.4.2|^4.0"
+                "symfony/process": "^3.4.2|^4.0|^5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.3-dev"
+                    "dev-master": "4.4-dev"
                 }
             },
             "autoload": {
@@ -2436,7 +2436,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2019-10-18T11:23:15+00:00"
+            "time": "2020-01-08T17:29:02+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -4231,6 +4231,7 @@
                 "code",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-code",
             "time": "2019-10-05T23:18:22+00:00"
         },
         {
@@ -4285,6 +4286,7 @@
                 "events",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-eventmanager",
             "time": "2018-04-25T15:33:34+00:00"
         }
     ],
@@ -5475,12 +5477,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/prolic/fpp.git",
-                "reference": "997e7de48df4df321f676f5ce05996f5c48f5e0b"
+                "reference": "820a64e2b9d935a9241b604e009549d4b6c164b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prolic/fpp/zipball/997e7de48df4df321f676f5ce05996f5c48f5e0b",
-                "reference": "997e7de48df4df321f676f5ce05996f5c48f5e0b",
+                "url": "https://api.github.com/repos/prolic/fpp/zipball/820a64e2b9d935a9241b604e009549d4b6c164b6",
+                "reference": "820a64e2b9d935a9241b604e009549d4b6c164b6",
                 "shasum": ""
             },
             "require": {
@@ -5488,7 +5490,7 @@
             },
             "require-dev": {
                 "mikey179/vfsstream": "^1.6.5",
-                "phpstan/phpstan": "^0.11.12",
+                "phpstan/phpstan": "^0.12.2",
                 "phpunit/phpunit": "^8.2",
                 "prooph/php-cs-fixer-config": "^0.3",
                 "satooshi/php-coveralls": "^2.0"
@@ -5513,7 +5515,7 @@
                 }
             ],
             "description": "Functional PHP Preprocessor",
-            "time": "2019-10-07T18:44:24+00:00"
+            "time": "2019-12-09T17:58:54+00:00"
         },
         {
             "name": "sensiolabs/security-checker",
