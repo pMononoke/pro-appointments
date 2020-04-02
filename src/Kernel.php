@@ -46,6 +46,13 @@ class Kernel extends BaseKernel
         $loader->load($confDir.'/{modules}/{packages}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
         $loader->load($confDir.'/{modules}/{services}'.self::CONFIG_EXTS, 'glob');
         $loader->load($confDir.'/{modules}/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
+
+        // dedicated config for Schedule module
+        $loader->load($confDir.'/{modules}/schedule/{packages}/*'.self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir.'/{modules}/schedule/{packages}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir.'/{modules}/schedule/schedule_{services}'.self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir.'/{modules}/schedule/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
+
     }
 
     protected function configureRoutes(RouteCollectionBuilder $routes): void

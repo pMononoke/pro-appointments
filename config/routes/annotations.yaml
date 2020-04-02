@@ -1,3 +1,9 @@
 controllers:
     resource: ../../src/Controller/
     type: annotation
+
+
+schedule-controllers:
+    #resource: ../../src/Controller/
+    resource: ../../proAppointments/Schedule/src/Adapter/In/Web
+    type: annotation

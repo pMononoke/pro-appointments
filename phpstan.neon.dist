@@ -27,6 +27,7 @@ parameters:
 
         # REMOVE
         - 'proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/Config/Type/DoctrineUserIdType.php'
+        - 'proAppointments/Schedule/src/Adapter/Out/Persistence/Doctrine/Config/Type/DoctrineAppointmentIdType.php'
 
         # issue #2
         - 'proAppointments/IdentityAccess/src/Domain/User/UserFactory.php'
