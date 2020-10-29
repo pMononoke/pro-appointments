@@ -16,7 +16,7 @@
         "symfony/orm-pack": "^1.0",
         "symfony/twig-pack": "^1.0",
         "symfony/webpack-encore-bundle": "^1.7",
-        "symfony/yaml": "4.3.*"
+        "symfony/yaml": "4.4.*"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.2",
