@@ -1,5 +1,7 @@
 {
+    "name": "pmononoke/pro-appointments",
     "type": "project",
+    "description": "Appointments app.",
     "license": "proprietary",
     "require": {
         "php": "^7.2",

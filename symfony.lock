@@ -168,6 +168,9 @@
     "ocramius/proxy-manager": {
         "version": "2.2.3"
     },
+    "php": {
+        "version": "7.4"
+    },
     "php-amqplib/php-amqplib": {
         "version": "v2.10.1"
     },

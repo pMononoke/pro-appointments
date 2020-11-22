@@ -24,13 +24,18 @@ jobs:
           coverage: none
 
       - name: QA - Run composer validate
-        uses: docker://jakzal/phpqa:php7.4-alpine
-        with:
-          args: composer validate --strict --ansi
-        continue-on-error: false
+        run: composer validate --strict --ansi
 
-      - name: QA - Run composer normalize
-        uses: docker://jakzal/phpqa:php7.4-alpine
-        with:
-          args: composer normalize --dry-run
-        continue-on-error: false
+      # @see https://github.com/pMononoke/pro-appointments/issues/156
+#      - name: QA - Run composer normalize
+#        uses: docker://jakzal/phpqa:php7.4-alpine
+#        with:
+#          args: composer normalize --dry-run
+#        continue-on-error: false
+
+
+#      - name: QA - Run composer validate
+#        uses: docker://jakzal/phpqa:php7.4-alpine
+#        with:
+#          args: composer validate --strict --ansi
+#        continue-on-error: false
