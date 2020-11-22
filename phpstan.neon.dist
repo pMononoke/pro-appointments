@@ -1,5 +1,8 @@
-#includes:
-    #- vendor/phpstan/phpstan-phpunit/extension.neon
+#   UPDATE BASELINE FLE COMMAND
+#   vendor/bin/phpstan analyse --level 7 --configuration phpstan.neon.dist --error-format baselineNeon  > phpstan-baseline.neon
+
+includes:
+    - phpstan-baseline.neon
     #- vendor/phpstan/phpstan-strict-rules/rules.neon
 
 parameters:
