@@ -56,6 +56,18 @@ jobs:
           extensions: intl, bcmath, curl, openssl, mbstring
           ini-values: memory_limit=-1
           coverage: none
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
+
       - name: Cache PHPStan results
         uses: actions/cache@v2
         with:
@@ -65,15 +77,15 @@ jobs:
             phpstan-php${{ matrix.php }}-
             phpstan-
         continue-on-error: true
-      - name: Update project dependencies
+      #- name: Update project dependencies
         #run: composer update --no-interaction --no-progress --ansi
-        run: composer install --no-interaction --no-progress --ansi --no-scripts
+        #run: composer install --no-interaction --no-progress --ansi --no-scripts
       #- name: Require phpstan/phpstan-doctrine
         #run: composer require phpstan/phpstan-doctrine --dev --no-interaction --no-progress --ansi
       - name: Run PHPStan analysis
         run: |
           cp phpstan.neon.dist phpstan.neon
-          phpstan analyse --no-interaction --no-progress --no-interaction --ansi
+          vendor/bin/phpstan analyse --no-interaction --no-progress --no-interaction --ansi
 
 
 
