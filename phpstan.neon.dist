@@ -1,5 +1,5 @@
 #   UPDATE BASELINE FLE COMMAND
-#   vendor/bin/phpstan analyse --level 7 --configuration phpstan.neon.dist --error-format baselineNeon  > phpstan-baseline.neon
+#   vendor/bin/phpstan analyse --level 7 --configuration phpstan.neon.dist --generate-baseline
 
 includes:
     - phpstan-baseline.neon
@@ -27,6 +27,7 @@ parameters:
         - '*/vendor/*'
         - '*/Spec/*'
         - '*/Migrations/*'
+        - 'tests/bootstrap.php'
 
         # REMOVE
         - 'proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/Config/Type/DoctrineUserIdType.php'

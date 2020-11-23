@@ -221,6 +221,16 @@ parameters:
 			path: proAppointments/IdentityAccess/src/Infrastructure/DomainService/NullPasswordEncoder.php
 
 		-
+			message: "#^Parameter \\$registry of method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\DoctrineEventStore\\:\\:__construct\\(\\) has invalid typehint type Doctrine\\\\Common\\\\Persistence\\\\ManagerRegistry\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/DoctrineEventStore.php
+
+		-
+			message: "#^Parameter \\#1 \\$registry of method Doctrine\\\\Bundle\\\\DoctrineBundle\\\\Repository\\\\ServiceEntityRepository\\:\\:__construct\\(\\) expects Doctrine\\\\Persistence\\\\ManagerRegistry, Doctrine\\\\Common\\\\Persistence\\\\ManagerRegistry given\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/DoctrineEventStore.php
+
+		-
 			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\DoctrineEventStore\\:\\:append\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/DoctrineEventStore.php
@@ -489,6 +499,26 @@ parameters:
 			message: "#^Parameter \\#1 \\$value of static method Doctrine\\\\DBAL\\\\Types\\\\ConversionException\\:\\:conversionFailed\\(\\) expects string, Ramsey\\\\Uuid\\\\UuidInterface\\|string given\\.$#"
 			count: 2
 			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/Config/Type/DoctrineRoleIdType.php
+
+		-
+			message: "#^Parameter \\$registry of method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\Doctrine\\\\DoctrineRoleRepository\\:\\:__construct\\(\\) has invalid typehint type Doctrine\\\\Common\\\\Persistence\\\\ManagerRegistry\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/DoctrineRoleRepository.php
+
+		-
+			message: "#^Parameter \\#1 \\$registry of method Doctrine\\\\Bundle\\\\DoctrineBundle\\\\Repository\\\\ServiceEntityRepository\\:\\:__construct\\(\\) expects Doctrine\\\\Persistence\\\\ManagerRegistry, Doctrine\\\\Common\\\\Persistence\\\\ManagerRegistry given\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/DoctrineRoleRepository.php
+
+		-
+			message: "#^Parameter \\$registry of method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\Doctrine\\\\DoctrineUserRepository\\:\\:__construct\\(\\) has invalid typehint type Doctrine\\\\Common\\\\Persistence\\\\ManagerRegistry\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/DoctrineUserRepository.php
+
+		-
+			message: "#^Parameter \\#1 \\$registry of method Doctrine\\\\Bundle\\\\DoctrineBundle\\\\Repository\\\\ServiceEntityRepository\\:\\:__construct\\(\\) expects Doctrine\\\\Persistence\\\\ManagerRegistry, Doctrine\\\\Common\\\\Persistence\\\\ManagerRegistry given\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/DoctrineUserRepository.php
 
 		-
 			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\Doctrine\\\\Query\\\\UsersQuery\\:\\:execute\\(\\) return type has no value type specified in iterable type array\\.$#"
