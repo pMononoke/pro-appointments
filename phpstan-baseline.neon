@@ -1,6 +1,582 @@
-
-
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Application\\\\Service\\\\Query\\\\UsersQuery\\:\\:execute\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Application/Service/Query/UsersQuery.php
 
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\Exception\\\\RoleAlreadyExist\\:\\:\\$id has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Access/Exception/RoleAlreadyExist.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\Exception\\\\RoleNotFound\\:\\:\\$id has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Access/Exception/RoleNotFound.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\Role\\:\\:\\$id has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Access/Role.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\Role\\:\\:\\$name has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Access/Role.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\Role\\:\\:\\$description has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Access/Role.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\RoleDescription\\:\\:\\$value has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Access/RoleDescription.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\RoleId\\:\\:\\$uuid has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Access/RoleId.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\RoleName\\:\\:\\$value has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Access/RoleName.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\AccessCredentialsWasChanged\\:\\:\\$userId has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/AccessCredentialsWasChanged.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\AccessCredentialsWasChanged\\:\\:\\$password has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/AccessCredentialsWasChanged.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\AccessCredentialsWasChanged\\:\\:\\$occurredOn has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/AccessCredentialsWasChanged.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\AccessCredentialsWasChanged\\:\\:toPayload\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/AccessCredentialsWasChanged.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\PersonalNameWasChanged\\:\\:\\$userId has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/PersonalNameWasChanged.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\PersonalNameWasChanged\\:\\:\\$firstName has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/PersonalNameWasChanged.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\PersonalNameWasChanged\\:\\:\\$lastName has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/PersonalNameWasChanged.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\PersonalNameWasChanged\\:\\:\\$occurredOn has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/PersonalNameWasChanged.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\PersonalNameWasChanged\\:\\:toPayload\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/PersonalNameWasChanged.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\UserWasDeleted\\:\\:\\$userId has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/UserWasDeleted.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\UserWasDeleted\\:\\:toPayload\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/UserWasDeleted.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\UserWasRegistered\\:\\:\\$userId has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/UserWasRegistered.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\UserWasRegistered\\:\\:\\$email has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/UserWasRegistered.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\UserWasRegistered\\:\\:\\$password has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/UserWasRegistered.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Event\\\\UserWasRegistered\\:\\:toPayload\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Event/UserWasRegistered.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Exception\\\\ImpossibleToRemoveUser\\:\\:\\$id has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Exception/ImpossibleToRemoveUser.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Exception\\\\ImpossibleToSaveUser\\:\\:\\$id has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Exception/ImpossibleToSaveUser.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Exception\\\\UserAlreadyExist\\:\\:\\$id has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Exception/UserAlreadyExist.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Exception\\\\UserNotFound\\:\\:\\$id has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Exception/UserNotFound.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\FirstName\\:\\:\\$value has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/FirstName.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\FullName\\:\\:\\$firstName has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/FullName.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\FullName\\:\\:\\$lastName has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/FullName.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\LastName\\:\\:\\$value has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/LastName.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\MobileNumber\\:\\:\\$mobileNumber has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/MobileNumber.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\Person\\:\\:changeName\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/Person.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\UserEmail\\:\\:\\$value has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/UserEmail.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\UserId\\:\\:\\$uuid has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/UserId.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\UserPassword\\:\\:\\$value has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Identity/UserPassword.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Domain\\\\Service\\\\DomainRegistry\\:\\:clockSystemService\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Domain/Service/DomainRegistry.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\DomainService\\\\DomainRegistry\\:\\:clockSystemService\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/DomainService/DomainRegistry.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\DomainService\\\\DomainRegistry\\:\\:userRepository\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\UserRepository but returns object\\|null\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/DomainService/DomainRegistry.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\DomainService\\\\DomainRegistry\\:\\:uniqueUserEmail\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Service\\\\UniqueUserEmail\\\\UniqueUserEmailInterface but returns object\\|null\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/DomainService/DomainRegistry.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\DomainService\\\\DomainRegistry\\:\\:uniqueRoleName\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Service\\\\UniqueRoleName\\\\UniqueRoleNameInterface but returns object\\|null\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/DomainService/DomainRegistry.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\DomainService\\\\DomainRegistry\\:\\:setContainer\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/DomainService/DomainRegistry.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\DomainService\\\\NullPasswordEncoder\\:\\:encode\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\UserPassword but return statement is missing\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/DomainService/NullPasswordEncoder.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\DoctrineEventStore\\:\\:append\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/DoctrineEventStore.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\DoctrineEventStore\\:\\:append\\(\\) has parameter \\$aDomainEvent with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/DoctrineEventStore.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\DoctrineEventStore\\:\\:allStoredEventsSince\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/DoctrineEventStore.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\DoctrineEventStore\\:\\:allStoredEventsSince\\(\\) has parameter \\$anEventId with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/DoctrineEventStore.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\EventStore\\:\\:append\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/EventStore.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\EventStore\\:\\:append\\(\\) has parameter \\$aDomainEvent with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/EventStore.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\EventStore\\:\\:allStoredEventsSince\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/EventStore.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\EventStore\\:\\:allStoredEventsSince\\(\\) has parameter \\$anEventId with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/EventStore.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\MessageProducer\\:\\:open\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/MessageProducer.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\MessageProducer\\:\\:open\\(\\) has parameter \\$exchangeName with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/MessageProducer.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\MessageProducer\\:\\:send\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/MessageProducer.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\MessageProducer\\:\\:send\\(\\) has parameter \\$exchangeName with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/MessageProducer.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\MessageProducer\\:\\:send\\(\\) has parameter \\$notificationId with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/MessageProducer.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\MessageProducer\\:\\:send\\(\\) has parameter \\$notificationMessage with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/MessageProducer.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\MessageProducer\\:\\:send\\(\\) has parameter \\$notificationType with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/MessageProducer.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\MessageProducer\\:\\:close\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/MessageProducer.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\MessageProducer\\:\\:close\\(\\) has parameter \\$exchangeName with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/MessageProducer.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\NullEventStore\\:\\:append\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/NullEventStore.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\NullEventStore\\:\\:append\\(\\) has parameter \\$aDomainEvent with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/NullEventStore.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\NullEventStore\\:\\:allStoredEventsSince\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/NullEventStore.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\NullEventStore\\:\\:allStoredEventsSince\\(\\) has parameter \\$anEventId with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/NullEventStore.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\NullMessageTracker\\:\\:mostRecentPublishedMessageId\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/NullMessageTracker.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\NullMessageTracker\\:\\:mostRecentPublishedMessageId\\(\\) has parameter \\$aTypeName with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/NullMessageTracker.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\NullMessageTracker\\:\\:trackMostRecentPublishedMessage\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/NullMessageTracker.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\NullMessageTracker\\:\\:trackMostRecentPublishedMessage\\(\\) has parameter \\$aTypeName with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/NullMessageTracker.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\NullMessageTracker\\:\\:trackMostRecentPublishedMessage\\(\\) has parameter \\$notification with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/NullMessageTracker.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\PublishedMessage\\:\\:updateMostRecentPublishedMessageId\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/PublishedMessage.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\PublishedMessageTracker\\:\\:mostRecentPublishedMessageId\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/PublishedMessageTracker.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\PublishedMessageTracker\\:\\:mostRecentPublishedMessageId\\(\\) has parameter \\$aTypeName with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/PublishedMessageTracker.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\PublishedMessageTracker\\:\\:trackMostRecentPublishedMessage\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/PublishedMessageTracker.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\PublishedMessageTracker\\:\\:trackMostRecentPublishedMessage\\(\\) has parameter \\$aTypeName with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/PublishedMessageTracker.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\PublishedMessageTracker\\:\\:trackMostRecentPublishedMessage\\(\\) has parameter \\$notification with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/PublishedMessageTracker.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessageProducer\\:\\:send\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessageProducer.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessageProducer\\:\\:send\\(\\) has parameter \\$exchangeName with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessageProducer.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessageProducer\\:\\:send\\(\\) has parameter \\$notificationId with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessageProducer.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessageProducer\\:\\:send\\(\\) has parameter \\$notificationMessage with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessageProducer.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessageProducer\\:\\:send\\(\\) has parameter \\$notificationType with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessageProducer.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessaging\\:\\:\\$connection has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessaging.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessaging\\:\\:\\$channel has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessaging.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessaging\\:\\:connect\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessaging.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessaging\\:\\:connect\\(\\) has parameter \\$exchangeName with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessaging.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessaging\\:\\:open\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessaging.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessaging\\:\\:open\\(\\) has parameter \\$exchangeName with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessaging.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessaging\\:\\:channel\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessaging.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessaging\\:\\:channel\\(\\) has parameter \\$exchangeName with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessaging.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessaging\\:\\:close\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessaging.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Notification\\\\RabbitMqMessaging\\:\\:close\\(\\) has parameter \\$exchangeName with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Notification/RabbitMqMessaging.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\Adapter\\\\RoleRepositoryAdapter\\:\\:\\$eventStore has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/Adapter/RoleRepositoryAdapter.php
+
+		-
+			message: "#^Call to an undefined method ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\RoleRepository\\:\\:roleExist\\(\\)\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/Adapter/RoleRepositoryAdapter.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\Adapter\\\\UserRepositoryAdapter\\:\\:\\$repository has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/Adapter/UserRepositoryAdapter.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\Adapter\\\\UserRepositoryAdapter\\:\\:\\$eventStore has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/Adapter/UserRepositoryAdapter.php
+
+		-
+			message: "#^Instanceof between Ramsey\\\\Uuid\\\\UuidInterface\\|string and ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\RoleId will always evaluate to false\\.$#"
+			count: 2
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/Config/Type/DoctrineRoleIdType.php
+
+		-
+			message: "#^Parameter \\#1 \\$roleId of static method ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\RoleId\\:\\:fromString\\(\\) expects string, Ramsey\\\\Uuid\\\\UuidInterface\\|string given\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/Config/Type/DoctrineRoleIdType.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of static method Doctrine\\\\DBAL\\\\Types\\\\ConversionException\\:\\:conversionFailed\\(\\) expects string, Ramsey\\\\Uuid\\\\UuidInterface\\|string given\\.$#"
+			count: 2
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/Config/Type/DoctrineRoleIdType.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\Doctrine\\\\Query\\\\UsersQuery\\:\\:execute\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/Query/UsersQuery.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\InMemory\\\\InMemoryRoleQuery\\:\\:\\$roleRepository has no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/InMemory/InMemoryRoleQuery.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\InMemory\\\\InMemoryRoleRepository\\:\\:\\$rolesCollection with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/InMemory/InMemoryRoleRepository.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\InMemory\\\\InMemoryRoleRepository\\:\\:findAll\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/InMemory/InMemoryRoleRepository.php
+
+		-
+			message: "#^Property ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\InMemory\\\\InMemoryUserRepository\\:\\:\\$userCollection with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/InMemory/InMemoryUserRepository.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\InMemory\\\\InMemoryUserRepository\\:\\:findAll\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/InMemory/InMemoryUserRepository.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\InMemory\\\\InMemoryUsersQuery\\:\\:execute\\(\\) has parameter \\$limit with no typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/InMemory/InMemoryUsersQuery.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\InMemory\\\\InMemoryUsersQuery\\:\\:execute\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/InMemory/InMemoryUsersQuery.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\InMemory\\\\InfrastructureUserRepository\\:\\:findAll\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/InMemory/InfrastructureUserRepository.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\InMemory\\\\ReadWriteRoleRepository\\:\\:findAll\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/InMemory/ReadWriteRoleRepository.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\NullRepository\\\\NullRoleRepository\\:\\:nextIdentity\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\RoleId but return statement is missing\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/NullRepository/NullRoleRepository.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\NullRepository\\\\NullRoleRepository\\:\\:ofId\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\Role but return statement is missing\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/NullRepository/NullRoleRepository.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\NullRepository\\\\NullRoleRepository\\:\\:roleExist\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/NullRepository/NullRoleRepository.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\NullRepository\\\\UserRepository\\:\\:ofId\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\User but return statement is missing\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/NullRepository/UserRepository.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\NullRepository\\\\UserRepository\\:\\:nextIdentity\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\UserId but return statement is missing\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/NullRepository/UserRepository.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\UI\\\\Cli\\\\WireDeleteUserCommand\\:\\:configure\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/UI/Cli/WireDeleteUserCommand.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\UI\\\\Cli\\\\WireUserCommand\\:\\:configure\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/UI/Cli/WireUserCommand.php
+
+		-
+			message: "#^Method App\\\\DataFixtures\\\\AppFixtures\\:\\:load\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/DataFixtures/AppFixtures.php
 
