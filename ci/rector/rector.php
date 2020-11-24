@@ -12,9 +12,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // paths to refactor; solid alternative to CLI arguments
     $parameters->set(Option::PATHS, [
-        __DIR__ . '/../../src',
-        __DIR__ . '/../../tests',
-        __DIR__ . '/../../proAppointments'
+        __DIR__.'/../../src',
+        __DIR__.'/../../tests',
+        __DIR__.'/../../proAppointments',
     ]);
 
     // is your PHP version different from the one your refactor to? [default: your PHP version]
@@ -23,7 +23,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Rector relies on autoload setup of your project; Composer autoload is included by default; to add more:
     $parameters->set(Option::AUTOLOAD_PATHS, [
         //__DIR__ . '/../..//bin/.phpunit/phpunit-7.5-0/vendor/autoload.php'
-        __DIR__ . '/../../bin/.phpunit/phpunit-7.5-0/vendor/autoload.php'
+        __DIR__.'/../../bin/.phpunit/phpunit-7.5-0/vendor/autoload.php',
     ]);
 
     // Define what rule sets will be applied
