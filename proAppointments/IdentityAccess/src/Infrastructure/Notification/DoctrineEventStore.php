@@ -3,7 +3,9 @@
 namespace ProAppointments\IdentityAccess\Infrastructure\Notification;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
+
+//use Doctrine\Common\Persistence\ManagerRegistry;
 
 class DoctrineEventStore extends ServiceEntityRepository implements EventStore
 {
