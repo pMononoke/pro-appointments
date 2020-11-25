@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+//use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use ProAppointments\IdentityAccess\Domain\Identity\User;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 

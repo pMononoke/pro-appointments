@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ProAppointments\IdentityAccess\Domain\Identity\User" table="ia_user">
+    <id name="id" type="identity_user_id" column="user_id"/>
+    <field name="email" type="identity_email" column="email" nullable="false"/>
+    <field name="password" type="identity_password" column="password" nullable="false"/>
+    <one-to-one field="person" target-entity="ProAppointments\IdentityAccess\Domain\Identity\Person" fetch="EXTRA_LAZY">
+      <cascade>
+        <cascade-all/>
+      </cascade>
+      <join-columns>
+        <join-column name="user_id" referenced-column-name="user_id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

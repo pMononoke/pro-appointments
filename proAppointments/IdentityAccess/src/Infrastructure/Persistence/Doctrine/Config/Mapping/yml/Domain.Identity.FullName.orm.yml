@@ -1,5 +1,0 @@
-ProAppointments\IdentityAccess\Domain\Identity\FullName:
-    type: embeddable
-    fields:
-      firstName: { type: identity_first_name }
-      lastName: { type: identity_last_name }
