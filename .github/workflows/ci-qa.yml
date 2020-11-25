@@ -39,3 +39,20 @@ jobs:
 #        with:
 #          args: composer validate --strict --ansi
 #        continue-on-error: false
+
+  architecture-check:
+    name: Architecture check
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install deptrac
+        id: install-deptrac
+        run: |
+          curl -LS http://get.sensiolabs.de/deptrac.phar -o deptrac
+          chmod +x deptrac
+      - name: Run deptrac
+        run: |
+          ./deptrac analyze depfile.boundedContext.yml --formatter-graphviz=0 --ansi
+          ./deptrac analyze depfile.domainLayer.yml --formatter-graphviz=0 --ansi
