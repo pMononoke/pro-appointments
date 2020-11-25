@@ -56,3 +56,17 @@ jobs:
         run: |
           ./deptrac analyze depfile.boundedContext.yml --formatter-graphviz=0 --ansi
           ./deptrac analyze depfile.domainLayer.yml --formatter-graphviz=0 --ansi
+
+  sonarcloud:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        continue-on-error: true
