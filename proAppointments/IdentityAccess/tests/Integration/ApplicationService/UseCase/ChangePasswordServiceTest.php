@@ -6,9 +6,12 @@ namespace ProAppointments\IdentityAccess\Tests\Integration\ApplicationService\Us
 
 use CompostDDD\ApplicationService\TransationalApplicationServiceFactory;
 use ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordRequest;
+use ProAppointments\IdentityAccess\Tests\DataFixtures\IrrelevantUserFixtureBehavior;
 
 class ChangePasswordServiceTest extends UserServiceTestCase
 {
+    use IrrelevantUserFixtureBehavior;
+
     private $applicationService;
 
     private $transationalSession;
@@ -39,19 +42,34 @@ class ChangePasswordServiceTest extends UserServiceTestCase
     /** @test */
     public function can_execute_service_request(): void
     {
-        list($id, $user) = $this->generateUserAggregate();
+        $user = $this->generateUserAggregate();
         $this->populateDatabase($user);
         $applicationRequest = new ChangePasswordRequest(
-            $id,
+            $user->id(),
             $plainPassword = 'new changed password'
         );
 
         $this->txApplicationService->execute($applicationRequest);
 
-        $userFromDatabase = $this->retrieveUserById($id);
-        $this->assertTrue($userFromDatabase->id()->equals($id));
+        $userFromDatabase = $this->retrieveUserById($user->id());
+        $this->assertTrue($userFromDatabase->id()->equals($user->id()));
         // Todo remove after real password encoder implementation.
         $this->assertEquals($userFromDatabase->password()->toString(), $plainPassword);
+    }
+
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\UserNotFound
+     */
+    public function change_Password_service_throw_exception_if_user_not_fount(): void
+    {
+        $user = $this->generateUserAggregate();
+        $applicationRequest = new ChangePasswordRequest(
+            $user->id(),
+            $plainPassword = 'new changed password'
+        );
+
+        $this->txApplicationService->execute($applicationRequest);
     }
 
     protected function tearDown()

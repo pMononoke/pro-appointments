@@ -1,5 +1,0 @@
-ProAppointments\IdentityAccess\Domain\Identity\ContactInformation:
-    type: embeddable
-    fields:
-      email: { type: identity_email }
-      mobileNumber: { type: identity_mobile_number }

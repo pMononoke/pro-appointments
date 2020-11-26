@@ -13,9 +13,6 @@ class ChangeFirstNameService implements ApplicationService
     /** @var UserRepository */
     private $userRepository;
 
-    /**
-     * ChangeFirstNameService constructor.
-     */
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;

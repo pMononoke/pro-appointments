@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Ddd\Infrastructure\Application\Notification\DoctrinePublishedMessageTracker" name="ProAppointments\IdentityAccess\Infrastructure\Notification\PublishedMessage" table="ia_event_published_message_tracker">
+    <id name="trackerId" type="integer" column="tracker_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="mostRecentPublishedMessageId" type="bigint" column="most_recent_published_message_id"/>
+    <field name="typeName" type="string" column="type_name"/>
+  </entity>
+</doctrine-mapping>

@@ -16,9 +16,6 @@ class ChangeFirstNameRequest implements ServiceRequest
     /** @var FirstName */
     private $firstName;
 
-    /**
-     * RegisterUserRequest constructor.
-     */
     public function __construct(UserId $userId, FirstName $firstName)
     {
         $this->userId = $userId;

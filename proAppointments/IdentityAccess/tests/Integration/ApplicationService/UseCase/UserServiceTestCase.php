@@ -7,12 +7,9 @@ namespace ProAppointments\IdentityAccess\Tests\Integration\ApplicationService\Us
 use ProAppointments\IdentityAccess\Domain\Identity\User;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 use ProAppointments\IdentityAccess\Domain\Identity\UserRepository;
-use ProAppointments\IdentityAccess\Tests\DataFixtures\UserFixtureBehavior;
 
 abstract class UserServiceTestCase extends ApplicationServiceTestCase
 {
-    use UserFixtureBehavior;
-
     private const TABLES = ['ia_user', 'ia_domain_event', 'ia_person'];
 
     /** @var UserRepository */

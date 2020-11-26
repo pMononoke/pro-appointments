@@ -7,9 +7,12 @@ namespace ProAppointments\IdentityAccess\Tests\Integration\ApplicationService\Us
 use CompostDDD\ApplicationService\TransationalApplicationServiceFactory;
 use ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameRequest;
 use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
+use ProAppointments\IdentityAccess\Tests\DataFixtures\IrrelevantUserFixtureBehavior;
 
 class ChangeFirstNameServiceTest extends UserServiceTestCase
 {
+    use IrrelevantUserFixtureBehavior;
+
     private $applicationService;
 
     private $transationalSession;
@@ -40,18 +43,33 @@ class ChangeFirstNameServiceTest extends UserServiceTestCase
     /** @test */
     public function can_execute_service_request(): void
     {
-        list($id, $user) = $this->generateUserAggregate();
+        $user = $this->generateUserAggregate();
         $this->populateDatabase($user);
         $applicationRequest = new ChangeFirstNameRequest(
-            $id,
+            $user->id(),
             $firstName = FirstName::fromString('new first name')
         );
 
         $this->txApplicationService->execute($applicationRequest);
 
-        $userFromDatabase = $this->retrieveUserById($id);
-        $this->assertTrue($userFromDatabase->id()->equals($id));
+        $userFromDatabase = $this->retrieveUserById($user->id());
+        $this->assertTrue($userFromDatabase->id()->equals($user->id()));
         $this->assertTrue($userFromDatabase->person()->name()->firstName()->equals($firstName));
+    }
+
+    /**
+     * @test
+     * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\UserNotFound
+     */
+    public function change_firstName_service_throw_exception_if_user_not_fount(): void
+    {
+        $user = $this->generateUserAggregate();
+        $applicationRequest = new ChangeFirstNameRequest(
+            $user->id(),
+            $firstName = FirstName::fromString('new first name')
+        );
+
+        $this->txApplicationService->execute($applicationRequest);
     }
 
     protected function tearDown()

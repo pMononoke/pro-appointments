@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName;
 
-use ProAppointments\IdentityAccess\Domain\Access\Role;
 use ProAppointments\IdentityAccess\Domain\Access\RoleName;
 
-interface RoleByNameQuery
+interface UniqueRoleNameQuery
 {
-    public function execute(RoleName $roleName): ?Role;
+    public function execute(RoleName $roleName): bool;
 }

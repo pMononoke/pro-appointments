@@ -50,11 +50,6 @@ abstract class ApplicationServiceTestCase extends KernelTestCase
         return $this->clock;
     }
 
-    protected function generateAggregate(): array
-    {
-        return [];
-    }
-
     protected function populateDatabase(object $data): void
     {
         $this->entityManager->persist($data);

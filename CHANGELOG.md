@@ -4,7 +4,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - user registration feature
 
-## [0.2.x] - 2019-xx-xx
+## [0.3.0] - 2020-11-26
+### Changed
+- Update to symfony 4.4 
 
 ## [0.2.5] - 2019-11-30
 ###### (Maintenance release)

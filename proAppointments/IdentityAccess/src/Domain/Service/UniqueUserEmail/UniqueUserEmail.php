@@ -6,7 +6,7 @@ namespace ProAppointments\IdentityAccess\Domain\Service\UniqueUserEmail;
 
 use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 
-class UniqueUserEmail
+class UniqueUserEmail implements UniqueUserEmailInterface
 {
     /** @var UniqueUserEmailQuery */
     private $query;

@@ -7,6 +7,9 @@ namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Query;
 use ProAppointments\IdentityAccess\Tests\DataFixtures\UserFixtureBehavior;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
+/**
+ * @group doctrine
+ */
 class DoctrineUserQueryTest extends KernelTestCase
 {
     use UserFixtureBehavior;

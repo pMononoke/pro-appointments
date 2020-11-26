@@ -7,9 +7,9 @@ namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Que
 use Doctrine\ORM\EntityManagerInterface;
 use ProAppointments\IdentityAccess\Domain\Access\Role;
 use ProAppointments\IdentityAccess\Domain\Access\RoleName;
-use ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName\RoleByNameQuery as RoleByNameQueryPort;
+use ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName\UniqueRoleNameQuery as UniqueRoleNameQueryPort;
 
-class RoleByNameQuery implements RoleByNameQueryPort
+class UniqueRoleNameQuery implements UniqueRoleNameQueryPort
 {
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -19,8 +19,10 @@ class RoleByNameQuery implements RoleByNameQueryPort
         $this->entityManager = $entityManager;
     }
 
-    public function execute(RoleName $roleName): ?Role
+    public function execute(RoleName $roleName): bool
     {
+        $isUniqueUserRoleName = false;
+
         $queryBuilder = $this->entityManager->createQueryBuilder()
             ->select('Role')
             ->from(Role::class, 'Role')
@@ -28,6 +30,10 @@ class RoleByNameQuery implements RoleByNameQueryPort
             ->setMaxResults(1)
             ->setParameter('roleName', $roleName->toString());
 
-        return $queryBuilder->getQuery()->getOneOrNullResult();
+        if (!$queryBuilder->getQuery()->getOneOrNullResult()) {
+            $isUniqueUserRoleName = true;
+        }
+
+        return $isUniqueUserRoleName;
     }
 }

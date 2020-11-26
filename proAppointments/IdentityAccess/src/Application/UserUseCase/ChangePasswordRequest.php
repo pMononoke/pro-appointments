@@ -15,9 +15,6 @@ class ChangePasswordRequest implements ServiceRequest
     /** @var string */
     private $plainPassword;
 
-    /**
-     * RegisterUserRequest constructor.
-     */
     public function __construct(UserId $userId, string $plainPassword)
     {
         $this->userId = $userId;
