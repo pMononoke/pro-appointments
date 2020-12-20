@@ -1,0 +1,88 @@
+version: "3.4"
+
+services:
+    app:
+        image: webdevops/php-nginx-dev:7.2
+        user: application
+        working_dir: /app
+        environment:
+            WEB_DOCUMENT_ROOT: /app
+            WEB_DOCUMENT_INDEX: public/index.php
+        volumes:
+            - .:/app
+        ports:
+            #- "${APP_PORT:-8000}:8000"
+            - "127.0.0.222:8888:80"
+            - "80:80"
+        depends_on:
+            - mysql
+            - mysql_test
+            - rabbit
+
+    encore:
+        image: node:10-alpine
+        volumes:
+            - .:/app
+        environment:
+            USER: node
+        ports:
+            - "${DEV_SERVER_PORT:-8080}:8080"
+            #- "${DEV_SERVER_PORT:-8088}:8090"
+        working_dir: /app
+        #command: ["yarn", "dev-server", "--host=0.0.0.0"] # <--- same port of bin/console server:start MY_IP:8888
+        command: ["yarn", "encore", "dev-server", "--hot", "--host=0.0.0.0"]
+
+    rabbit:
+        image: rabbitmq:3.6-management-alpine
+        hostname: rabbit
+        environment:
+            RABBITMQ_ERLANG_COOKIE: "012794e09e71uoihadsc"
+            RABBITMQ_DEFAULT_USER: "guest"
+            RABBITMQ_DEFAULT_PASS: "guest"
+            RABBITMQ_DEFAULT_VHOST: "/"
+        ports:
+            - "15672:15672"
+            - "5672:5672"
+
+    mysql:
+        image: mysql:5.7.21
+        environment:
+            MYSQL_DATABASE: dev_pro-appointments
+            MYSQL_PASSWORD: dev_password
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_USER: dev_user
+        ports:
+            - '3306:3306'
+            #- '127.0.0.200:3306:3306'
+        volumes:
+            - db_data:/var/lib/mysql
+        healthcheck:
+            interval: 10s
+            timeout: 3s
+            retries: 3
+            start_period: 30s
+
+    mysql_test:
+        image: mysql:5.7.21
+        environment:
+            MYSQL_DATABASE: test_pro-appointments
+            MYSQL_PASSWORD: test_password
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_USER: test_user
+        healthcheck:
+            interval: 10s
+            timeout: 3s
+            retries: 3
+            start_period: 30s
+
+    myadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            PMA_ARBITRARY: 1
+        depends_on:
+            - mysql
+        ports:
+            - '127.0.0.202:3333:80'
+
+volumes:
+    db_data: {}

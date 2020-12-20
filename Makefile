@@ -1,7 +1,7 @@
 SHELL=/bin/bash
 
 ifndef PHP_DOCKER_COMMAND
-PHP_DOCKER_COMMAND=docker-compose -f docker-compose.dev.yml exec app php
+PHP_DOCKER_COMMAND=docker-compose exec app php
 endif
 
 # Mute all `make` specific output. Comment this out to get some debug information.
@@ -16,15 +16,15 @@ help:
 
 .PHONY: up
 up: ## start docker instances
-	- docker-compose -f docker-compose.dev.yml up -d
+	- docker-compose up -d
 
 .PHONY: down
 down: ## stop docker instances
-	- docker-compose -f docker-compose.dev.yml down -v
+	- docker-compose down -v
 
 .PHONY: status
 status: ## List containers
-	- docker-compose -f docker-compose.dev.yml ps
+	- docker-compose ps
 
 .PHONY: test
 test: ## Run phpunit

@@ -1,7 +1,6 @@
 /extra/
 /.idea/
 deptrac
-docker-compose.dev.yml
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php

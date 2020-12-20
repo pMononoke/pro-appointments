@@ -1,0 +1,30 @@
+version: "3.4"
+
+services:
+    app:
+        image: webdevops/php-nginx-dev:7.2
+        user: application
+        working_dir: /app
+        environment:
+            WEB_DOCUMENT_ROOT: /app
+            WEB_DOCUMENT_INDEX: public/index.php
+        volumes:
+            - .:/app
+        depends_on:
+            - mysql
+            - rabbit
+
+    rabbit:
+        image: rabbitmq:3.6-management-alpine
+        hostname: rabbit
+        environment:
+            RABBITMQ_ERLANG_COOKIE: "012794e09e71uoihadsc"
+            RABBITMQ_DEFAULT_USER: "guest"
+            RABBITMQ_DEFAULT_PASS: "guest"
+            RABBITMQ_DEFAULT_VHOST: "/"
+        ports:
+            - "15672:15672"
+            - "5672:5672"
+
+    mysql:
+        image: mysql:5.7.21
