@@ -47,7 +47,7 @@ abstract class UserServiceTestCase extends ApplicationServiceTestCase
     {
         $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS = 0;');
         foreach (self::TABLES as $table) {
-            $this->entityManager->getConnection()->executeQuery(sprintf('TRUNCATE `%s`;', $table));
+            $this->entityManager->getConnection()->executeQuery(\sprintf('TRUNCATE `%s`;', $table));
         }
         $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS = 1;');
     }

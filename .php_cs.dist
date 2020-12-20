@@ -4,12 +4,24 @@ $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
     ->exclude('var')
     ->exclude('extra')
+    ->notPath('src/Kernel.php')
+    ->notPath('public/index.php')
+    ->notPath('config/bundles.php')
+    ->notPath('config/bootstrap.php')
+    ->notPath('config/preload.php')
+    ->notPath('tests/bootstrap.php')
 ;
 
 return PhpCsFixer\Config::create()
     ->setRules([
         '@Symfony' => true,
+        //'@Symfony:risky' => true,
         'array_syntax' => ['syntax' => 'short'],
+        'ordered_imports' => true,
+        'declare_strict_types' => true,
+        'native_function_invocation' => true,
+
     ])
+    ->setRiskyAllowed(true)
     ->setFinder($finder)
 ;

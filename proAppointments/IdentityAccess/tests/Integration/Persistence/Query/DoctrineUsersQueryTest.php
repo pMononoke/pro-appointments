@@ -41,7 +41,7 @@ class DoctrineUsersQueryTest extends KernelTestCase
 
         $allUsersFromDatabase = $this->userQuery->execute();
 
-        $this->assertEquals(3, count($allUsersFromDatabase));
+        $this->assertEquals(3, \count($allUsersFromDatabase));
     }
 
     /** @test */
@@ -56,7 +56,7 @@ class DoctrineUsersQueryTest extends KernelTestCase
 
         $allUsersFromDatabase = $this->userQuery->execute(2);
 
-        $this->assertEquals(2, count($allUsersFromDatabase));
+        $this->assertEquals(2, \count($allUsersFromDatabase));
     }
 
     private function pupulateDatabase(object $data): void

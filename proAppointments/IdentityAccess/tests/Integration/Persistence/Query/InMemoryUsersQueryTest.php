@@ -45,14 +45,14 @@ class InMemoryUsersQueryTest extends KernelTestCase
 
         $allUsersFromDatabase = $this->usersQuery->execute();
 
-        $this->assertEquals(4, count($allUsersFromDatabase));
+        $this->assertEquals(4, \count($allUsersFromDatabase));
     }
 
     /** @test */
     public function querying_all_users_return_emty_list(): void
     {
         $allUsersFromDatabase = $this->usersQuery->execute();
-        $this->assertEquals(0, count($allUsersFromDatabase));
+        $this->assertEquals(0, \count($allUsersFromDatabase));
     }
 
     private function pupulateDatabase(object $data): void

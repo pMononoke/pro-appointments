@@ -16,10 +16,10 @@ jobs:
     strategy:
       matrix:
         php:
-          - '7.4'
+          - '7.3'
       fail-fast: false
-    env:
-      PHP_CS_FIXER_FUTURE_MODE: '1'
+    #env:
+      #PHP_CS_FIXER_FUTURE_MODE: '1'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -29,10 +29,20 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: intl, bcmath, curl, openssl, mbstring
           ini-values: memory_limit=-1
-          tools: php-cs-fixer
           coverage: none
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
       - name: Run PHP-CS-Fixer fix
-        run: php-cs-fixer fix --dry-run --diff --ansi
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff --ansi
 
 
 
