@@ -35,7 +35,7 @@ class DoctrineEventStoreTest extends KernelTestCase
         $eventStore->append($dummyEvent);
         $eventsFromDatabase = $eventStore->allStoredEventsSince(0);
 
-        $this->assertEquals(1, count($eventsFromDatabase));
+        $this->assertEquals(1, \count($eventsFromDatabase));
     }
 
     /** @test */
@@ -52,7 +52,7 @@ class DoctrineEventStoreTest extends KernelTestCase
         $eventStore->append($secondDummyEvent);
         $eventsFromDatabase = $eventStore->allStoredEventsSince(0);
 
-        $this->assertEquals(2, count($eventsFromDatabase));
+        $this->assertEquals(2, \count($eventsFromDatabase));
     }
 
     /** @test */
@@ -71,7 +71,7 @@ class DoctrineEventStoreTest extends KernelTestCase
         $eventStore->append($thirdDummyEvent);
         $eventsFromDatabase = $eventStore->allStoredEventsSince(1);
 
-        $this->assertEquals(2, count($eventsFromDatabase));
+        $this->assertEquals(2, \count($eventsFromDatabase));
     }
 
     private function reset_table_autoincrement()

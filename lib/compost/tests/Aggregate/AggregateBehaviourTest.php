@@ -17,7 +17,7 @@ class AggregateBehaviourTest extends TestCase
         $outputEvents = $aggregate->releaseEvents();
 
         self::assertNotEmpty($outputEvents);
-        self::assertEquals(1, count($outputEvents));
+        self::assertEquals(1, \count($outputEvents));
     }
 
     /** @test */
@@ -31,6 +31,6 @@ class AggregateBehaviourTest extends TestCase
         $outputEvents = $aggregate->releaseEvents();
 
         self::assertNotEmpty($outputEvents);
-        self::assertEquals(3, count($outputEvents));
+        self::assertEquals(3, \count($outputEvents));
     }
 }

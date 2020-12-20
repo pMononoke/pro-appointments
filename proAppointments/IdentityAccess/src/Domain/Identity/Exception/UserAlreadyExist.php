@@ -23,6 +23,6 @@ final class UserAlreadyExist extends UserException
 
     public static function withId(UserId $id, int $code = 0, \Exception $previous = null): self
     {
-        return new self($id, sprintf('User %s already exist.', $id), $code, $previous);
+        return new self($id, \sprintf('User %s already exist.', $id), $code, $previous);
     }
 }

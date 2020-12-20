@@ -10,11 +10,11 @@ final class MobileNumber
 
     public function __construct(string $mobileNumber)
     {
-        if (strlen($mobileNumber) < 5) {
+        if (\strlen($mobileNumber) < 5) {
             throw new \InvalidArgumentException('Telephone number may not be less than 5 characters.');
         }
 
-        if (strlen($mobileNumber) > 20) {
+        if (\strlen($mobileNumber) > 20) {
             throw new \InvalidArgumentException('Telephone number may not be more than 20 characters.');
         }
 

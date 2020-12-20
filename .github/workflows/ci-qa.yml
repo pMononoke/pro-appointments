@@ -35,8 +35,10 @@ jobs:
         uses: actions/checkout@v2
       - name: Install deptrac
         id: install-deptrac
+        env:
+          DEPTRAC_VERSION: 0.10.1
         run: |
-          curl -LS http://get.sensiolabs.de/deptrac.phar -o deptrac
+          curl -LS http://github.com/sensiolabs-de/deptrac/releases/download/$DEPTRAC_VERSION/deptrac.phar -o deptrac
           chmod +x deptrac
       - name: Run deptrac
         run: |

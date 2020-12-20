@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ProAppointments\IdentityAccess\Domain\Identity\Event;
 
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;

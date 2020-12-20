@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ProAppointments\IdentityAccess\Infrastructure\DomainService;
 
 use ProAppointments\IdentityAccess\Domain\Identity\UserRepository;

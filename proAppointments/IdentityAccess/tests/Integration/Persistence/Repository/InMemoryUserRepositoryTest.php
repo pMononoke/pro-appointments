@@ -146,7 +146,7 @@ class InMemoryUserRepositoryTest extends KernelTestCase
 
         $usersFromDatabase = $this->userRepository->findAll();
 
-        $this->assertEquals(3, count($usersFromDatabase));
+        $this->assertEquals(3, \count($usersFromDatabase));
     }
 
     /** READ SIDE QUERY */

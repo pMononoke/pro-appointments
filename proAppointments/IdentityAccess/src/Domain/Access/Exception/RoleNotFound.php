@@ -23,6 +23,6 @@ final class RoleNotFound extends RoleException
 
     public static function withId(RoleId $id, int $code = 0, \Exception $previous = null): self
     {
-        return new self($id, sprintf('Role %s does not exist.', $id), $code, $previous);
+        return new self($id, \sprintf('Role %s does not exist.', $id), $code, $previous);
     }
 }

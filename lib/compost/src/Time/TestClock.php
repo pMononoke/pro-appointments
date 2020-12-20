@@ -38,7 +38,7 @@ class TestClock implements Clock
 
     public function fixate(string $input): void
     {
-        $preciseTime = sprintf('%s.000000', $input);
+        $preciseTime = \sprintf('%s.000000', $input);
         $dateTime = DateTimeImmutable::createFromFormat('Y-m-d H:i:s.u', $preciseTime, $this->timeZone);
 
         if (!$dateTime instanceof DateTimeImmutable) {
