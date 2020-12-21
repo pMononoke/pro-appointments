@@ -39,7 +39,7 @@ class UserRepositoryAdapter implements UserRepository
     public function register(User $user): void
     {
         if ($this->repository->ofId($user->id())) {
-            throw  UserAlreadyExist::withId($user->id());
+            throw UserAlreadyExist::withId($user->id());
         }
 
         try {
@@ -56,7 +56,7 @@ class UserRepositoryAdapter implements UserRepository
     public function ofId(UserId $userId): User
     {
         if (null === $user = $this->repository->ofId($userId)) {
-            throw  UserNotFound::withId($userId);
+            throw UserNotFound::withId($userId);
         }
 
         return $user;

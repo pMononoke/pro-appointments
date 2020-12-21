@@ -49,7 +49,7 @@ class RoleRepositoryAdapter implements RoleRepositoryPort
     public function add(Role $role): void
     {
         if ($this->roleExist($role->id())) {
-            throw  RoleAlreadyExist::withId($role->id());
+            throw RoleAlreadyExist::withId($role->id());
         }
         try {
             $this->innerRepository->add($role);
@@ -66,7 +66,7 @@ class RoleRepositoryAdapter implements RoleRepositoryPort
     public function ofId(RoleId $roleId): Role
     {
         if (!$this->roleExist($roleId)) {
-            throw  RoleNotFound::withId($roleId);
+            throw RoleNotFound::withId($roleId);
         }
         try {
             $role = $this->innerRepository->ofId($roleId);
@@ -84,7 +84,7 @@ class RoleRepositoryAdapter implements RoleRepositoryPort
     public function update(Role $role): void
     {
         if (!$this->roleExist($role->id())) {
-            throw  RoleNotFound::withId($role->id());
+            throw RoleNotFound::withId($role->id());
         }
         try {
             $this->innerRepository->update($role);
