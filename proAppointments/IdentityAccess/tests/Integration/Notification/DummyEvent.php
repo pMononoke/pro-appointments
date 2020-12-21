@@ -34,7 +34,7 @@ class DummyEvent
         return $this->email;
     }
 
-    public function occurredOn(): \DateTimeImmutable
+    public function occurredOn(): DateTimeImmutable
     {
         return $this->occurredOn;
     }
