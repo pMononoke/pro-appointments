@@ -29,7 +29,7 @@ status: ## List containers
 .PHONY: test
 test: ## Run phpunit
 	- ${MAKE} ensure-database-for-test
-	- ${PHP_DOCKER_COMMAND} bin/phpunit
+	- ${PHP_DOCKER_COMMAND} bin/phpunit --testdox
 
 .PHONY: analyse
 analyse: ## Run phpstan
