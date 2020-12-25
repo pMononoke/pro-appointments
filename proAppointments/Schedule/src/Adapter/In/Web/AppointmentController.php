@@ -21,10 +21,6 @@ class AppointmentController extends AbstractController
         $this->registerAppointmentService = $registerAppointmentService;
     }
 
-    public function listAppointment()// : ResponseInterface
-    {
-    }
-
     /**
      * @Route("/appointment/new", name="app_appointment_new")
      */

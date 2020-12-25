@@ -6,6 +6,7 @@ namespace ProAppointments\Schedule\Domain\Appointment;
 
 final class AppointmentId
 {
+    /** @var \Ramsey\Uuid\UuidInterface */
     private $uuid;
 
     public static function generate(): AppointmentId

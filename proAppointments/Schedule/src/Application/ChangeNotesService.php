@@ -24,7 +24,7 @@ class ChangeNotesService implements ChangeNotesUseCase
         $this->appointmentloader = $appointmentloader;
     }
 
-    public function ChangeNotes(ChangeNotesCommand $command)
+    public function ChangeNotes(ChangeNotesCommand $command): void
     {
         // TODO: Implement ChangeNotes() method.
         // TODO: validate business rules
