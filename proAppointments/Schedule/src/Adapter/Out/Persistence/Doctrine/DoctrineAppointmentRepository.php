@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ProAppointments\Schedule\Adapter\Out\Persistence\Doctrine;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use ProAppointments\Schedule\Application\Port\Out\LoadAppointmentPort;
 use ProAppointments\Schedule\Application\Port\Out\RegisterAppointmentPort;
 use ProAppointments\Schedule\Application\Port\Out\UpdateAppointmentStatePort;

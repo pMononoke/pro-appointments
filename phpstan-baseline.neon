@@ -591,16 +591,6 @@ parameters:
 			path: proAppointments/Schedule/src/Adapter/Out/Persistence/AppointmentPersistenceAdapter.php
 
 		-
-			message: "#^Parameter \\$registry of method ProAppointments\\\\Schedule\\\\Adapter\\\\Out\\\\Persistence\\\\Doctrine\\\\DoctrineAppointmentRepository\\:\\:__construct\\(\\) has invalid typehint type Doctrine\\\\Common\\\\Persistence\\\\ManagerRegistry\\.$#"
-			count: 1
-			path: proAppointments/Schedule/src/Adapter/Out/Persistence/Doctrine/DoctrineAppointmentRepository.php
-
-		-
-			message: "#^Parameter \\#1 \\$registry of method Doctrine\\\\Bundle\\\\DoctrineBundle\\\\Repository\\\\ServiceEntityRepository\\:\\:__construct\\(\\) expects Doctrine\\\\Persistence\\\\ManagerRegistry, Doctrine\\\\Common\\\\Persistence\\\\ManagerRegistry given\\.$#"
-			count: 1
-			path: proAppointments/Schedule/src/Adapter/Out/Persistence/Doctrine/DoctrineAppointmentRepository.php
-
-		-
 			message: "#^Method ProAppointments\\\\Schedule\\\\Adapter\\\\Out\\\\Persistence\\\\Doctrine\\\\DoctrineAppointmentRepository\\:\\:updateAppointmentState\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: proAppointments/Schedule/src/Adapter/Out/Persistence/Doctrine/DoctrineAppointmentRepository.php
