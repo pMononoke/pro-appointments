@@ -1,0 +1,15 @@
+ProAppointments\Schedule\Domain\Appointment\Appointment:
+  type: entity
+  table: 'schedule_appointment'
+  #repositoryClass:
+  id:
+    id:
+      column: appointment_id
+      type: schedule_appointment_id
+      generator:
+        strategy: NONE
+  fields:
+    notes:
+      column: notes
+      type: string
+      nullable: true

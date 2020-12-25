@@ -5,3 +5,7 @@ controllers:
 kernel:
     resource: ../../src/Kernel.php
     type: annotation
+
+schedule-controllers:
+    resource: ../../proAppointments/Schedule/src/Adapter/In/Web
+    type: annotation
