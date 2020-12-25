@@ -38,7 +38,7 @@ analyse: ## Run phpstan
 
 .PHONY: cs-check
 cs-check: ## Run code style check tool
-	- ${PHP_DOCKER_COMMAND} vendor/bin/php-cs-fixer fix --dry-run --diff --ansi
+	- ${PHP_DOCKER_COMMAND} vendor/bin/php-cs-fixer fix --dry-run --diff --ansi -v
 
 .PHONY: cs-fix
 cs-fix: ## Run code style fixer tool
