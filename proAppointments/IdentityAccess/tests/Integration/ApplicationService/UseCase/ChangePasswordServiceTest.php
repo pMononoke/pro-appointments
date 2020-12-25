@@ -61,7 +61,7 @@ class ChangePasswordServiceTest extends UserServiceTestCase
      * @test
      * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\UserNotFound
      */
-    public function change_Password_service_throw_exception_if_user_not_fount(): void
+    public function change_Password_service_throw_exception_if_user_not_found(): void
     {
         $user = $this->generateUserAggregate();
         $applicationRequest = new ChangePasswordRequest(
