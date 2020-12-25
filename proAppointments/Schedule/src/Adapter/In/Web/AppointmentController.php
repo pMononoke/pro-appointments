@@ -38,7 +38,7 @@ class AppointmentController extends AbstractController
         // Call the use case
         // Map output of the use case back to HTTP
         // Return HTTP response
-        $number = random_int(0, 100);
+        $number = \random_int(0, 100);
 
         $command = new RegisterAppointmentCommand(AppointmentId::generate());
 

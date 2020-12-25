@@ -9,7 +9,6 @@ use ProAppointments\Schedule\Application\Port\In\ChangeNotesUseCase;
 use ProAppointments\Schedule\Application\Port\Out\LoadAppointmentPort;
 use ProAppointments\Schedule\Application\Port\Out\UpdateAppointmentStatePort;
 use ProAppointments\Schedule\Domain\Appointment\Appointment;
-use ProAppointments\Schedule\Domain\Appointment\AppointmentRepository;
 
 class ChangeNotesService implements ChangeNotesUseCase
 {
