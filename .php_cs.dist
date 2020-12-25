@@ -22,7 +22,8 @@ return PhpCsFixer\Config::create()
         'fully_qualified_strict_types' => true,
         'native_function_invocation' => true,
         'single_space_after_construct' => true,
-        'php_unit_method_casing' => false,    ])
+        'php_unit_method_casing' => false,
+    ])
     ->setRiskyAllowed(true)
     ->setFinder($finder)
 ;
