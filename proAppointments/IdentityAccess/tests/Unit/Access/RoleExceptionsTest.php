@@ -24,7 +24,7 @@ class RoleExceptionsTest extends TestCase
 
         $this->expectExceptionMessage('Role '.self::UUID.' does not exist.');
 
-        throw  RoleNotFound::withId($roleId = RoleId::fromString(self::UUID));
+        throw RoleNotFound::withId($roleId = RoleId::fromString(self::UUID));
     }
 
     /** @test */
@@ -43,7 +43,7 @@ class RoleExceptionsTest extends TestCase
 
         $this->expectExceptionMessage('Role '.self::UUID.' already exist.');
 
-        throw  RoleAlreadyExist::withId($roleId = RoleId::fromString(self::UUID));
+        throw RoleAlreadyExist::withId($roleId = RoleId::fromString(self::UUID));
     }
 
     /** @test */

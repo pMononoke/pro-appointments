@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ProAppointments\IdentityAccess\Tests\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+//use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use ProAppointments\IdentityAccess\Domain\Identity\ContactInformation;
 use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
 use ProAppointments\IdentityAccess\Domain\Identity\FullName;

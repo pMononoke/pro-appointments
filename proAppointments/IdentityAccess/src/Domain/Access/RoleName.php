@@ -10,7 +10,7 @@ final class RoleName
 
     public function __construct(string $value)
     {
-        if (strlen($value) < 8) {
+        if (\strlen($value) < 8) {
             throw new \InvalidArgumentException('Role name too short.');
         }
 

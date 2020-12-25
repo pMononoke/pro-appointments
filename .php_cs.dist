@@ -1,13 +1,15 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__)
     ->exclude('var')
     ->exclude('extra')
     ->notPath('src/Kernel.php')
     ->notPath('public/index.php')
     ->notPath('config/bundles.php')
     ->notPath('config/bootstrap.php')
+    ->notPath('config/preload.php')
+    ->notPath('tests/bootstrap.php')
+    ->in(__DIR__)
 ;
 
 return PhpCsFixer\Config::create()
@@ -18,8 +20,13 @@ return PhpCsFixer\Config::create()
         'array_syntax' => ['syntax' => 'short'],
         'no_unused_imports' => true,
         'ordered_imports' => true,
-        //'declare_strict_types' => true,
+        'declare_strict_types' => true,
+        'fully_qualified_strict_types' => true,
+        'native_function_invocation' => true,
+        'single_space_after_construct' => true,
+        'php_unit_method_casing' => false,
     ])
+    ->setRiskyAllowed(true)
     ->setFinder($finder)
     ->setRiskyAllowed(true)
 ;

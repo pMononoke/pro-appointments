@@ -10,7 +10,7 @@ final class FirstName
 
     public function __construct(string $value)
     {
-        if (strlen($value) < 2) {
+        if (\strlen($value) < 2) {
             throw new \InvalidArgumentException('First name is too short.');
         }
 

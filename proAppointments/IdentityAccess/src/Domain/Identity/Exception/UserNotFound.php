@@ -24,11 +24,11 @@ final class UserNotFound extends UserException
 
     public static function withId(UserId $id, int $code = 0, \Exception $previous = null): self
     {
-        return new self($id, sprintf('User %s does not exist.', $id), $code, $previous);
+        return new self($id, \sprintf('User %s does not exist.', $id), $code, $previous);
     }
 
     public static function withEmail(UserEmail $email, UserId $id, int $code = 0, \Exception $previous = null): self
     {
-        return new self($id, sprintf('User with email %s does not exist.', $email->toString()), $code, $previous);
+        return new self($id, \sprintf('User with email %s does not exist.', $email->toString()), $code, $previous);
     }
 }

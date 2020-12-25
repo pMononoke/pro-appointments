@@ -10,7 +10,7 @@ final class UserEmail
 
     public function __construct(string $value)
     {
-        if (strlen($value) < 5) {
+        if (\strlen($value) < 5) {
             throw new \InvalidArgumentException('User email is too short.');
         }
 

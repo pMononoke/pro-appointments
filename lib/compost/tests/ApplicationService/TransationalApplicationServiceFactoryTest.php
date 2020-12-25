@@ -20,7 +20,7 @@ class TransationalApplicationServiceFactoryTest extends TestCase
         self::assertInstanceOf(ApplicationService::class, $transactionalService);
 
         self::assertTrue(
-            method_exists($transactionalService, 'execute'),
+            \method_exists($transactionalService, 'execute'),
             'Class does not have method myFunction'
         );
     }

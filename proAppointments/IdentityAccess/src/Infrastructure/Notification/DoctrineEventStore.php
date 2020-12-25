@@ -1,9 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ProAppointments\IdentityAccess\Infrastructure\Notification;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
+
+//use Doctrine\Common\Persistence\ManagerRegistry;
 
 class DoctrineEventStore extends ServiceEntityRepository implements EventStore
 {
@@ -15,10 +19,10 @@ class DoctrineEventStore extends ServiceEntityRepository implements EventStore
     public function append($aDomainEvent)
     {
         $storedEvent = new StoredEvent(
-            (string) get_class($aDomainEvent),
+            (string) \get_class($aDomainEvent),
             $aDomainEvent->occurredOn(),
             // TODO ->toPayload() return event_body + event_metadata
-            (string) json_encode($aDomainEvent->toPayload())
+            (string) \json_encode($aDomainEvent->toPayload())
         );
 
         $this->_em->persist($storedEvent);

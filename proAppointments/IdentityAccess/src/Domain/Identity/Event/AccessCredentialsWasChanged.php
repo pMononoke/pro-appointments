@@ -33,7 +33,7 @@ class AccessCredentialsWasChanged
         return $this->password;
     }
 
-    public function occurredOn(): \DateTimeImmutable
+    public function occurredOn(): DateTimeImmutable
     {
         return $this->occurredOn;
     }

@@ -1,5 +1,8 @@
-#includes:
-    #- vendor/phpstan/phpstan-phpunit/extension.neon
+#   UPDATE BASELINE FLE COMMAND
+#   vendor/bin/phpstan analyse --level 7 --configuration phpstan.neon.dist --generate-baseline
+
+includes:
+    - phpstan-baseline.neon
     #- vendor/phpstan/phpstan-strict-rules/rules.neon
 
 parameters:
@@ -15,8 +18,8 @@ parameters:
 
     ignoreErrors:
         #- '##'
-        - '#Call to an undefined method ProAppointments\\IdentityAccess\\Domain\\Access\\RoleRepository::roleExist().#'
-        - '#Method ProAppointments\\IdentityAccess\\Infrastructure\\Persistence\\Doctrine\\DoctrineRoleRepository::ofId() should return ProAppointments\\IdentityAccess\\Domain\\Access\\Role but returns ProAppointments\\IdentityAccess\\Domain\\Access\\Role|null.#'
+        #- '#Call to an undefined method ProAppointments\\IdentityAccess\\Domain\\Access\\RoleRepository::roleExist().#'
+        #- '#Method ProAppointments\\IdentityAccess\\Infrastructure\\Persistence\\Doctrine\\DoctrineRoleRepository::ofId\(\) should return ProAppointments\\IdentityAccess\\Domain\\Access\\Role but returns ProAppointments\\IdentityAccess\\Domain\\Access\\Role|null.#'
 
 
 
@@ -24,6 +27,7 @@ parameters:
         - '*/vendor/*'
         - '*/Spec/*'
         - '*/Migrations/*'
+        - 'tests/bootstrap.php'
 
         # REMOVE
         - 'proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/Config/Type/DoctrineUserIdType.php'

@@ -23,6 +23,6 @@ class ImpossibleToSaveUser extends UserException
 
     public static function withId(UserId $id, int $code = 0, \Exception $previous = null): self
     {
-        return new self($id, sprintf('Can not save user %s persistence layer error.', $id), $code, $previous);
+        return new self($id, \sprintf('Can not save user %s persistence layer error.', $id), $code, $previous);
     }
 }
