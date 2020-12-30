@@ -161,7 +161,7 @@ jobs:
 
 
   deptrac:
-    name: Architecture check
+    name: Architecture check (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
@@ -191,15 +191,6 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
-#      - name: Cache PHPStan results
-#        uses: actions/cache@v2
-#        with:
-#          path: /tmp/phpstan
-#          key: phpstan-php${{ matrix.php }}-${{ github.sha }}
-#          restore-keys: |
-#            phpstan-php${{ matrix.php }}-
-#            phpstan-
-#        continue-on-error: true
       - name: Install deptrack
         run: make deptrac-install
       - name: Architecture check
