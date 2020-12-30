@@ -61,12 +61,12 @@ ensure-database-for-test:
 
 .PHONY: deptrac-install
 deptrac-install: ## Install deptrac tool
-	curl -LS https://github.com/sensiolabs-de/deptrac/releases/download/${DEPTRAC_VERSION}/deptrac.phar -o deptrac.phar
-	chmod +x deptrac.phar
-	mv deptrac.phar deptrac
-	$(If you want to create nice dependency graphs, you need to install graphviz:)
+	- curl -LS https://github.com/sensiolabs-de/deptrac/releases/download/${DEPTRAC_VERSION}/deptrac.phar -o deptrac.phar
+	- chmod +x deptrac.phar
+	- mv deptrac.phar deptrac
+	- $(If you want to create nice dependency graphs, you need to install graphviz:)
 
 .PHONY: architecture-check
 architecture-check: ## Run deptrac  (architecture check)
-	php deptrac analyze depfile.boundedContext.yml
-	php deptrac analyze depfile.domainLayer.yml
+	- php deptrac analyze depfile.boundedContext.yml --ansi --no-progress
+	- php deptrac analyze depfile.domainLayer.yml --ansi --no-progress
