@@ -1,5 +1,6 @@
 doctrine:
     dbal:
+        #default_connection: default
         # configure these for your database server
         # use postgresql for PostgreSQL
         # use sqlite for SQLite
