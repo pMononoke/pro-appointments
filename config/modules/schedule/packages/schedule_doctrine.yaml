@@ -17,12 +17,12 @@ doctrine:
             schedule_appointment_id:  ProAppointments\Schedule\Adapter\Out\Persistence\Doctrine\Config\Type\DoctrineAppointmentIdType
     orm:
         auto_generate_proxy_classes: true
-        naming_strategy: doctrine.orm.naming_strategy.underscore
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
             Schedule:
                 is_bundle: false
-                type: yml
-                dir: '%kernel.project_dir%/proAppointments/Schedule/src/Adapter/Out/Persistence/Doctrine/Config/Mapping/yml'
+                type: xml
+                dir: '%kernel.project_dir%/proAppointments/Schedule/src/Adapter/Out/Persistence/Doctrine/Config/Mapping/xml'
                 prefix: 'ProAppointments\Schedule\Domain'
                 alias: Schedule
