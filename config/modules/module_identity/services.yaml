@@ -127,7 +127,7 @@ services:
     #   UI PRESENTATION LAYER
     #
     ProAppointments\IdentityAccess\UI\Cli\:
-        resource: '../../proAppointments/IdentityAccess/src/UI/Cli'
+        resource: '../../../proAppointments/IdentityAccess/src/UI/Cli'
         tags:
             - { name: 'console.command' }
 

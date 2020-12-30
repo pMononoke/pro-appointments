@@ -34,9 +34,3 @@ doctrine:
                 dir: '%kernel.project_dir%/proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/Config/Mapping/xml'
                 prefix: 'ProAppointments\IdentityAccess'
                 alias: IdentityAccess
-#            IdentityAccess:
-#                is_bundle: false
-#                type: yml
-#                dir: '%kernel.project_dir%/proAppointments/IdentityAccess/src/Infrastructure/Persistence/Doctrine/Config/Mapping/yml'
-#                prefix: 'ProAppointments\IdentityAccess'
-#                alias: IdentityAccess
