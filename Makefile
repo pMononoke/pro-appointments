@@ -4,6 +4,9 @@ ifndef PHP_DOCKER_COMMAND
 PHP_DOCKER_COMMAND=docker-compose exec app php
 endif
 
+ifndef DEPTRAC_VERSION
+DEPTRAC_VERSION=0.8.2
+endif
 # Mute all `make` specific output. Comment this out to get some debug information.
 .SILENT:
 
@@ -29,7 +32,7 @@ status: ## List containers
 .PHONY: test
 test: ## Run phpunit
 	- ${MAKE} ensure-database-for-test
-	- ${PHP_DOCKER_COMMAND} bin/phpunit
+	- ${PHP_DOCKER_COMMAND} bin/phpunit --testdox
 
 .PHONY: analyse
 analyse: ## Run phpstan
@@ -38,7 +41,7 @@ analyse: ## Run phpstan
 
 .PHONY: cs-check
 cs-check: ## Run code style check tool
-	- ${PHP_DOCKER_COMMAND} vendor/bin/php-cs-fixer fix --dry-run --diff --ansi
+	- ${PHP_DOCKER_COMMAND} vendor/bin/php-cs-fixer fix --dry-run --diff --ansi -v
 
 .PHONY: cs-fix
 cs-fix: ## Run code style fixer tool
@@ -55,3 +58,15 @@ schema-update: ## Run database schema update
 .PHONY: ensure-database-for-test
 ensure-database-for-test:
 	- ${PHP_DOCKER_COMMAND} bin/console doctrine:schema:update --env test --force --no-interaction --ansi
+
+.PHONY: deptrac-install
+deptrac-install: ## Install deptrac tool
+	- curl -LS https://github.com/sensiolabs-de/deptrac/releases/download/${DEPTRAC_VERSION}/deptrac.phar -o deptrac.phar
+	- chmod +x deptrac.phar
+	- mv deptrac.phar deptrac
+	- $(If you want to create nice dependency graphs, you need to install graphviz:)
+
+.PHONY: architecture-check
+architecture-check: ## Run deptrac  (architecture check)
+	- php deptrac analyze depfile.boundedContext.yml --ansi --no-progress
+	- php deptrac analyze depfile.domainLayer.yml --ansi --no-progress

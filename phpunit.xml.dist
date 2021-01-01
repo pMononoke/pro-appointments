@@ -26,7 +26,7 @@
             <directory>proAppointments/IdentityAccess/tests</directory>
         </testsuite>
         <testsuite name="schedule">
-            <directory>proAppointments/schedule/tests</directory>
+            <directory>proAppointments/Schedule/tests</directory>
         </testsuite>
     </testsuites>
 
@@ -34,6 +34,7 @@
         <whitelist>
             <directory>src</directory>
             <directory>proAppointments/IdentityAccess/src</directory>
+            <directory>proAppointments/Schedule/src</directory>
             <exclude>
                 <file>src/Kernel.php</file>
                 <directory>src/Migrations/</directory>

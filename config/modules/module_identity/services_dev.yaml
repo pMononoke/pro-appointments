@@ -29,11 +29,11 @@ services:
     # makes classes in src/AppBundle/DataFixtures available to be used as services
     # and have a tag that allows actions to type-hint services
     ProAppointments\IdentityAccess\Tests\DataFixtures\:
-        resource: '../../proAppointments/IdentityAccess/tests/DataFixtures/'
+        resource: '../../../proAppointments/IdentityAccess/tests/DataFixtures/'
         tags: ['doctrine.fixture.orm']
 
     ProAppointments\IdentityAccess\UI\Cli\:
-        resource: '../../proAppointments/IdentityAccess/src/UI/Cli'
+        resource: '../../../proAppointments/IdentityAccess/src/UI/Cli'
         tags:
             - { name: 'console.command' }
 

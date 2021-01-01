@@ -7,6 +7,7 @@ on:
     branches: [ master,develop ]
 
 env:
+  GITHUB_PAT: ${{ secrets.PRO_APPOINTMENTS_GHA_PAT }}
   COVERAGE: '0'
 
 jobs:
@@ -35,7 +36,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
@@ -107,15 +108,27 @@ jobs:
     strategy:
       matrix:
         php:
-          - '7.2'
           - '7.3'
           - '7.4'
         include:
-          - php: '7.4'
+          - php: '7.3'
             coverage: true
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
+      - name: Reveal env vars
+        run: |
+          echo GITHUB_WORKFLOW   = $GITHUB_WORKFLOW
+          echo HOME              = $HOME
+          echo GITHUB_ACTION     = $GITHUB_ACTION
+          echo GITHUB_ACTIONS    = $GITHUB_ACTIONS
+          echo GITHUB_ACTOR      = $GITHUB_ACTOR
+          echo GITHUB_REPOSITORY = $GITHUB_REPOSITORY
+          echo GITHUB_EVENT_NAME = $GITHUB_EVENT_NAME
+          echo GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH
+          echo GITHUB_WORKSPACE  = $GITHUB_WORKSPACE
+          echo GITHUB_SHA        = $GITHUB_SHA
+          echo GITHUB_REF        = $GITHUB_REF
       - name: setup-php
         id: setup-php
         uses: shivammathur/setup-php@v2
@@ -157,3 +170,55 @@ jobs:
           fi
         env:
           DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
+
+
+
+  deptrac:
+    name: Architecture check (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        php:
+          - '7.3'
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v1
+          extensions: intl, bcmath, curl, openssl, mbstring
+          ini-values: memory_limit=-1
+          coverage: none
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
+      - name: Install deptrack
+        run: make deptrac-install
+      - name: Architecture check
+        run: make architecture-check
+
+
+  ci-notify:
+    name: ci-notify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger next workflow
+        if: success()
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.PRO_APPOINTMENTS_GHA_PAT }}
+          repository: ${{ github.repository }}
+          event-type: ci-long
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'

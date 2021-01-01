@@ -24,7 +24,7 @@ class UserExceptionsTest extends TestCase
 
         $this->expectExceptionMessage('User '.self::UUID.' does not exist.');
 
-        throw  UserNotFound::withId($userId = UserId::fromString(self::UUID));
+        throw UserNotFound::withId($userId = UserId::fromString(self::UUID));
     }
 
     /** @test */
@@ -42,7 +42,7 @@ class UserExceptionsTest extends TestCase
 
         $this->expectExceptionMessage('User with email '.self::EMAIL.' does not exist.');
 
-        throw  UserNotFound::withEmail($email = UserEmail::fromString(self::EMAIL), UserId::fromString(self::UUID));
+        throw UserNotFound::withEmail($email = UserEmail::fromString(self::EMAIL), UserId::fromString(self::UUID));
     }
 
     /** @test */
@@ -52,7 +52,7 @@ class UserExceptionsTest extends TestCase
 
         $this->expectExceptionMessage('User '.self::UUID.' already exist.');
 
-        throw  UserAlreadyExist::withId(UserId::fromString(self::UUID));
+        throw UserAlreadyExist::withId(UserId::fromString(self::UUID));
     }
 
     /** @test */
