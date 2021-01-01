@@ -107,11 +107,10 @@ jobs:
     strategy:
       matrix:
         php:
-          - '7.2'
           - '7.3'
           - '7.4'
         include:
-          - php: '7.4'
+          - php: '7.3'
             coverage: true
       fail-fast: false
     steps:
