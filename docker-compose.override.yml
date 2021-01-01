@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
     app:
-        image: webdevops/php-nginx-dev:7.2
+        image: webdevops/php-nginx-dev:7.3
         user: application
         working_dir: /app
         environment:
