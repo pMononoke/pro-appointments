@@ -212,6 +212,7 @@ jobs:
 
   ci-notify:
     name: ci-notify
+    needs: [php-cs-fixer, phpstan, phpunit, deptrac]
     runs-on: ubuntu-latest
     steps:
       - name: Trigger next workflow
