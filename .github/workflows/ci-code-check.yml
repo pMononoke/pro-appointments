@@ -7,6 +7,7 @@ on:
     branches: [ master,develop ]
 
 env:
+  GITHUB_PAT: ${{ secrets.PRO_APPOINTMENTS_GHA_PAT }}
   COVERAGE: '0'
 
 jobs:
@@ -115,6 +116,19 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
+      - name: Reveal env vars
+        run: |
+          echo GITHUB_WORKFLOW   = $GITHUB_WORKFLOW
+          echo HOME              = $HOME
+          echo GITHUB_ACTION     = $GITHUB_ACTION
+          echo GITHUB_ACTIONS    = $GITHUB_ACTIONS
+          echo GITHUB_ACTOR      = $GITHUB_ACTOR
+          echo GITHUB_REPOSITORY = $GITHUB_REPOSITORY
+          echo GITHUB_EVENT_NAME = $GITHUB_EVENT_NAME
+          echo GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH
+          echo GITHUB_WORKSPACE  = $GITHUB_WORKSPACE
+          echo GITHUB_SHA        = $GITHUB_SHA
+          echo GITHUB_REF        = $GITHUB_REF
       - name: setup-php
         id: setup-php
         uses: shivammathur/setup-php@v2
@@ -194,3 +208,17 @@ jobs:
         run: make deptrac-install
       - name: Architecture check
         run: make architecture-check
+
+
+  ci-notify:
+    name: ci-notify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger next workflow
+        if: success()
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.PRO_APPOINTMENTS_GHA_PAT }}
+          repository: ${{ github.repository }}
+          event-type: ci-long
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
