@@ -32,7 +32,7 @@ class RegisterUserService implements ApplicationService
     /**
      * @param RegisterUserRequest $request
      */
-    public function execute($request)
+    public function execute($request): void
     {
         if (!$this->isUniqueEmail($request->email())) {
             //TODO poor text, text message to change in the future.
@@ -50,8 +50,6 @@ class RegisterUserService implements ApplicationService
         );
 
         $this->userRepository->register($user);
-
-        return;
     }
 
     private function isUniqueEmail(UserEmail $userEmail): bool

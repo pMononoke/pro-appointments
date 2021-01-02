@@ -79,7 +79,7 @@ class DoctrineRoleRepository extends ServiceEntityRepository implements RoleRepo
     {
         $exist = true;
 
-        if (!$role = $this->find($roleId)) {
+        if (null === $this->find($roleId)) {
             $exist = false;
         }
 
