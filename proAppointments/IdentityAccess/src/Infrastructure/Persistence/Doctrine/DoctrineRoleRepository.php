@@ -71,7 +71,6 @@ class DoctrineRoleRepository extends ServiceEntityRepository implements RoleRepo
     public function remove(Role $role): void
     {
         $this->_em->remove($role);
-        //TODO remove
         $this->_em->flush($role);
     }
 
