@@ -45,7 +45,7 @@ class Kernel extends BaseKernel
         /**
         * Load Modules
          */
-        $this->configureContainerForModules($container, $loader);
+        $this->configureContainerForModules($loader);
     }
 
     protected function configureRoutes(RouteCollectionBuilder $routes): void
@@ -57,7 +57,7 @@ class Kernel extends BaseKernel
         $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
     }
 
-    private function configureContainerForModules(ContainerBuilder $container, LoaderInterface $loader): void
+    private function configureContainerForModules(LoaderInterface $loader): void
     {
         $moduleDir = $this->getProjectDir().'/config/modules';
 
