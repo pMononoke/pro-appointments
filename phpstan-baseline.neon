@@ -606,11 +606,6 @@ parameters:
 			path: proAppointments/Schedule/src/Adapter/Out/Persistence/Doctrine/DoctrineAppointmentRepository.php
 
 		-
-			message: "#^Method ProAppointments\\\\Schedule\\\\Application\\\\GetAccountBalanceService\\:\\:getAccountBalance\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: proAppointments/Schedule/src/Application/GetAccountBalanceService.php
-
-		-
 			message: "#^Method ProAppointments\\\\Schedule\\\\Application\\\\Port\\\\In\\\\ChangeNotesUseCase\\:\\:ChangeNotes\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: proAppointments/Schedule/src/Application/Port/In/ChangeNotesUseCase.php
