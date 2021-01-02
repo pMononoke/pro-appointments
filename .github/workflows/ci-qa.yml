@@ -3,6 +3,7 @@ name: QA
 on:
   push:
     branches: [ master, develop, feature/** ]
+
   pull_request:
     branches: [ master,develop ]
 
@@ -12,9 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v2
-      - name: Setup PHP
+
+      -
+        name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.3
@@ -22,7 +26,9 @@ jobs:
           extensions: intl, bcmath, curl, openssl, mbstring
           ini-values: memory_limit=-1
           coverage: none
-      - name: QA - Run composer validate
+
+      -
+        name: QA - Run composer validate
         run: composer validate --strict --ansi
 
 
@@ -31,16 +37,22 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout
+
+      -
+        name: Checkout
         uses: actions/checkout@v2
-      - name: Install deptrac
+
+      -
+        name: Install deptrac
         id: install-deptrac
         env:
           DEPTRAC_VERSION: 0.10.1
         run: |
           curl -LS http://github.com/sensiolabs-de/deptrac/releases/download/$DEPTRAC_VERSION/deptrac.phar -o deptrac
           chmod +x deptrac
-      - name: Run deptrac
+
+      -
+        name: Run deptrac
         run: |
           ./deptrac analyze depfile.boundedContext.yml --formatter-graphviz=0 --ansi
           ./deptrac analyze depfile.domainLayer.yml --formatter-graphviz=0 --ansi
@@ -58,7 +70,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup PHP
+
+      -
+        name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
@@ -66,20 +80,30 @@ jobs:
           extensions: intl, bcmath, curl, openssl, mbstring
           ini-values: memory_limit=-1
           coverage: none
-      - name: Get Composer Cache Directory
+
+      -
+        name: Get Composer Cache Directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Cache dependencies
+
+      -
+        name: Cache dependencies
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
-      - name: Install Composer dependencies
+
+      -
+        name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
-      - name: QA - Run sensiolab security check
+
+      -
+        name: QA - Run sensiolab security check
         run: bin/console security:check
-      - name: QA - Run roave security check
+
+      -
+        name: QA - Run roave security check
         run: |
           composer require --dev roave/security-advisories:dev-latest
           composer update --dry-run roave/security-advisories
@@ -92,7 +116,9 @@ jobs:
         with:
           # Disabling shallow clone is recommended for improving relevancy of reporting
           fetch-depth: 0
-      - name: SonarCloud Scan
+
+      -
+        name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
