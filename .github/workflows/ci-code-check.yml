@@ -20,27 +20,33 @@ jobs:
           - '7.3'
       fail-fast: false
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v2
-      - name: Setup PHP
+      -
+        name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           extensions: intl, bcmath, curl, openssl, mbstring
           ini-values: memory_limit=-1
           coverage: none
-      - name: Get Composer Cache Directory
+      -
+        name: Get Composer Cache Directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Cache dependencies
+      -
+        name: Cache dependencies
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
-      - name: Install Composer dependencies
+      -
+        name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
-      - name: Run PHP-CS-Fixer fix
+      -
+        name: Run PHP-CS-Fixer fix
         run: vendor/bin/php-cs-fixer fix --dry-run --diff --ansi
 
 
@@ -55,9 +61,11 @@ jobs:
           - '7.3'
       fail-fast: false
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v2
-      - name: Setup PHP
+      -
+        name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
@@ -65,18 +73,22 @@ jobs:
           extensions: intl, bcmath, curl, openssl, mbstring
           ini-values: memory_limit=-1
           coverage: none
-      - name: Get Composer Cache Directory
+      -
+        name: Get Composer Cache Directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Cache dependencies
+      -
+        name: Cache dependencies
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
-      - name: Install Composer dependencies
+      -
+        name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
-      - name: Cache PHPStan results
+      -
+        name: Cache PHPStan results
         uses: actions/cache@v2
         with:
           path: /tmp/phpstan
@@ -85,7 +97,8 @@ jobs:
             phpstan-php${{ matrix.php }}-
             phpstan-
         continue-on-error: true
-      - name: Run PHPStan analysis
+      -
+        name: Run PHPStan analysis
         run: |
           cp phpstan.neon.dist phpstan.neon
           vendor/bin/phpstan analyse --no-interaction --no-progress --no-interaction --ansi
@@ -115,8 +128,11 @@ jobs:
             coverage: true
       fail-fast: false
     steps:
-      - uses: actions/checkout@v2
-      - name: Reveal env vars
+      -
+        uses: actions/checkout@v2
+
+      -
+        name: Reveal env vars
         run: |
           echo GITHUB_WORKFLOW   = $GITHUB_WORKFLOW
           echo HOME              = $HOME
@@ -129,7 +145,9 @@ jobs:
           echo GITHUB_WORKSPACE  = $GITHUB_WORKSPACE
           echo GITHUB_SHA        = $GITHUB_SHA
           echo GITHUB_REF        = $GITHUB_REF
-      - name: setup-php
+
+      -
+        name: setup-php
         id: setup-php
         uses: shivammathur/setup-php@v2
         with:
@@ -138,29 +156,43 @@ jobs:
           ini-values: memory_limit=-1
           coverage: xdebug
           tools: composer:v1
-      - name: Get Composer Cache Directory
+
+      -
+        name: Get Composer Cache Directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Cache dependencies
+
+      -
+        name: Cache dependencies
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
-      - name: Install Composer dependencies
+
+      -
+        name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
-      - name: Run Migration
+
+      -
+        name: Run Migration
         run: |
           php bin/console doctrine:schema:update --force || echo "No migrations found or schema update failed"
           php bin/console doctrine:migrations:migrate || echo "No migrations found or migration failed"
         env:
           DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
-      - name: Enable code coverage
+
+      -
+        name: Enable code coverage
         if: matrix.coverage
         run: echo "COVERAGE=1" >> $GITHUB_ENV
-      - name: Install PHPUnit
+
+      -
+        name: Install PHPUnit
         run: bin/phpunit install
-      - name: Run PHPUnit tests
+
+      -
+        name: Run PHPUnit tests
         run: |
           mkdir -p reports/phpunit
           if [ "$COVERAGE" = '1' ]; then
@@ -183,9 +215,12 @@ jobs:
           - '7.3'
       fail-fast: false
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v2
-      - name: Setup PHP
+
+      -
+        name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
@@ -193,20 +228,30 @@ jobs:
           extensions: intl, bcmath, curl, openssl, mbstring
           ini-values: memory_limit=-1
           coverage: none
-      - name: Get Composer Cache Directory
+
+      -
+        name: Get Composer Cache Directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Cache dependencies
+
+      -
+        name: Cache dependencies
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
-      - name: Install Composer dependencies
+
+      -
+        name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
-      - name: Install deptrack
+
+      -
+        name: Install deptrack
         run: make deptrac-install
-      - name: Architecture check
+
+      -
+        name: Architecture check
         run: make architecture-check
 
 
