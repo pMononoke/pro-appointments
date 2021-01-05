@@ -12,10 +12,10 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
         bind:
-            CompostDDD\ApplicationService\ApplicationService $registerUserService: '@Identity\Transational\RegisterUserService'
-            CompostDDD\ApplicationService\ApplicationService $deleteUserService: '@Identity\Transational\DeleteUserService'
-            CompostDDD\ApplicationService\ApplicationService $changeFirstNameService: '@Identity\Transational\ChangeFirstNameService'
-            CompostDDD\ApplicationService\ApplicationService $changePasswordService: '@Identity\Transational\ChangePasswordService'
+            #CompostDDD\ApplicationService\ApplicationService $registerUserService: '@Identity\Transational\RegisterUserService'
+            #CompostDDD\ApplicationService\ApplicationService $deleteUserService: '@Identity\Transational\DeleteUserService'
+            #CompostDDD\ApplicationService\ApplicationService $changeFirstNameService: '@Identity\Transational\ChangeFirstNameService'
+            #CompostDDD\ApplicationService\ApplicationService $changePasswordService: '@Identity\Transational\ChangePasswordService'
 
 
     # add more service definitions when explicit configuration is needed
@@ -46,19 +46,16 @@ services:
             - method: 'setContainer'
               arguments:
                   - '@service_container'
-        public: true
 
     ProAppointments\IdentityAccess\Domain\Identity\UserFactory:
 
     ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName\UniqueRoleName:
         arguments:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueRoleNameQuery'
-        public: true
 
     ProAppointments\IdentityAccess\Domain\Service\UniqueUserEmail\UniqueUserEmail:
         arguments:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueUserEmailQuery'
-        public: true
 
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter:
         arguments:
@@ -126,10 +123,10 @@ services:
     #
     #   UI PRESENTATION LAYER
     #
-    ProAppointments\IdentityAccess\UI\Cli\:
-        resource: '../../../proAppointments/IdentityAccess/src/UI/Cli'
-        tags:
-            - { name: 'console.command' }
+#    ProAppointments\IdentityAccess\UI\Cli\:
+#        resource: '../../../proAppointments/IdentityAccess/src/UI/Cli'
+#        tags:
+#            - { name: 'console.command' }
 
 
     #

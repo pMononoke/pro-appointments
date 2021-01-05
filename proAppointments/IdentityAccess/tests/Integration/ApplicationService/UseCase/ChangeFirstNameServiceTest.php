@@ -24,16 +24,16 @@ class ChangeFirstNameServiceTest extends UserServiceTestCase
 
     protected function setUp()
     {
-        $kernel = parent::bootKernel();
+        $kernel = self::bootKernel();
 
         $this->applicationService = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService');
+            ->get('test.ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService');
 
         $this->transationalSession = $kernel->getContainer()
-            ->get('identity.transactional.session');
+            ->get('test.identity.transactional.session');
 
         $this->applicationServiceFactory = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory');
+            ->get('test.ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory');
 
         $this->txApplicationService = $this->applicationServiceFactory->createTransationalApplicationService($this->applicationService, $this->transationalSession);
 
