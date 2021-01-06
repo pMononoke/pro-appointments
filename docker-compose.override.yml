@@ -8,6 +8,7 @@ services:
         environment:
             WEB_DOCUMENT_ROOT: /app
             WEB_DOCUMENT_INDEX: public/index.php
+            XDEBUG_MODE: coverage
         volumes:
             - .:/app
         ports:
