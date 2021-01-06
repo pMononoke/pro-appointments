@@ -37,3 +37,5 @@ services:
     ## ADD INTEGRATION TEST FOR
     #   USER REPOSITORY DOCTRINE
     #   ROLE REPOSITORY DOCTRINE
+
+    test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository: '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository'
