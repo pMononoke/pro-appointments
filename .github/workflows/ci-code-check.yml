@@ -210,7 +210,7 @@ jobs:
         run: |
           mkdir -p reports/phpunit
           if [ "$COVERAGE" = '1' ]; then
-            bin/phpunit --testsuite unit --coverage-clover reports/phpunit/clover.xml --log-junit reports/phpunit/junit.xml --colors=always
+            bin/phpunit --testsuite unit --coverage-clover reports/phpunit/unit-test-clover.xml --log-junit reports/phpunit/unit-test-junit.xml --colors=always
           else
             bin/phpunit --testsuite unit --colors=always
           fi
@@ -220,14 +220,35 @@ jobs:
         run: |
           mkdir -p reports/phpunit
           if [ "$COVERAGE" = '1' ]; then
-            bin/phpunit --testsuite integration --coverage-clover reports/phpunit/clover.xml --log-junit reports/phpunit/junit.xml --colors=always
+            bin/phpunit --testsuite integration --coverage-clover reports/phpunit/integration-test-clover.xml --log-junit reports/phpunit/integration-test-junit.xml --colors=always
           else
             bin/phpunit --testsuite integration --colors=always
           fi
         env:
           DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
-
-
+      -
+        name: SonarCloud Scan And publication (only php-${{ matrix.php }})
+        if: ${{ matrix.php == '7.3' }}
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        continue-on-error: true
+#  sonarcloud:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#        with:
+#          # Disabling shallow clone is recommended for improving relevancy of reporting
+#          fetch-depth: 0
+#
+#      -
+#        name: SonarCloud Scan And publication (only 7.3)
+#        uses: sonarsource/sonarcloud-github-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#        continue-on-error: true
 
   deptrac:
     name: Architecture check (PHP ${{ matrix.php }})
@@ -253,22 +274,22 @@ jobs:
           ini-values: memory_limit=-1
           coverage: none
 
-      -
-        name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      -
-        name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-
-      -
-        name: Install Composer dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
+#      -
+#        name: Get Composer Cache Directory
+#        id: composer-cache
+#        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+#
+#      -
+#        name: Cache dependencies
+#        uses: actions/cache@v2
+#        with:
+#          path: ${{ steps.composer-cache.outputs.dir }}
+#          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+#          restore-keys: ${{ runner.os }}-composer-
+#
+#      -
+#        name: Install Composer dependencies
+#        run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
 
       -
         name: Install deptrack
