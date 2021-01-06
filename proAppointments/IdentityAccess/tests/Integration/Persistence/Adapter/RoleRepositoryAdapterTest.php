@@ -16,6 +16,7 @@ class RoleRepositoryAdapterTest extends KernelTestCase
 
     protected function setUp()
     {
+        $this->markTestIncomplete('** DOVREBBE ESSERE UN TEST UNITARIO E LO ROLE REPOSITORY DOCTRINE DOVREBBE ESSERE INTEGRATION TEST.**');
         $kernel = self::bootKernel();
 
         $this->roleRepository = $kernel->getContainer()

@@ -33,4 +33,7 @@ services:
     test.ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService: '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService'
     ProAppointments\IdentityAccess\Domain\Service\PasswordEncoder: '@ProAppointments\IdentityAccess\Infrastructure\DomainService\NullPasswordEncoder'
     ProAppointments\IdentityAccess\Infrastructure\DomainService\NullPasswordEncoder:
-        public: true
+
+    ## ADD INTEGRATION TEST FOR
+    #   USER REPOSITORY DOCTRINE
+    #   ROLE REPOSITORY DOCTRINE

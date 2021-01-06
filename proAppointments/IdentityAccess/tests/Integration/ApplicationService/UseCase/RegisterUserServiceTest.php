@@ -29,6 +29,7 @@ class RegisterUserServiceTest extends UserServiceTestCase
 
     protected function setUp()
     {
+        $this->markTestIncomplete('** DOVREBBE ESSERE UN TEST UNITARIO **');
         $kernel = self::bootKernel();
 
         $this->applicationService = $kernel->getContainer()

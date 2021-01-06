@@ -61,13 +61,11 @@ services:
         arguments:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository'
             - '@ProAppointments\IdentityAccess\Infrastructure\Notification\DoctrineEventStore'
-        public: true
 
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\RoleRepositoryAdapter:
         arguments:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository'
             - '@ProAppointments\IdentityAccess\Infrastructure\Notification\DoctrineEventStore'
-        public: true
 
 
     #

@@ -19,6 +19,7 @@ class UserRepositoryAdapterTest extends KernelTestCase
 
     protected function setUp()
     {
+        $this->markTestIncomplete('** DOVREBBE ESSERE UN TEST UNITARIO E LO USER REPOSITORY DOCTRINE DOVREBBE ESSERE INTEGRATION TEST.**');
         $kernel = self::bootKernel();
 
         $this->userRepository = $kernel->getContainer()
