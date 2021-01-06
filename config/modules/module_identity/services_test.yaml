@@ -34,8 +34,14 @@ services:
     ProAppointments\IdentityAccess\Domain\Service\PasswordEncoder: '@ProAppointments\IdentityAccess\Infrastructure\DomainService\NullPasswordEncoder'
     ProAppointments\IdentityAccess\Infrastructure\DomainService\NullPasswordEncoder:
 
-    ## ADD INTEGRATION TEST FOR
-    #   USER REPOSITORY DOCTRINE
-    #   ROLE REPOSITORY DOCTRINE
+
+    #
+    #   PERSISTANCE LAYER
+    #
 
     test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository: '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository'
+    test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueUserEmailQuery: '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueUserEmailQuery'
+
+    test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository: '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository'
+    test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleQuery: '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleQuery'
+    test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueRoleNameQuery: '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueRoleNameQuery'

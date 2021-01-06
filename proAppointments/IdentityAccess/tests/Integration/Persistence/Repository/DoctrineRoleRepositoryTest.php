@@ -23,7 +23,7 @@ class DoctrineRoleRepositoryTest extends KernelTestCase
         $kernel = self::bootKernel();
 
         $this->repository = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository');
+            ->get('test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository');
     }
 
     /** @test */

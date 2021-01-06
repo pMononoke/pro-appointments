@@ -131,10 +131,11 @@ services:
     #   INFRASTUCTURE LAYER
     #
 
+
+    # User persistence
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository:
 
-    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository:
-        public: true
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueUserEmailQuery:
 
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserQuery:
         public: true
@@ -142,14 +143,17 @@ services:
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UsersQuery:
         public: true
 
-    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleQuery:
-        public: true
+
+
+
+    # Role persistence
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository:
 
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueRoleNameQuery:
-        public: true
 
-    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueUserEmailQuery:
-        public: true
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleQuery:
+
+
 
 
 

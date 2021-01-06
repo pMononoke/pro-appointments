@@ -30,10 +30,10 @@ class DoctrineRoleQueryTest extends KernelTestCase
         $kernel = self::bootKernel();
 
         $this->repository = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository');
+            ->get('test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository');
 
         $this->roleQuery = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleQuery');
+            ->get('test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleQuery');
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine.orm.default_entity_manager');
