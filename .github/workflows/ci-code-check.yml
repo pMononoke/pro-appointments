@@ -214,8 +214,6 @@ jobs:
           else
             bin/phpunit --testsuite unit --colors=always
           fi
-        env:
-          DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
       -
         name: Run PHPUnit | Integration tests
         if: ${{ matrix.php == '7.3' }}
