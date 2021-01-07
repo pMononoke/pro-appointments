@@ -264,7 +264,7 @@ jobs:
 
   ci-notify:
     name: ci-notify
-    needs: [php-cs-fixer, phpstan, phpunit, deptrac]
+    needs: [php-cs-fixer, phpstan, phpunit, architecture-check]
     runs-on: ubuntu-latest
     steps:
       -
