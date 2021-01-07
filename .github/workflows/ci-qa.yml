@@ -32,31 +32,6 @@ jobs:
         run: composer validate --strict --ansi
 
 
-  architecture-check:
-    name: Architecture check
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-
-      -
-        name: Install deptrac
-        id: install-deptrac
-        env:
-          DEPTRAC_VERSION: 0.10.1
-        run: |
-          curl -LS http://github.com/sensiolabs-de/deptrac/releases/download/$DEPTRAC_VERSION/deptrac.phar -o deptrac
-          chmod +x deptrac
-
-      -
-        name: Run deptrac
-        run: |
-          ./deptrac analyze depfile.boundedContext.yml --formatter-graphviz=0 --ansi
-          ./deptrac analyze depfile.domainLayer.yml --formatter-graphviz=0 --ansi
-
 
   security-check:
     name: Security check
@@ -68,7 +43,8 @@ jobs:
           - '7.3'
       fail-fast: false
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v2
 
       -

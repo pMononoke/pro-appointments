@@ -234,70 +234,32 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         continue-on-error: true
-#  sonarcloud:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#        with:
-#          # Disabling shallow clone is recommended for improving relevancy of reporting
-#          fetch-depth: 0
-#
-#      -
-#        name: SonarCloud Scan And publication (only 7.3)
-#        uses: sonarsource/sonarcloud-github-action@master
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#        continue-on-error: true
 
-  deptrac:
-    name: Architecture check (PHP ${{ matrix.php }})
+
+
+  architecture-check:
+    name: Architecture check
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    strategy:
-      matrix:
-        php:
-          - '7.3'
-      fail-fast: false
     steps:
       -
         name: Checkout
         uses: actions/checkout@v2
 
       -
-        name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          tools: composer:v1
-          extensions: intl, bcmath, curl, openssl, mbstring
-          ini-values: memory_limit=-1
-          coverage: none
-
-#      -
-#        name: Get Composer Cache Directory
-#        id: composer-cache
-#        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-#
-#      -
-#        name: Cache dependencies
-#        uses: actions/cache@v2
-#        with:
-#          path: ${{ steps.composer-cache.outputs.dir }}
-#          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-#          restore-keys: ${{ runner.os }}-composer-
-#
-#      -
-#        name: Install Composer dependencies
-#        run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
+        name: Install deptrac
+        id: install-deptrac
+        env:
+          DEPTRAC_VERSION: 0.10.1
+        run: |
+          curl -LS http://github.com/sensiolabs-de/deptrac/releases/download/$DEPTRAC_VERSION/deptrac.phar -o deptrac
+          chmod +x deptrac
 
       -
-        name: Install deptrack
-        run: make deptrac-install
-
-      -
-        name: Architecture check
-        run: make architecture-check
+        name: Run deptrac
+        run: |
+          ./deptrac analyze depfile.boundedContext.yml --formatter-graphviz=0 --ansi
+          ./deptrac analyze depfile.domainLayer.yml --formatter-graphviz=0 --ansi
 
 
   ci-notify:
@@ -305,7 +267,8 @@ jobs:
     needs: [php-cs-fixer, phpstan, phpunit, deptrac]
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger next workflow
+      -
+        name: Trigger next workflow
         if: success()
         uses: peter-evans/repository-dispatch@v1
         with:
