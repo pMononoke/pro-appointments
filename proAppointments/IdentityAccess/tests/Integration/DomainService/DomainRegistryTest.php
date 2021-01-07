@@ -20,10 +20,11 @@ class DomainRegistryTest extends KernelTestCase
 
     protected function setUp(): void
     {
+        $this->markTestIncomplete('** NON DOVREBBE USARE IL TEST CONTAINER MA IL CONTAINER DI PRODUZIONE **');
         $kernel = self::bootKernel();
 
         $this->domainRegistry = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\DomainService\DomainRegistry');
+            ->get('test.ProAppointments\IdentityAccess\Infrastructure\DomainService\DomainRegistry');
     }
 
     /** @test */

@@ -194,6 +194,7 @@ jobs:
 
       -
         name: Run PHPUnit tests
+        if: ${{ matrix.php != '7.3' }}
         run: |
           mkdir -p reports/phpunit
           if [ "$COVERAGE" = '1' ]; then
@@ -203,57 +204,62 @@ jobs:
           fi
         env:
           DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
+      -
+        name: Run PHPUnit | Unit tests
+        if: ${{ matrix.php == '7.3' }}
+        run: |
+          mkdir -p reports/phpunit
+          if [ "$COVERAGE" = '1' ]; then
+            bin/phpunit --testsuite unit --coverage-clover reports/phpunit/unit-test-clover.xml --log-junit reports/phpunit/unit-test-junit.xml --colors=always
+          else
+            bin/phpunit --testsuite unit --colors=always
+          fi
+      -
+        name: Run PHPUnit | Integration tests
+        if: ${{ matrix.php == '7.3' }}
+        run: |
+          mkdir -p reports/phpunit
+          if [ "$COVERAGE" = '1' ]; then
+            bin/phpunit --testsuite integration --coverage-clover reports/phpunit/integration-test-clover.xml --log-junit reports/phpunit/integration-test-junit.xml --colors=always
+          else
+            bin/phpunit --testsuite integration --colors=always
+          fi
+        env:
+          DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
+      -
+        name: SonarCloud Scan And publication (only php-${{ matrix.php }})
+        if: ${{ matrix.php == '7.3' }}
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        continue-on-error: true
 
 
 
-  deptrac:
-    name: Architecture check (PHP ${{ matrix.php }})
+  architecture-check:
+    name: Architecture check
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    strategy:
-      matrix:
-        php:
-          - '7.3'
-      fail-fast: false
     steps:
       -
         name: Checkout
         uses: actions/checkout@v2
 
       -
-        name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          tools: composer:v1
-          extensions: intl, bcmath, curl, openssl, mbstring
-          ini-values: memory_limit=-1
-          coverage: none
+        name: Install deptrac
+        id: install-deptrac
+        env:
+          DEPTRAC_VERSION: 0.10.1
+        run: |
+          curl -LS http://github.com/sensiolabs-de/deptrac/releases/download/$DEPTRAC_VERSION/deptrac.phar -o deptrac
+          chmod +x deptrac
 
       -
-        name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      -
-        name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-
-      -
-        name: Install Composer dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
-
-      -
-        name: Install deptrack
-        run: make deptrac-install
-
-      -
-        name: Architecture check
-        run: make architecture-check
+        name: Run deptrac
+        run: |
+          ./deptrac analyze depfile.boundedContext.yml --formatter-graphviz=0 --ansi
+          ./deptrac analyze depfile.domainLayer.yml --formatter-graphviz=0 --ansi
 
 
   ci-notify:
@@ -261,7 +267,8 @@ jobs:
     needs: [php-cs-fixer, phpstan, phpunit, deptrac]
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger next workflow
+      -
+        name: Trigger next workflow
         if: success()
         uses: peter-evans/repository-dispatch@v1
         with:

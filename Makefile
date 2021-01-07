@@ -5,7 +5,7 @@ PHP_DOCKER_COMMAND=docker-compose exec app php
 endif
 
 ifndef DEPTRAC_VERSION
-DEPTRAC_VERSION=0.8.2
+DEPTRAC_VERSION=0.10.1
 endif
 # Mute all `make` specific output. Comment this out to get some debug information.
 .SILENT:
@@ -68,5 +68,5 @@ deptrac-install: ## Install deptrac tool
 
 .PHONY: architecture-check
 architecture-check: ## Run deptrac  (architecture check)
-	- php deptrac analyze depfile.boundedContext.yml --ansi --no-progress
-	- php deptrac analyze depfile.domainLayer.yml --ansi --no-progress
+	- ./deptrac analyze depfile.boundedContext.yml --formatter-graphviz=0 --ansi --no-progress
+	- ./deptrac analyze depfile.domainLayer.yml --formatter-graphviz=0 --ansi --no-progress

@@ -9,7 +9,7 @@ use ProAppointments\IdentityAccess\Domain\Service\UniqueUserEmail\UniqueUserEmai
 use ProAppointments\IdentityAccess\Tests\DataFixtures\UserFixtureBehavior;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class UniqueUserEmailQueryTest extends KernelTestCase
+class DoctrineUniqueUserEmailQueryTest extends KernelTestCase
 {
     use UserFixtureBehavior;
 
@@ -23,7 +23,7 @@ class UniqueUserEmailQueryTest extends KernelTestCase
         $kernel = self::bootKernel();
 
         $this->uniqueUserEmailQuery = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueUserEmailQuery');
+            ->get('test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueUserEmailQuery');
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine.orm.default_entity_manager');

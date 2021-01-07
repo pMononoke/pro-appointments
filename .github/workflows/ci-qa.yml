@@ -32,31 +32,6 @@ jobs:
         run: composer validate --strict --ansi
 
 
-  architecture-check:
-    name: Architecture check
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-
-      -
-        name: Install deptrac
-        id: install-deptrac
-        env:
-          DEPTRAC_VERSION: 0.10.1
-        run: |
-          curl -LS http://github.com/sensiolabs-de/deptrac/releases/download/$DEPTRAC_VERSION/deptrac.phar -o deptrac
-          chmod +x deptrac
-
-      -
-        name: Run deptrac
-        run: |
-          ./deptrac analyze depfile.boundedContext.yml --formatter-graphviz=0 --ansi
-          ./deptrac analyze depfile.domainLayer.yml --formatter-graphviz=0 --ansi
-
 
   security-check:
     name: Security check
@@ -68,7 +43,8 @@ jobs:
           - '7.3'
       fail-fast: false
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v2
 
       -
@@ -107,20 +83,3 @@ jobs:
         run: |
           composer require --dev roave/security-advisories:dev-latest
           composer update --dry-run roave/security-advisories
-
-
-  sonarcloud:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          # Disabling shallow clone is recommended for improving relevancy of reporting
-          fetch-depth: 0
-
-      -
-        name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        continue-on-error: true

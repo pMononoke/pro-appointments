@@ -29,16 +29,17 @@ class RegisterUserServiceTest extends UserServiceTestCase
 
     protected function setUp()
     {
-        $kernel = parent::bootKernel();
+        $this->markTestIncomplete('** DOVREBBE ESSERE UN TEST UNITARIO with mock **');
+        $kernel = self::bootKernel();
 
         $this->applicationService = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService');
+            ->get('test.ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService');
 
         $this->transationalSession = $kernel->getContainer()
-            ->get('identity.transactional.session');
+            ->get('test.identity.transactional.session');
 
         $this->applicationServiceFactory = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory');
+            ->get('test.ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory');
 
         $this->txApplicationService = $this->applicationServiceFactory->createTransationalApplicationService($this->applicationService, $this->transationalSession);
 
