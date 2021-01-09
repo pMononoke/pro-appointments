@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Adapter;
+namespace ProAppointments\IdentityAccess\Tests\Unit\Access;
 
 use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\ORMException;
@@ -13,6 +13,8 @@ use PHPUnit\Framework\TestCase;
 use ProAppointments\IdentityAccess\Domain\Access\Exception\ImpossibleToRemoveRole;
 use ProAppointments\IdentityAccess\Domain\Access\Exception\ImpossibleToRetrieveRole;
 use ProAppointments\IdentityAccess\Domain\Access\Exception\ImpossibleToSaveRole;
+use ProAppointments\IdentityAccess\Domain\Access\Exception\RoleAlreadyExist;
+use ProAppointments\IdentityAccess\Domain\Access\Exception\RoleNotFound;
 use ProAppointments\IdentityAccess\Domain\Access\RoleRepository;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\RoleRepositoryAdapter;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository;
@@ -34,11 +36,47 @@ class RoleRepositoryAdapterPersistenceExceptionTest extends TestCase
         $this->roleRepositoryAdapter = new RoleRepositoryAdapter($this->implementedRepository);
     }
 
+    /** @test */
+    public function addingADuplicatedRoleShouldReturnRoleAlreadyExistException(): void
+    {
+        self::expectException(RoleAlreadyExist::class);
+
+        $this->implementedRepository->expects($this->any())
+            ->method('roleExist')
+            ->willReturn(true);
+
+        $this->roleRepositoryAdapter->add($this->generateRoleAggregate());
+    }
+
+    /** @test */
+    public function updatingAnUnknownRoleShouldReturnRoleNotFoundException(): void
+    {
+        self::expectException(RoleNotFound::class);
+
+        $this->implementedRepository->expects($this->once())
+            ->method('roleExist')
+            ->willReturn(false);
+
+        $this->roleRepositoryAdapter->update($this->generateRoleAggregate());
+    }
+
+    /** @test */
+    public function gettingAnUnknownRoleShouldReturnRoleNotFoundException(): void
+    {
+        self::expectException(RoleNotFound::class);
+
+        $this->implementedRepository->expects($this->once())
+            ->method('roleExist')
+            ->willReturn(false);
+
+        $this->roleRepositoryAdapter->ofId($this->generateRoleAggregate()->id());
+    }
+
     /**
      * @test
      * @dataProvider addRoleDataProvider
      */
-    public function addingARoleShouldReturnImpossibleToSaveRoleExceptionOnPDOError($customException, $calledMethod, $persistenceError): void
+    public function addingARoleShouldReturnImpossibleToSaveRoleExceptionOnPersistenceError($customException, $calledMethod, $persistenceError): void
     {
         self::expectException($customException);
 
@@ -64,7 +102,7 @@ class RoleRepositoryAdapterPersistenceExceptionTest extends TestCase
      * @test
      * @dataProvider updateRoleDataProvider
      */
-    public function updatingARoleShouldReturnCustomExceptionOnDBALError($customException, $calledMethod, $persistenceError): void
+    public function updatingARoleShouldReturnCustomExceptionOnPersistenceError($customException, $calledMethod, $persistenceError): void
     {
         self::expectException($customException);
 
