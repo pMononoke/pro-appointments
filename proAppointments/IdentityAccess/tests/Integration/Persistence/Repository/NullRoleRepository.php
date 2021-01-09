@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\NullRepository;
+namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Repository;
 
 use ProAppointments\IdentityAccess\Domain\Access\Role;
 use ProAppointments\IdentityAccess\Domain\Access\RoleId;

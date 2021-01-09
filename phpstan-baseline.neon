@@ -541,21 +541,6 @@ parameters:
 			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/InMemory/ReadWriteRoleRepository.php
 
 		-
-			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\NullRepository\\\\NullRoleRepository\\:\\:nextIdentity\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\RoleId but return statement is missing\\.$#"
-			count: 1
-			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/NullRepository/NullRoleRepository.php
-
-		-
-			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\NullRepository\\\\NullRoleRepository\\:\\:ofId\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Access\\\\Role but return statement is missing\\.$#"
-			count: 1
-			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/NullRepository/NullRoleRepository.php
-
-		-
-			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\NullRepository\\\\NullRoleRepository\\:\\:roleExist\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/NullRepository/NullRoleRepository.php
-
-		-
 			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\NullRepository\\\\UserRepository\\:\\:ofId\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\User but return statement is missing\\.$#"
 			count: 1
 			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/NullRepository/UserRepository.php

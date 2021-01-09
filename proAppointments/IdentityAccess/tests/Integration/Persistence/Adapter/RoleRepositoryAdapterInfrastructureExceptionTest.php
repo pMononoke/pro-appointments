@@ -9,8 +9,8 @@ use Doctrine\ORM\ORMException;
 use PDOException;
 use PHPUnit\Framework\TestCase;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\RoleRepositoryAdapter;
-use ProAppointments\IdentityAccess\Infrastructure\Persistence\NullRepository\NullRoleRepository;
 use ProAppointments\IdentityAccess\Tests\DataFixtures\RoleFixtureBehavior;
+use ProAppointments\IdentityAccess\Tests\Integration\Persistence\Repository\NullRoleRepository;
 
 class RoleRepositoryAdapterInfrastructureExceptionTest extends TestCase
 {
