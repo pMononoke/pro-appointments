@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Adapter;
 
+use ProAppointments\IdentityAccess\Domain\Access\Exception\RoleAlreadyExist;
+use ProAppointments\IdentityAccess\Domain\Access\Exception\RoleNotFound;
 use ProAppointments\IdentityAccess\Domain\Access\RoleId;
 use ProAppointments\IdentityAccess\Tests\DataFixtures\RoleFixtureBehavior;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -49,19 +51,17 @@ class RoleRepositoryAdapterTest extends KernelTestCase
         $this->roleRepository->add($firstRole);
         $this->roleRepository->add($secondRole);
 
-        // remove first
         $this->roleRepository->remove($firstRole);
         $userFromDatabase = $this->roleRepository->ofId($secondRole->id());
 
         $this->assertTrue($secondRole->sameIdentityAs($userFromDatabase));
     }
 
-    /**
-     * @test
-     * @expectedException \ProAppointments\IdentityAccess\Domain\Access\Exception\RoleAlreadyExist
-     */
+    /** @test */
     public function deny_persistence_and_throw_RoleAlreadyExist_exception_if_role_exist(): void
     {
+        self::expectException(RoleAlreadyExist::class);
+
         $role = $this->generateRoleAggregate();
 
         $this->roleRepository->add($role);
@@ -69,12 +69,11 @@ class RoleRepositoryAdapterTest extends KernelTestCase
         $this->roleRepository->add($role);
     }
 
-    /**
-     * @test
-     * @expectedException \ProAppointments\IdentityAccess\Domain\Access\Exception\RoleNotFound
-     */
+    /** @test */
     public function throw_RoleNotFound_exception_if_role_not_exist(): void
     {
+        self::expectException(RoleNotFound::class);
+
         $this->roleRepository->ofId(RoleId::generate());
     }
 
@@ -90,12 +89,11 @@ class RoleRepositoryAdapterTest extends KernelTestCase
         $this->assertTrue($role->sameIdentityAs($roleFromDatabase));
     }
 
-    /**
-     * @test
-     * @expectedException \ProAppointments\IdentityAccess\Domain\Access\Exception\RoleNotFound
-     */
+    /** @test */
     public function can_not_update_a_role_and_throw_RoleNotFound_exception(): void
     {
+        self::expectException(RoleNotFound::class);
+
         $role = $this->generateRoleAggregate();
 
         $this->roleRepository->update($role);
