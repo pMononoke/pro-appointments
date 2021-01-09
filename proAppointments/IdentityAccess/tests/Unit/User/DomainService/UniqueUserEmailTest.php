@@ -25,7 +25,7 @@ class UniqueUserEmailTest extends TestCase
     }
 
     /** @test */
-    public function shouldReturnTrueIfUserExistNotExist(): void
+    public function shouldReturnTrueIfEmailNotExist(): void
     {
         $this->uniqueUserEmailQuery->expects($this->once())
             ->method('execute')
@@ -37,7 +37,7 @@ class UniqueUserEmailTest extends TestCase
     }
 
     /** @test */
-    public function shouldReturnFalseIfUserExist(): void
+    public function shouldReturnFalseIfEmailExist(): void
     {
         $this->uniqueUserEmailQuery->expects($this->once())
             ->method('execute')
