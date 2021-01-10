@@ -153,10 +153,10 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
+          extensions: iconv, intl, gd, opcache, mbstring, mysql, pdo_mysql, xml
           ini-values: memory_limit=-1
           coverage: xdebug
-          tools: composer:v1
+          tools: symfony, composer:v1
 
       -
         name: Get Composer Cache Directory
@@ -228,6 +228,11 @@ jobs:
           fi
         env:
           DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
+
+      -
+        name: Run webserver
+        if: ${{ matrix.php == '7.3' }}
+        run: symfony server:start --port=8080 --dir=public --daemon
 
       -
         name: Run PHPUnit | Functional tests
