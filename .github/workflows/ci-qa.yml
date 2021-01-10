@@ -22,15 +22,45 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.3
-          tools: composer:v1
+          tools: composer:v1, composer-normalize, composer-unused, composer-require-checker
           extensions: intl, bcmath, curl, openssl, mbstring
           ini-values: memory_limit=-1
           coverage: none
+      -
+        name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      -
+        name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      -
+        name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
 
       -
         name: QA - Run composer validate
         run: composer validate --strict --ansi
 
+      -
+        name: QA - Run composer normalize
+        run: composer-normalize --dry-run --diff
+        continue-on-error: true
+
+      -
+        name: QA - Run composer unused
+        run: composer-unused
+        continue-on-error: true
+
+      -
+        name: QA - Run composer require-checker
+        run: composer-require-checker
+        continue-on-error: true
 
 
   security-check:
