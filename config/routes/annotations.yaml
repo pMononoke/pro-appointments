@@ -1,11 +1,16 @@
-controllers:
-    resource: ../../src/Controller/
-    type: annotation
 
 kernel:
     resource: ../../src/Kernel.php
     type: annotation
 
+identity-controllers:
+    resource: ../../proAppointments/IdentityAccess/src/Infrastructure/Symfony/Controller
+    type: annotation
+
 schedule-controllers:
     resource: ../../proAppointments/Schedule/src/Adapter/In/Web
+    type: annotation
+
+controllers:
+    resource: ../../src/Controller/
     type: annotation
