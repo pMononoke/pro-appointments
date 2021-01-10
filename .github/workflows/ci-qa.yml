@@ -22,7 +22,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.3
-          tools: composer:v1
+          tools: composer:v1, composer-normalize
           extensions: intl, bcmath, curl, openssl, mbstring
           ini-values: memory_limit=-1
           coverage: none
@@ -30,6 +30,11 @@ jobs:
       -
         name: QA - Run composer validate
         run: composer validate --strict --ansi
+
+      -
+        name: QA - Run composer normalize
+        run: composer-normalize --dry-run --diff
+        continue-on-error: true
 
 
 
