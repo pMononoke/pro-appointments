@@ -6,6 +6,9 @@ namespace ProAppointments\IdentityAccess\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * @group functional
+ */
 class SmokeTest extends WebTestCase
 {
     /**
@@ -21,7 +24,8 @@ class SmokeTest extends WebTestCase
 
     public function identityRouteProvider(): \Generator
     {
-        yield ['/identity'];
-        yield ['/identity/foo'];
+        $webserver = 'http://127.0.0.1:8080';
+        yield [$webserver.'/identity'];
+        yield [$webserver.'/identity/foo'];
     }
 }
