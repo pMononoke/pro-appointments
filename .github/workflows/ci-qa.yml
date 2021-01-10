@@ -22,7 +22,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.3
-          tools: composer:v1, composer-normalize
+          tools: composer:v1, composer-normalize, composer-unused
           extensions: intl, bcmath, curl, openssl, mbstring
           ini-values: memory_limit=-1
           coverage: none
@@ -36,6 +36,10 @@ jobs:
         run: composer-normalize --dry-run --diff
         continue-on-error: true
 
+      -
+        name: QA - Run composer unused
+        run: composer-unused
+        continue-on-error: true
 
 
   security-check:
