@@ -185,9 +185,9 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: ${{ env.PHP_EXTENSIONS }}
-          ini-values: memory_limit=-1
+          ini-values: date.timezone=Europe/Rome, memory_limit=-1
           coverage: xdebug
-          tools: composer:v1, symfony
+          tools: symfony
       -
         name: Reveal env vars
         run: |
@@ -271,23 +271,23 @@ jobs:
 #        name: Install certificates
 #        run: symfony server:ca:install
 #
-#      -
-#        name: Run webserver
-#        if: ${{ matrix.php == '7.3' }}
-#        run: symfony server:start --port=8080 --dir=public --daemon --no-tls
-#
-#      -
-#        name: Run PHPUnit | Functional tests
-#        if: ${{ matrix.php == '7.3' }}
-#        run: |
-#          mkdir -p reports/phpunit
-#          if [ "$COVERAGE" = '1' ]; then
-#            bin/phpunit --testsuite functional --coverage-clover reports/phpunit/functional-test-clover.xml --log-junit reports/phpunit/functional-test-junit.xml --colors=always
-#          else
-#            bin/phpunit --testsuite functional --colors=always
-#          fi
-#        env:
-#          DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
+      -
+        name: Run webserver
+        if: ${{ matrix.php == '7.3' }}
+        run: symfony server:start --port=8080 --dir=public --daemon --no-tls
+
+      -
+        name: Run PHPUnit | Functional tests
+        if: ${{ matrix.php == '7.3' }}
+        run: |
+          mkdir -p reports/phpunit
+          if [ "$COVERAGE" = '1' ]; then
+            bin/phpunit --testsuite functional --coverage-clover reports/phpunit/functional-test-clover.xml --log-junit reports/phpunit/functional-test-junit.xml --colors=always
+          else
+            bin/phpunit --testsuite functional --colors=always
+          fi
+        env:
+          DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
 
       -
         name: Upload coverage to Codecov
