@@ -70,9 +70,9 @@ class DoctrineUserEmailTypeTest extends TestCase
     /** @test */
     public function it_can_not_convert_bad_value_to_php_value(): void
     {
-        self::markTestSkipped();
+        $badUserEmail = 'a';
         $this->expectException(ConversionException::class);
-        $this->type->convertToPHPValue([], $this->platform);
+        $this->type->convertToPHPValue($badUserEmail, $this->platform);
     }
 
     /** @test */

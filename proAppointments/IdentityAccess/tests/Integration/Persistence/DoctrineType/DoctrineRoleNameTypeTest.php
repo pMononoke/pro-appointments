@@ -71,9 +71,9 @@ class DoctrineRoleNameTypeTest extends TestCase
     /** @test */
     public function it_can_not_convert_bad_value_to_php_value(): void
     {
-        self::markTestSkipped();
+        $shortRoleName = 'aa';
         $this->expectException(ConversionException::class);
-        $this->type->convertToPHPValue([], $this->platform);
+        $this->type->convertToPHPValue($shortRoleName, $this->platform);
     }
 
     /** @test */
