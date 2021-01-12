@@ -63,7 +63,6 @@ class DoctrineLastNameTypeTest extends TestCase
     /** @test */
     public function it_can_convert_to_a_database_value(): void
     {
-        //$status = self::LAST_NAME;
         $lastName = LastName::fromString(self::LAST_NAME);
         $this->assertEquals($lastName, $this->type->convertToDatabaseValue($lastName, $this->platform));
     }
@@ -71,9 +70,9 @@ class DoctrineLastNameTypeTest extends TestCase
     /** @test */
     public function it_can_not_convert_bad_value_to_php_value(): void
     {
-        self::markTestSkipped();
+        $badLastName = 'a';
         $this->expectException(ConversionException::class);
-        $this->type->convertToPHPValue([], $this->platform);
+        $this->type->convertToPHPValue($badLastName, $this->platform);
     }
 
     /** @test */

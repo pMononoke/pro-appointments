@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ProAppointments\Schedule\Tests\Functional\Persistence\DoctrineRepository;
+namespace ProAppointments\Schedule\Tests\Integration\Persistence\DoctrineRepository;
 
 use ProAppointments\Schedule\Adapter\Out\Persistence\Doctrine\DoctrineAppointmentRepository;
 use ProAppointments\Schedule\Domain\Appointment\Appointment;
