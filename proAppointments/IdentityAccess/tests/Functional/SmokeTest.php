@@ -17,7 +17,7 @@ class SmokeTest extends WebTestCase
      */
     public function identityControllers(string $path): void
     {
-        $webserver = 'http://127.0.0.1:8080';
+        $webserver = 'http://127.0.0.1';
         $client = static::createClient([], ['HTTP_HOST' => $webserver]);
         $client->request('GET', $path);
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -25,7 +25,8 @@ class SmokeTest extends WebTestCase
 
     public function identityRouteProvider(): \Generator
     {
-        yield ['/identity'];
-        yield ['/identity/foo'];
+        yield ['/'];
+        //yield ['/identity'];
+        //yield ['/identity/foo'];
     }
 }
