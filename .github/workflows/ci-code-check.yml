@@ -10,8 +10,8 @@ on:
 env:
   GITHUB_PAT: ${{ secrets.PRO_APPOINTMENTS_GHA_PAT }}
   COVERAGE: '0'
-  PHP_EXTENSIONS: ctype, curl, iconv, intl, openssl, mbstring, mysql, pdo_sqlite
-  PHP_EXTENSIONS_CACHE_KEY: cache-php-extensions-v1
+  PHP_EXTENSIONS: ctype, curl, gd, iconv, intl, opcache, openssl, mbstring, mysql, pdo_sqlite
+  PHP_EXTENSIONS_CACHE_KEY: cache-php-extensions-v2
 
 jobs:
   php-cs-fixer:
@@ -156,9 +156,12 @@ jobs:
         php:
           - '7.3'
           - '7.4'
+        node:
+          - '10.x'
         include:
           - php: '7.3'
             coverage: true
+
       fail-fast: false
     steps:
       -
@@ -185,9 +188,9 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: ${{ env.PHP_EXTENSIONS }}
-          ini-values: memory_limit=-1
+          ini-values: date.timezone=Europe/Rome, memory_limit=-1
           coverage: xdebug
-          tools: composer:v1
+          tools: symfony
       -
         name: Reveal env vars
         run: |
@@ -217,6 +220,31 @@ jobs:
         name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
       -
+        name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "${{ matrix.node }}"
+      -
+        name: Get Yarn cache directory
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      -
+        name: Cache Yarn
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ matrix.node }}-yarn-${{ hashFiles('**/package.json **/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node }}-yarn-
+      -
+        name: Install JS dependencies
+        run: yarn install
+      -
+        name: Build assets
+        run: |
+          bin/console assets:install public -vvv
+          yarn build
+      -
         name: Run Migration
         run: |
           php bin/console doctrine:schema:update --force || echo "No migrations found or schema update failed"
@@ -231,7 +259,7 @@ jobs:
         name: Install PHPUnit
         run: bin/phpunit install
       -
-        name: Run PHPUnit tests
+        name: Run All tests (unit|integration|functional)
         if: ${{ matrix.php != '7.3' }}
         run: |
           mkdir -p reports/phpunit
@@ -243,7 +271,7 @@ jobs:
         env:
           DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
       -
-        name: Run PHPUnit | Unit tests
+        name: Run Unit tests
         if: ${{ matrix.php == '7.3' }}
         run: |
           mkdir -p reports/phpunit
@@ -253,7 +281,7 @@ jobs:
             bin/phpunit --testsuite unit --colors=always
           fi
       -
-        name: Run PHPUnit | Integration tests
+        name: Run Integration tests
         if: ${{ matrix.php == '7.3' }}
         run: |
           mkdir -p reports/phpunit
@@ -265,11 +293,27 @@ jobs:
         env:
           DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
       -
+        name: Run webserver
+        if: ${{ matrix.php == '7.3' }}
+        run: symfony server:start --port=8080 --dir=public --daemon --no-tls
+      -
+        name: Run Functional tests
+        if: ${{ matrix.php == '7.3' }}
+        run: |
+          mkdir -p reports/phpunit
+          if [ "$COVERAGE" = '1' ]; then
+            bin/phpunit --testsuite functional --coverage-clover reports/phpunit/functional-test-clover.xml --log-junit reports/phpunit/functional-test-junit.xml --colors=always
+          else
+            bin/phpunit --testsuite functional --colors=always
+          fi
+        env:
+          DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
+      -
         name: Upload coverage to Codecov
         if: ${{ matrix.php == '7.3' }}
         uses: codecov/codecov-action@v1
         with:
-          files: ./reports/phpunit/unit-test-clover.xml,./reports/phpunit/integration-test-clover.xml
+          files: ./reports/phpunit/unit-test-clover.xml,./reports/phpunit/integration-test-clover.xml,./reports/phpunit/functional-test-clover.xml
           flags: phpunit-tests
           name: codecov-php-7.3
           fail_ci_if_error: true
