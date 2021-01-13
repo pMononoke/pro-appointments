@@ -23,7 +23,7 @@ class DeleteUserService implements ApplicationService
     /**
      * @param DeleteUserRequest $request
      */
-    public function execute($request)
+    public function execute($request): void
     {
         $user = $this->userRepository->ofId($request->userId());
 
@@ -33,7 +33,5 @@ class DeleteUserService implements ApplicationService
         $user->delete();
 
         $this->userRepository->remove($user);
-
-        return;
     }
 }

@@ -23,7 +23,8 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.client_payload.sha }}
-      - name: Reveal env vars
+      -
+        name: Reveal env vars
         run: |
           echo GITHUB_WORKFLOW   = $GITHUB_WORKFLOW
           echo HOME              = $HOME

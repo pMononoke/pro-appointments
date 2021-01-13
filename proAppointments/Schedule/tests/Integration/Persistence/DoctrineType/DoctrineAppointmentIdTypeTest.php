@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ProAppointments\Schedule\Tests\Functional\Persistence\DoctrineType;
+namespace ProAppointments\Schedule\Tests\Integration\Persistence\DoctrineType;
 
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;

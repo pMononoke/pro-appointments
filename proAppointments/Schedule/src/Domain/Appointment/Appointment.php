@@ -22,9 +22,7 @@ class Appointment implements AppointmentInterface
 
     public static function register(AppointmentId $id): self
     {
-        $appointment = new self($id);
-
-        return $appointment;
+        return new self($id);
     }
 
     public function id(): AppointmentId

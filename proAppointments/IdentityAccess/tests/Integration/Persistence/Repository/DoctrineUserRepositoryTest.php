@@ -21,7 +21,7 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         $kernel = self::bootKernel();
 
         $this->userRepository = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository');
+            ->get('test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository');
     }
 
     /** @test */

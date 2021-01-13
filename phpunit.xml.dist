@@ -19,6 +19,21 @@
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
         </testsuite>
+        <testsuite name="unit">
+            <directory>proAppointments/collaboration/tests/Unit</directory>
+            <directory>proAppointments/IdentityAccess/tests/Unit</directory>
+            <directory>proAppointments/Schedule/tests/Unit</directory>
+        </testsuite>
+        <testsuite name="integration">
+            <directory>proAppointments/collaboration/tests/Integration</directory>
+            <directory>proAppointments/IdentityAccess/tests/Integration</directory>
+            <directory>proAppointments/Schedule/tests/Integration</directory>
+        </testsuite>
+        <testsuite name="functional">
+            <directory>proAppointments/collaboration/tests/Functional</directory>
+            <directory>proAppointments/IdentityAccess/tests/Functional</directory>
+            <directory>proAppointments/Schedule/tests/Functional</directory>
+        </testsuite>
         <testsuite name="collaboration">
             <directory>proAppointments/collaboration/tests</directory>
         </testsuite>

@@ -32,26 +32,26 @@ services:
         resource: '../../../proAppointments/IdentityAccess/tests/DataFixtures/'
         tags: ['doctrine.fixture.orm']
 
-    ProAppointments\IdentityAccess\UI\Cli\:
-        resource: '../../../proAppointments/IdentityAccess/src/UI/Cli'
-        tags:
-            - { name: 'console.command' }
-
-
-
-    ProAppointments\IdentityAccess\UI\Cli\WireUserCommand:
-        arguments:
-            - '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
-            - '@ProAppointments\IdentityAccess\Domain\Identity\UserFactory'
-
-    ProAppointments\IdentityAccess\UI\Cli\WireDeleteUserCommand:
-        arguments:
-            - '@ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService'
-
-    ProAppointments\IdentityAccess\UI\Cli\WireChangeFirstNameCommand:
-        arguments:
-            - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService'
-
-    ProAppointments\IdentityAccess\UI\Cli\WireRoleCommand:
-        arguments:
-            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\RoleRepositoryAdapter'
+#    ProAppointments\IdentityAccess\UI\Cli\:
+#        resource: '../../../proAppointments/IdentityAccess/src/UI/Cli'
+#        tags:
+#            - { name: 'console.command' }
+#
+#
+#
+#    ProAppointments\IdentityAccess\UI\Cli\WireUserCommand:
+#        arguments:
+#            - '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
+#            - '@ProAppointments\IdentityAccess\Domain\Identity\UserFactory'
+#
+#    ProAppointments\IdentityAccess\UI\Cli\WireDeleteUserCommand:
+#        arguments:
+#            - '@ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService'
+#
+#    ProAppointments\IdentityAccess\UI\Cli\WireChangeFirstNameCommand:
+#        arguments:
+#            - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService'
+#
+#    ProAppointments\IdentityAccess\UI\Cli\WireRoleCommand:
+#        arguments:
+#            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\RoleRepositoryAdapter'

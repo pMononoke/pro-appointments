@@ -24,6 +24,7 @@ class UniqueRoleNameTest extends kernelTestCase
 
     protected function setUp()
     {
+        $this->markTestIncomplete('** DOVREBBE ESSERE UN TEST UNITARIO **');
         $kernel = self::bootKernel();
 
         $this->uniqueRoleNameService = $kernel->getContainer()

@@ -3,12 +3,15 @@ name: CI
 on:
   push:
     branches: [ master, develop, feature/**, bugfix/**, release/** ]
+
   pull_request:
     branches: [ master,develop ]
 
 env:
   GITHUB_PAT: ${{ secrets.PRO_APPOINTMENTS_GHA_PAT }}
   COVERAGE: '0'
+  PHP_EXTENSIONS: ctype, curl, gd, iconv, intl, opcache, openssl, mbstring, mysql, pdo_sqlite
+  PHP_EXTENSIONS_CACHE_KEY: cache-php-extensions-v2
 
 jobs:
   php-cs-fixer:
@@ -20,27 +23,48 @@ jobs:
           - '7.3'
       fail-fast: false
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v2
-      - name: Setup PHP
+      -
+        name: Setup cache environment
+        id: cache-php-extensions
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          key: ${{ env.PHP_EXTENSIONS_CACHE_KEY }}
+      -
+        name: Cache extensions
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.cache-php-extensions.outputs.dir }}
+          key: ${{ steps.cache-php-extensions.outputs.key }}
+          restore-keys: ${{ steps.cache-php-extensions.outputs.key }}
+      -
+        name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: intl, bcmath, curl, openssl, mbstring
+          extensions: ${{ env.PHP_EXTENSIONS }}
           ini-values: memory_limit=-1
           coverage: none
-      - name: Get Composer Cache Directory
+      -
+        name: Get Composer Cache Directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Cache dependencies
+      -
+        name: Cache dependencies
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
-      - name: Install Composer dependencies
+      -
+        name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
-      - name: Run PHP-CS-Fixer fix
+      -
+        name: Run PHP-CS-Fixer fix
         run: vendor/bin/php-cs-fixer fix --dry-run --diff --ansi
 
 
@@ -55,28 +79,49 @@ jobs:
           - '7.3'
       fail-fast: false
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v2
-      - name: Setup PHP
+      -
+        name: Setup cache environment
+        id: cache-php-extensions
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          key: ${{ env.PHP_EXTENSIONS_CACHE_KEY }}
+      -
+        name: Cache extensions
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.cache-php-extensions.outputs.dir }}
+          key: ${{ steps.cache-php-extensions.outputs.key }}
+          restore-keys: ${{ steps.cache-php-extensions.outputs.key }}
+      -
+        name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           tools: composer:v1, phpstan
-          extensions: intl, bcmath, curl, openssl, mbstring
+          extensions: ${{ env.PHP_EXTENSIONS }}
           ini-values: memory_limit=-1
           coverage: none
-      - name: Get Composer Cache Directory
+      -
+        name: Get Composer Cache Directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Cache dependencies
+      -
+        name: Cache dependencies
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
-      - name: Install Composer dependencies
+      -
+        name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
-      - name: Cache PHPStan results
+      -
+        name: Cache PHPStan results
         uses: actions/cache@v2
         with:
           path: /tmp/phpstan
@@ -85,7 +130,8 @@ jobs:
             phpstan-php${{ matrix.php }}-
             phpstan-
         continue-on-error: true
-      - name: Run PHPStan analysis
+      -
+        name: Run PHPStan analysis
         run: |
           cp phpstan.neon.dist phpstan.neon
           vendor/bin/phpstan analyse --no-interaction --no-progress --no-interaction --ansi
@@ -110,13 +156,43 @@ jobs:
         php:
           - '7.3'
           - '7.4'
+        node:
+          - '10.x'
         include:
           - php: '7.3'
             coverage: true
+
       fail-fast: false
     steps:
-      - uses: actions/checkout@v2
-      - name: Reveal env vars
+      -
+        uses: actions/checkout@v2
+      -
+        name: Setup cache environment
+        id: cache-php-extensions
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          key: ${{ env.PHP_EXTENSIONS_CACHE_KEY }}
+      -
+        name: Cache extensions
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.cache-php-extensions.outputs.dir }}
+          key: ${{ steps.cache-php-extensions.outputs.key }}
+          restore-keys: ${{ steps.cache-php-extensions.outputs.key }}
+      -
+        name: setup-php
+        id: setup-php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          ini-values: date.timezone=Europe/Rome, memory_limit=-1
+          coverage: xdebug
+          tools: symfony
+      -
+        name: Reveal env vars
         run: |
           echo GITHUB_WORKFLOW   = $GITHUB_WORKFLOW
           echo HOME              = $HOME
@@ -129,38 +205,62 @@ jobs:
           echo GITHUB_WORKSPACE  = $GITHUB_WORKSPACE
           echo GITHUB_SHA        = $GITHUB_SHA
           echo GITHUB_REF        = $GITHUB_REF
-      - name: setup-php
-        id: setup-php
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
-          ini-values: memory_limit=-1
-          coverage: xdebug
-          tools: composer:v1
-      - name: Get Composer Cache Directory
+      -
+        name: Get Composer Cache Directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Cache dependencies
+      -
+        name: Cache dependencies
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
-      - name: Install Composer dependencies
+      -
+        name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
-      - name: Run Migration
+      -
+        name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "${{ matrix.node }}"
+      -
+        name: Get Yarn cache directory
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      -
+        name: Cache Yarn
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ matrix.node }}-yarn-${{ hashFiles('**/package.json **/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node }}-yarn-
+      -
+        name: Install JS dependencies
+        run: yarn install
+      -
+        name: Build assets
+        run: |
+          bin/console assets:install public -vvv
+          yarn build
+      -
+        name: Run Migration
         run: |
           php bin/console doctrine:schema:update --force || echo "No migrations found or schema update failed"
           php bin/console doctrine:migrations:migrate || echo "No migrations found or migration failed"
         env:
           DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
-      - name: Enable code coverage
+      -
+        name: Enable code coverage
         if: matrix.coverage
         run: echo "COVERAGE=1" >> $GITHUB_ENV
-      - name: Install PHPUnit
+      -
+        name: Install PHPUnit
         run: bin/phpunit install
-      - name: Run PHPUnit tests
+      -
+        name: Run All tests (unit|integration|functional)
+        if: ${{ matrix.php != '7.3' }}
         run: |
           mkdir -p reports/phpunit
           if [ "$COVERAGE" = '1' ]; then
@@ -170,51 +270,99 @@ jobs:
           fi
         env:
           DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
+      -
+        name: Run Unit tests
+        if: ${{ matrix.php == '7.3' }}
+        run: |
+          mkdir -p reports/phpunit
+          if [ "$COVERAGE" = '1' ]; then
+            bin/phpunit --testsuite unit --coverage-clover reports/phpunit/unit-test-clover.xml --log-junit reports/phpunit/unit-test-junit.xml --colors=always
+          else
+            bin/phpunit --testsuite unit --colors=always
+          fi
+      -
+        name: Run Integration tests
+        if: ${{ matrix.php == '7.3' }}
+        run: |
+          mkdir -p reports/phpunit
+          if [ "$COVERAGE" = '1' ]; then
+            bin/phpunit --testsuite integration --coverage-clover reports/phpunit/integration-test-clover.xml --log-junit reports/phpunit/integration-test-junit.xml --colors=always
+          else
+            bin/phpunit --testsuite integration --colors=always
+          fi
+        env:
+          DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
+      -
+        name: Run webserver
+        if: ${{ matrix.php == '7.3' }}
+        run: symfony server:start --port=8080 --dir=public --daemon --no-tls
+      -
+        name: Run Functional tests
+        if: ${{ matrix.php == '7.3' }}
+        run: |
+          mkdir -p reports/phpunit
+          if [ "$COVERAGE" = '1' ]; then
+            bin/phpunit --testsuite functional --coverage-clover reports/phpunit/functional-test-clover.xml --log-junit reports/phpunit/functional-test-junit.xml --colors=always
+          else
+            bin/phpunit --testsuite functional --colors=always
+          fi
+        env:
+          DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
+      -
+        name: Upload coverage to Codecov
+        if: ${{ matrix.php == '7.3' }}
+        uses: codecov/codecov-action@v1
+        with:
+          files: ./reports/phpunit/unit-test-clover.xml,./reports/phpunit/integration-test-clover.xml,./reports/phpunit/functional-test-clover.xml
+          flags: phpunit-tests
+          name: codecov-php-7.3
+          fail_ci_if_error: true
+      -
+        name: SonarCloud Scan And publication (only php-${{ matrix.php }})
+        if: ${{ matrix.php == '7.3' }}
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        continue-on-error: true
 
 
 
-  deptrac:
-    name: Architecture check (PHP ${{ matrix.php }})
+  architecture-check:
+    name: Architecture check
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    strategy:
-      matrix:
-        php:
-          - '7.3'
-      fail-fast: false
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v2
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          tools: composer:v1
-          extensions: intl, bcmath, curl, openssl, mbstring
-          ini-values: memory_limit=-1
-          coverage: none
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-      - name: Install Composer dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
-      - name: Install deptrack
-        run: make deptrac-install
-      - name: Architecture check
-        run: make architecture-check
+
+      -
+        name: Install deptrac
+        id: install-deptrac
+        env:
+          DEPTRAC_VERSION: 0.10.1
+        run: |
+          curl -LS http://github.com/sensiolabs-de/deptrac/releases/download/$DEPTRAC_VERSION/deptrac.phar -o deptrac
+          chmod +x deptrac
+
+      -
+        name: Run deptrac
+        run: |
+          ./deptrac analyze depfile.boundedContext.yml --formatter-graphviz=0 --ansi
+          ./deptrac analyze depfile.domainLayer.yml --formatter-graphviz=0 --ansi
+
+
+
 
 
   ci-notify:
     name: ci-notify
+    needs: [php-cs-fixer, phpstan, phpunit, architecture-check]
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger next workflow
+      -
+        name: Trigger next workflow
         if: success()
         uses: peter-evans/repository-dispatch@v1
         with:

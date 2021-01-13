@@ -20,7 +20,7 @@ class DoctrineEventStoreTest extends KernelTestCase
         $this->eventStore = $kernel->getContainer()
             ->get('ProAppointments\IdentityAccess\Infrastructure\Notification\DoctrineEventStore');
         $this->doctrineConnection = $kernel->getContainer()
-            ->get('test_doctrine.dbal.connection');
+            ->get('test.doctrine.dbal.connection');
     }
 
     /** @test */
