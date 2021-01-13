@@ -156,9 +156,12 @@ jobs:
         php:
           - '7.3'
           - '7.4'
+        node:
+          - '10.x'
         include:
           - php: '7.3'
             coverage: true
+
       fail-fast: false
     steps:
       -
@@ -216,6 +219,31 @@ jobs:
       -
         name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
+      -
+        name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "${{ matrix.node }}"
+      -
+        name: Get Yarn cache directory
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      -
+        name: Cache Yarn
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ matrix.node }}-yarn-${{ hashFiles('**/package.json **/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node }}-yarn-
+      -
+        name: Install JS dependencies
+        run: yarn install
+      -
+        name: Build assets
+        run: |
+          bin/console assets:install public -vvv
+          yarn build
       -
         name: Run Migration
         run: |
