@@ -259,20 +259,19 @@ jobs:
         name: Install PHPUnit
         run: bin/phpunit install
       -
-        name: Run PHPUnit tests
+        name: Run All tests (unit|integration|functional)
         if: ${{ matrix.php != '7.3' }}
         run: |
           mkdir -p reports/phpunit
           if [ "$COVERAGE" = '1' ]; then
-            bin/phpunit --exclude-group functional --coverage-clover reports/phpunit/clover.xml --log-junit reports/phpunit/junit.xml --colors=always
+            bin/phpunit --coverage-clover reports/phpunit/clover.xml --log-junit reports/phpunit/junit.xml --colors=always
           else
-            bin/phpunit --exclude-group functional --colors=always
+            bin/phpunit --colors=always
           fi
         env:
           DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
-
       -
-        name: Run PHPUnit | Unit tests
+        name: Run Unit tests
         if: ${{ matrix.php == '7.3' }}
         run: |
           mkdir -p reports/phpunit
@@ -281,9 +280,8 @@ jobs:
           else
             bin/phpunit --testsuite unit --colors=always
           fi
-
       -
-        name: Run PHPUnit | Integration tests
+        name: Run Integration tests
         if: ${{ matrix.php == '7.3' }}
         run: |
           mkdir -p reports/phpunit
@@ -294,18 +292,12 @@ jobs:
           fi
         env:
           DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
-
-#      -
-#        name: Install certificates
-#        run: symfony server:ca:install
-#
       -
         name: Run webserver
         if: ${{ matrix.php == '7.3' }}
         run: symfony server:start --port=8080 --dir=public --daemon --no-tls
-
       -
-        name: Run PHPUnit | Functional tests
+        name: Run Functional tests
         if: ${{ matrix.php == '7.3' }}
         run: |
           mkdir -p reports/phpunit
@@ -316,13 +308,12 @@ jobs:
           fi
         env:
           DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
-
       -
         name: Upload coverage to Codecov
         if: ${{ matrix.php == '7.3' }}
         uses: codecov/codecov-action@v1
         with:
-          files: ./reports/phpunit/unit-test-clover.xml,./reports/phpunit/integration-test-clover.xml
+          files: ./reports/phpunit/unit-test-clover.xml,./reports/phpunit/integration-test-clover.xml,./reports/phpunit/functional-test-clover.xml
           flags: phpunit-tests
           name: codecov-php-7.3
           fail_ci_if_error: true
