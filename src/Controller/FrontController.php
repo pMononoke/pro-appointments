@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FrontController extends AbstractController
 {
     /**
-     * @Route("/web{vueRouting}", name="front_index", defaults={"vueRouting"=null}, requirements={"vueRouting"="^(?!api).+"})
+     * @Route("/web/{vueRouting}", name="front_index", defaults={"vueRouting"=null}, requirements={"vueRouting"="^(?!api).+"})
      */
     public function indexAction(): Response
     {

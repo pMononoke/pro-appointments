@@ -10,6 +10,6 @@ export default new VueRouter({
     routes: [
         { path: "/web", component: Home },
         { path: "/alpha", component: Alpha },
-        { path: "*", redirect: "/web" }
+        //{ path: "*", redirect: "/web" }
     ]
 });
