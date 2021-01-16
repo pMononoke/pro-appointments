@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BackController extends AbstractController
 {
     /**
-     * @Route("/administration/{vueRouting}", name="administration", defaults={"vueRouting"=null}, requirements={"vueRouting"="^(?!api).+"})
+     * @Route("/administration/{vueRouting}", name="administration_index", defaults={"vueRouting"=null}, requirements={"vueRouting"="^(?!api).+"})
      */
     public function indexAction(): Response
     {
