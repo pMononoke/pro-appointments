@@ -625,3 +625,8 @@ parameters:
 			count: 1
 			path: src/DataFixtures/AppFixtures.php
 
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Security/LoginFormAuthenticator.php
+
