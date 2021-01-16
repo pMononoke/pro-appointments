@@ -15,6 +15,6 @@ class BackController extends AbstractController
      */
     public function indexAction(): Response
     {
-        return $this->render('base.html.twig', []);
+        return $this->render('vue.base.html.twig', []);
     }
 }

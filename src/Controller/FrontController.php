@@ -11,10 +11,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class FrontController extends AbstractController
 {
     /**
-     * @Route("/{vueRouting}", name="index", defaults={"vueRouting"=null}, requirements={"vueRouting"="^(?!api).+"})
+     * @Route("/web{vueRouting}", name="front_index", defaults={"vueRouting"=null}, requirements={"vueRouting"="^(?!api).+"})
      */
     public function indexAction(): Response
     {
-        return $this->render('base.html.twig', []);
+        return $this->render('vue.base.html.twig', []);
     }
 }
