@@ -70,3 +70,10 @@ deptrac-install: ## Install deptrac tool
 architecture-check: ## Run deptrac  (architecture check)
 	- ./deptrac analyze depfile.boundedContext.yml --formatter-graphviz=0 --ansi --no-progress
 	- ./deptrac analyze depfile.domainLayer.yml --formatter-graphviz=0 --ansi --no-progress
+
+.PHONY: pre-commit
+pre-commit: ## pre commit checks
+	- ${MAKE} cs-check
+	- ${MAKE} analyse
+	- ${MAKE} test
+	- ${MAKE} architecture-check
