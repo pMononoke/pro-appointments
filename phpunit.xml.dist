@@ -30,6 +30,7 @@
             <directory>proAppointments/Schedule/tests/Integration</directory>
         </testsuite>
         <testsuite name="functional">
+            <directory>tests/Functional</directory>
             <directory>proAppointments/collaboration/tests/Functional</directory>
             <directory>proAppointments/IdentityAccess/tests/Functional</directory>
             <directory>proAppointments/Schedule/tests/Functional</directory>

@@ -129,6 +129,9 @@
     "monolog/monolog": {
         "version": "1.25.5"
     },
+    "nikic/php-parser": {
+        "version": "v4.10.4"
+    },
     "ocramius/proxy-manager": {
         "version": "2.2.3"
     },
@@ -144,8 +147,14 @@
     "phpseclib/phpseclib": {
         "version": "2.0.29"
     },
+    "phpstan/extension-installer": {
+        "version": "1.1.0"
+    },
     "phpstan/phpstan": {
         "version": "0.12.57"
+    },
+    "phpstan/phpstan-phpunit": {
+        "version": "0.12.17"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -223,6 +232,9 @@
     "symfony/dependency-injection": {
         "version": "v4.4.16"
     },
+    "symfony/deprecation-contracts": {
+        "version": "v2.2.0"
+    },
     "symfony/doctrine-bridge": {
         "version": "v4.4.16"
     },
@@ -292,6 +304,18 @@
     "symfony/http-kernel": {
         "version": "v4.4.16"
     },
+    "symfony/inflector": {
+        "version": "v4.4.18"
+    },
+    "symfony/maker-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
+        }
+    },
     "symfony/mime": {
         "version": "v4.4.16"
     },
@@ -358,6 +382,9 @@
     "symfony/profiler-pack": {
         "version": "v1.0.5"
     },
+    "symfony/property-access": {
+        "version": "v4.4.18"
+    },
     "symfony/routing": {
         "version": "4.2",
         "recipe": {
@@ -371,6 +398,30 @@
             "config/packages/routing.yaml",
             "config/routes.yaml"
         ]
+    },
+    "symfony/security-bundle": {
+        "version": "4.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.4",
+            "ref": "7b4408dc203049666fe23fabed23cbadc6d8440f"
+        },
+        "files": [
+            "config/packages/security.yaml"
+        ]
+    },
+    "symfony/security-core": {
+        "version": "v4.4.18"
+    },
+    "symfony/security-csrf": {
+        "version": "v4.4.18"
+    },
+    "symfony/security-guard": {
+        "version": "v4.4.18"
+    },
+    "symfony/security-http": {
+        "version": "v4.4.18"
     },
     "symfony/service-contracts": {
         "version": "v2.2.0"

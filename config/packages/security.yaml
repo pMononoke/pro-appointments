@@ -1,0 +1,50 @@
+security:
+    encoders:
+        # this internal class is used by Symfony to represent in-memory users
+        Symfony\Component\Security\Core\User\User: 'auto'
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        #users_in_memory: { memory: null }
+        users_in_memory:
+            memory:
+                users:
+                    #encoded pwd 'demo'
+                    demo_user: { password: '$argon2id$v=19$m=65536,t=4,p=1$6biXmA+2PCHZJV64T9Z3Iw$lMZtvEmPUOyBNZxvwWI4BuHzWl9A40DrwDbmTWDRvU8', roles: [ 'ROLE_USER' ] }
+                    demo_admin: { password: '$argon2id$v=19$m=65536,t=4,p=1$6biXmA+2PCHZJV64T9Z3Iw$lMZtvEmPUOyBNZxvwWI4BuHzWl9A40DrwDbmTWDRvU8', roles: [ 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN' ] }
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: lazy
+            provider: users_in_memory
+            form_login:
+                login_path: login
+                check_path: login
+                csrf_token_generator: security.csrf.token_manager
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: index
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/web, roles: ROLE_USER }
+        - { path: ^/administration, roles: ROLE_ADMIN }
