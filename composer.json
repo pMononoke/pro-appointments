@@ -30,6 +30,7 @@
         "dama/doctrine-test-bundle": "^6.4",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "friendsofphp/php-cs-fixer": "^2.16",
+        "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^0.12",
         "phpstan/phpstan-phpunit": "^0.12.17",
         "sensiolabs/security-checker": "^6.0",
