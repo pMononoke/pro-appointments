@@ -8,14 +8,19 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 //use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ManagerRegistry;
 use ProAppointments\IdentityAccess\Domain\Identity\User;
+use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
+use ProAppointments\IdentityAccess\Infrastructure\Symfony\Security\SecurityUserAdapter;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class DoctrineUserRepository.
  *
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
+ * @method User|null findOneBy(array $criteria, array $orderBy = null)
  */
-class DoctrineUserRepository extends ServiceEntityRepository
+class DoctrineUserRepository extends ServiceEntityRepository implements UserLoaderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -45,5 +50,20 @@ class DoctrineUserRepository extends ServiceEntityRepository
         $this->_em->persist($user);
         // TODO IS transational same as register
         $this->_em->flush($user);
+    }
+
+    public function findUserByEmail(string $email): ?User
+    {
+        return $this->findOneBy(['email' => UserEmail::fromString($email)]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function loadUserByUsername($username): UserInterface
+    {
+        $user = $this->findOneBy(['email' => UserEmail::fromString($username)]);
+
+        return new SecurityUserAdapter($user);
     }
 }

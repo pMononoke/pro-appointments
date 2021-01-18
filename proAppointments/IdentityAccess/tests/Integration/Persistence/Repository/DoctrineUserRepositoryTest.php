@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Repository;
 
+use ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository;
+use ProAppointments\IdentityAccess\Infrastructure\Symfony\Security\SecurityUserAdapter;
 use ProAppointments\IdentityAccess\Tests\DataFixtures\UserFixtureBehavior;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @group doctrine
@@ -14,6 +17,7 @@ class DoctrineUserRepositoryTest extends KernelTestCase
 {
     use UserFixtureBehavior;
 
+    /** @var DoctrineUserRepository|null */
     private $userRepository;
 
     protected function setUp()
@@ -61,6 +65,18 @@ class DoctrineUserRepositoryTest extends KernelTestCase
         $userFromDatabase = $this->userRepository->ofId($id);
 
         $this->assertTrue($user->sameIdentityAs($userFromDatabase));
+    }
+
+    /** @test */
+    public function can_retrieve_a_security_user_adapter(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+        $this->userRepository->save($user);
+
+        $securityUserFromDatabase = $this->userRepository->loadUserByUsername($user->email()->toString());
+
+        $this->assertInstanceOf(UserInterface::class, $securityUserFromDatabase);
+        $this->assertInstanceOf(SecurityUserAdapter::class, $securityUserFromDatabase);
     }
 
     protected function tearDown()
