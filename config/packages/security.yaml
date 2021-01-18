@@ -2,6 +2,8 @@ security:
     encoders:
         # this internal class is used by Symfony to represent in-memory users
         Symfony\Component\Security\Core\User\User: 'auto'
+        ProAppointments\IdentityAccess\Infrastructure\Symfony\Security\SecurityUserAdapter:
+            algorithm: auto
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -12,6 +14,14 @@ security:
                     #encoded pwd 'demo'
                     demo_user: { password: '$argon2id$v=19$m=65536,t=4,p=1$6biXmA+2PCHZJV64T9Z3Iw$lMZtvEmPUOyBNZxvwWI4BuHzWl9A40DrwDbmTWDRvU8', roles: [ 'ROLE_USER' ] }
                     demo_admin: { password: '$argon2id$v=19$m=65536,t=4,p=1$6biXmA+2PCHZJV64T9Z3Iw$lMZtvEmPUOyBNZxvwWI4BuHzWl9A40DrwDbmTWDRvU8', roles: [ 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN' ] }
+        users_custom:
+            id: ProAppointments\IdentityAccess\Infrastructure\Symfony\Security\SecurityUserProvider
+
+        all_users_provider:
+            chain:
+                providers: [ 'users_in_memory', 'users_custom' ]
+
+
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
         ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
@@ -22,7 +32,7 @@ security:
             security: false
         main:
             anonymous: lazy
-            provider: users_in_memory
+            provider: all_users_provider
             form_login:
                 login_path: login
                 check_path: login
@@ -46,5 +56,6 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/web, roles: ROLE_USER }
         - { path: ^/administration, roles: ROLE_ADMIN }
