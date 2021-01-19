@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\ApplicationService\UseCase;
 
-use CompostDDD\ApplicationService\TransationalApplicationServiceFactory;
 use ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserRequest;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserAlreadyExist;
+use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserException;
 use ProAppointments\IdentityAccess\Domain\Identity\FirstName;
 use ProAppointments\IdentityAccess\Domain\Identity\LastName;
 use ProAppointments\IdentityAccess\Domain\Identity\MobileNumber;
@@ -18,39 +19,20 @@ class RegisterUserServiceTest extends UserServiceTestCase
 {
     use IrrelevantUserFixtureBehavior;
 
-    private $applicationService;
-
-    private $transationalSession;
-
-    /** @var TransationalApplicationServiceFactory */
-    private $applicationServiceFactory;
-
     private $txApplicationService;
 
     protected function setUp()
     {
-        $this->markTestIncomplete('** DOVREBBE ESSERE UN TEST UNITARIO with mock **');
         $kernel = self::bootKernel();
 
-        $this->applicationService = $kernel->getContainer()
-            ->get('test.ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService');
-
-        $this->transationalSession = $kernel->getContainer()
-            ->get('test.identity.transactional.session');
-
-        $this->applicationServiceFactory = $kernel->getContainer()
-            ->get('test.ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory');
-
-        $this->txApplicationService = $this->applicationServiceFactory->createTransationalApplicationService($this->applicationService, $this->transationalSession);
-
-        $this->userRepository = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter');
+        $this->txApplicationService = $kernel->getContainer()
+            ->get('test.Identity\Transational\RegisterUserService');
 
         parent::setUp();
     }
 
     /** @test */
-    public function can_execute_service_request(): void
+    public function can_register_a_new_user(): void
     {
         $applicationRequest = new RegisterUserRequest(
             $id = UserId::generate(),
@@ -67,41 +49,48 @@ class RegisterUserServiceTest extends UserServiceTestCase
         $this->assertTrue($userFromDatabase->id()->equals($id));
     }
 
-    /**
-     * @test
-     * @expectedException \ProAppointments\IdentityAccess\Domain\Identity\Exception\UserException
-     */
-    public function register_service_throw_exception_if_email_already_exist(): void
+    /** @test */
+    public function registrationShouldFailOnDuplicateUserEmail(): void
     {
+        self::expectException(UserException::class);
+
         $user = $this->generateUserAggregate();
         $this->userRepository->register($user);
 
-        $applicationRequest = new RegisterUserRequest(
-            //$id = UserId::generate(),
-            $user->id(),
-            //$email = UserEmail::fromString('irrelevant@example.com'),
+        $duplicatedUserEmailapplicationRequest = new RegisterUserRequest(
+            UserId::generate(),
             $user->email(),
-            //UserPassword::fromString('irrelevant'),
             $user->password(),
-            //FirstName::fromString('pippo'),
             $user->person()->name()->firstName(),
-            //LastName::fromString('pluto'),
             $user->person()->name()->lastName(),
-            //MobileNumber::fromString('+39-5555555')
             $user->person()->contactInformation()->mobileNumber()
         );
 
-        $this->txApplicationService->execute($applicationRequest);
+        $this->txApplicationService->execute($duplicatedUserEmailapplicationRequest);
+    }
 
-        //$userFromDatabase = $this->retrieveUserById($id);
-        //$this->assertTrue($userFromDatabase->id()->equals($id));
+    /** @test */
+    public function registrationShouldFailOnDuplicateUserId(): void
+    {
+        self::expectException(UserAlreadyExist::class);
+
+        $user = $this->generateUserAggregate();
+        $this->userRepository->register($user);
+
+        $duplicatedUserIdApplicationRequest = new RegisterUserRequest(
+            $user->id(),
+            UserEmail::fromString('other@email.com'),
+            $user->password(),
+            $user->person()->name()->firstName(),
+            $user->person()->name()->lastName(),
+            $user->person()->contactInformation()->mobileNumber()
+        );
+
+        $this->txApplicationService->execute($duplicatedUserIdApplicationRequest);
     }
 
     protected function tearDown()
     {
-        $this->applicationService = null;
-        $this->transationalSession = null;
-        $this->applicationServiceFactory = null;
         $this->txApplicationService = null;
         parent::tearDown();
     }
