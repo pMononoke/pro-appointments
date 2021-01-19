@@ -20,19 +20,21 @@ services:
 
     test.ProAppointments\IdentityAccess\Infrastructure\DomainService\DomainRegistry: '@ProAppointments\IdentityAccess\Infrastructure\DomainService\DomainRegistry'
 
+    test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter: '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
 
     test.identity.transactional.session: '@identity.transactional.session'
 
     test.ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory: '@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory'
 
-    test.ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService: '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
-    test.ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService: '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService'
+    test.Identity\Transational\RegisterUserService: '@Identity\Transational\RegisterUserService'
+    #test.ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService: '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
+    #test.ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService: '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService'
 
-    test.ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService: '@ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService'
+    #test.ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService: '@ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService'
 
-    test.ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService: '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService'
-    ProAppointments\IdentityAccess\Domain\Service\PasswordEncoder: '@ProAppointments\IdentityAccess\Infrastructure\DomainService\NullPasswordEncoder'
-    ProAppointments\IdentityAccess\Infrastructure\DomainService\NullPasswordEncoder:
+    #test.ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService: '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService'
+    #ProAppointments\IdentityAccess\Domain\Service\PasswordEncoder: '@ProAppointments\IdentityAccess\Infrastructure\DomainService\NullPasswordEncoder'
+    #ProAppointments\IdentityAccess\Infrastructure\DomainService\NullPasswordEncoder:
 
 
     #

@@ -20,7 +20,7 @@ abstract class UserServiceTestCase extends ApplicationServiceTestCase
         $kernel = self::bootKernel();
 
         $this->userRepository = $kernel->getContainer()
-            ->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository');
+            ->get('test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository');
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine.orm.default_entity_manager');

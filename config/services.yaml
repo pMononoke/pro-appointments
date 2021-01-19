@@ -29,3 +29,10 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    ProAppointments\IdentityAccess\Infrastructure\Symfony\Security\SecurityUserProvider:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository'
+
+    App\Security\LoginFormAuthenticator:
+        $userProvider: '@security.user.provider.concrete.all_users_provider'

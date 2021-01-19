@@ -9,7 +9,8 @@ use ProAppointments\IdentityAccess\Domain\Service\PasswordEncoder;
 
 class NullPasswordEncoder implements PasswordEncoder
 {
-    public function encode(object $plainPassword): UserPassword
+    public function encode(object $user, string $plainPassword): UserPassword
     {
+        // TODO: Implement encode() method.
     }
 }

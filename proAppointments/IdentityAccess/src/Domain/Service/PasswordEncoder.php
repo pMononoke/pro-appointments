@@ -8,5 +8,5 @@ use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 
 interface PasswordEncoder
 {
-    public function encode(object $plainPassword): UserPassword;
+    public function encode(object $user, string $plainPassword): UserPassword;
 }

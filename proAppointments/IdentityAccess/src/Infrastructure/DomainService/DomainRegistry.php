@@ -30,7 +30,7 @@ class DomainRegistry implements DomainRegistryPort
 
     public static function passwordEncoder(): PasswordEncoder
     {
-        return new NullPasswordEncoder();
+        return static::$container->get('ProAppointments\IdentityAccess\Infrastructure\DomainService\PasswordEncoderSymfony');
     }
 
     public static function uniqueUserEmail(): UniqueUserEmailInterface

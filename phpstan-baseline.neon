@@ -201,6 +201,11 @@ parameters:
 			path: proAppointments/IdentityAccess/src/Infrastructure/DomainService/DomainRegistry.php
 
 		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\DomainService\\\\DomainRegistry\\:\\:passwordEncoder\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Service\\\\PasswordEncoder but returns object\\|null\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/DomainService/DomainRegistry.php
+
+		-
 			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\DomainService\\\\DomainRegistry\\:\\:uniqueUserEmail\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Service\\\\UniqueUserEmail\\\\UniqueUserEmailInterface but returns object\\|null\\.$#"
 			count: 1
 			path: proAppointments/IdentityAccess/src/Infrastructure/DomainService/DomainRegistry.php
