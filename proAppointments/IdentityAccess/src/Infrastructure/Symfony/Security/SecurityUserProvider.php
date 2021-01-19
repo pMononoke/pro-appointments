@@ -28,7 +28,6 @@ final class SecurityUserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username): UserInterface
     {
-        // TODO: Implement loadUserByUsername() method.
         return $this->userRepository->loadUserByUsername($username);
     }
 
@@ -37,7 +36,6 @@ final class SecurityUserProvider implements UserProviderInterface
      */
     public function refreshUser(UserInterface $user): UserInterface
     {
-        // TODO: Implement refreshUser() method.
         if (!$user instanceof SecurityUserAdapter) {
             throw new UnsupportedUserException(\sprintf('Invalid user class %s', \get_class($user)));
         }
@@ -55,7 +53,6 @@ final class SecurityUserProvider implements UserProviderInterface
      */
     public function supportsClass($class): bool
     {
-        // TODO: Implement supportsClass() method.
         return SecurityUserAdapter::class === $class;
     }
 }
