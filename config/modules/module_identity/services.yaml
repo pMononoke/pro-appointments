@@ -53,6 +53,10 @@ services:
 
     ProAppointments\IdentityAccess\Domain\Identity\UserFactory:
 
+    ProAppointments\IdentityAccess\Infrastructure\DomainService\PasswordEncoderSymfony:
+        arguments:
+            - '@security.password_encoder'
+
     ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName\UniqueRoleName:
         arguments:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueRoleNameQuery'
