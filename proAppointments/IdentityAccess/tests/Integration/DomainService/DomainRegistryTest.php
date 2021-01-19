@@ -10,6 +10,7 @@ use ProAppointments\IdentityAccess\Domain\Service\DomainRegistry;
 use ProAppointments\IdentityAccess\Domain\Service\PasswordEncoder;
 use ProAppointments\IdentityAccess\Domain\Service\UniqueRoleName\UniqueRoleNameInterface;
 use ProAppointments\IdentityAccess\Domain\Service\UniqueUserEmail\UniqueUserEmailInterface;
+use ProAppointments\IdentityAccess\Infrastructure\DomainService\PasswordEncoderSymfony;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -50,6 +51,7 @@ class DomainRegistryTest extends KernelTestCase
         $passwordEncoder = $this->domainRegistry->passwordEncoder();
 
         self::assertInstanceOf(PasswordEncoder::class, $passwordEncoder);
+        self::assertInstanceOf(PasswordEncoderSymfony::class, $passwordEncoder);
     }
 
     /** @test */
