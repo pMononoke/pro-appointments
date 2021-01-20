@@ -12,7 +12,7 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
         bind:
-            #CompostDDD\ApplicationService\ApplicationService $registerUserService: '@Identity\Transational\RegisterUserService'
+            CompostDDD\ApplicationService\ApplicationService $registerUserUseCase: '@Identity\Transational\RegisterUserService'
             #CompostDDD\ApplicationService\ApplicationService $deleteUserService: '@Identity\Transational\DeleteUserService'
             #CompostDDD\ApplicationService\ApplicationService $changeFirstNameService: '@Identity\Transational\ChangeFirstNameService'
             #CompostDDD\ApplicationService\ApplicationService $changePasswordService: '@Identity\Transational\ChangePasswordService'
