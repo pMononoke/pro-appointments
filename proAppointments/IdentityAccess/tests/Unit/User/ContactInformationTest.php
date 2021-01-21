@@ -27,6 +27,18 @@ class ContactInformationTest extends TestCase
     }
 
     /** @test */
+    public function can_be_created_With_only_email(): void
+    {
+        $contactInformation = new ContactInformation(
+            $email = UserEmail::fromString(self::EMAIL),
+            //$mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
+        );
+
+        self::assertEquals($email, $contactInformation->email());
+        self::assertEquals(MobileNumber::asUnknown(), $contactInformation->mobileNumber());
+    }
+
+    /** @test */
     public function can_be_compared(): void
     {
         $first = new ContactInformation(
@@ -42,9 +54,14 @@ class ContactInformationTest extends TestCase
             $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
         );
 
+        $withOnlyEmail = new ContactInformation($email = UserEmail::fromString(self::EMAIL));
+        $otherWithOnlyEmail = new ContactInformation($email = UserEmail::fromString(self::EMAIL));
+
         self::assertFalse($first->equals($second));
         self::assertTrue($first->equals($copyOfFirst));
         self::assertFalse($second->equals($copyOfFirst));
+        self::assertFalse($first->equals($withOnlyEmail));
+        self::assertTrue($withOnlyEmail->equals($otherWithOnlyEmail));
     }
 
     /** @test */

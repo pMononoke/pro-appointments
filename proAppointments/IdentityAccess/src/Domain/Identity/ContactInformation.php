@@ -15,10 +15,10 @@ final class ContactInformation
     /**
      * ContactInformation constructor.
      */
-    public function __construct(UserEmail $email, MobileNumber $mobileNumber)
+    public function __construct(UserEmail $email, MobileNumber $mobileNumber = null)
     {
         $this->email = $email;
-        $this->mobileNumber = $mobileNumber;
+        $this->mobileNumber = null === $mobileNumber ? MobileNumber::asUnknown() : $mobileNumber;
     }
 
     public function changeMobileNumber(MobileNumber $mobileNumber): ContactInformation

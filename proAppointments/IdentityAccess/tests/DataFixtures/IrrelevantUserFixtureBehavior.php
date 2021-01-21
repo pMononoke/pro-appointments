@@ -34,7 +34,7 @@ trait IrrelevantUserFixtureBehavior
             $email = UserEmail::fromString('irrelevant@email.com'),
             $mobileNumber = MobileNumber::fromString('+39-392-1111111')
         );
-        $person = new Person($id, $fullName, $contactInformation);
+        $person = new Person($id, $contactInformation, $fullName);
         $user = User::register(
             $id,
             $email = UserEmail::fromString('irrelevant@email.com'),

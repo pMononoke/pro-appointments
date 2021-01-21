@@ -21,15 +21,28 @@ class MobileNumberTest extends TestCase
     }
 
     /** @test */
+    public function can_be_created_as_unknown(): void
+    {
+        $mobileNumber = MobileNumber::asUnknown();
+
+        self::assertEquals('', $mobileNumber->toString());
+        self::assertEquals('', $mobileNumber->__toString());
+    }
+
+    /** @test */
     public function can_be_compared(): void
     {
         $first = MobileNumber::fromString(self::MOBILE_NUMBER);
         $second = MobileNumber::fromString('+39-392-2222222');
         $copyOfFirst = MobileNumber::fromString(self::MOBILE_NUMBER);
+        $unknown = MobileNumber::asUnknown();
+        $otherUnknown = MobileNumber::asUnknown();
 
         self::assertFalse($first->equals($second));
         self::assertTrue($first->equals($copyOfFirst));
         self::assertFalse($second->equals($copyOfFirst));
+        self::assertTrue($unknown->equals($otherUnknown));
+        self::assertFalse($unknown->equals($first));
     }
 
     /** @test */

@@ -9,7 +9,7 @@ class Person
     /** @var UserId */
     private $userId;
 
-    /** @var FullName */
+    /** @var FullName|null */
     private $name;
 
     /** @var ContactInformation */
@@ -18,7 +18,7 @@ class Person
     /**
      * Person constructor.
      */
-    public function __construct(UserId $userId, FullName $name, ContactInformation $contactInformation)
+    public function __construct(UserId $userId, ContactInformation $contactInformation, FullName $name = null)
     {
         $this->userId = $userId;
         $this->name = $name;
@@ -41,7 +41,7 @@ class Person
         return $this->userId;
     }
 
-    public function name(): FullName
+    public function name(): ?FullName
     {
         return $this->name;
     }

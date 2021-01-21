@@ -36,13 +36,32 @@ class UserTest extends TestCase
             $email = UserEmail::fromString(self::EMAIL),
             $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
         );
-        $person = new Person($id, $fullName, $contactInformation);
+        $person = new Person($id, $contactInformation, $fullName);
 
         $user = User::register(
             $id,
             $email = UserEmail::fromString(self::EMAIL),
             $password = UserPassword::fromString(self::PASSWORD),
             $person
+        );
+
+        self::assertInstanceOf(User::class, $user);
+        self::assertInstanceOf(UserId::class, $user->id());
+        self::assertInstanceOf(UserEmail::class, $user->email());
+        self::assertInstanceOf(UserPassword::class, $user->password());
+    }
+
+    /** @test */
+    public function can_be_created_with_Minimum_data(): void
+    {
+        $id = UserId::generate();
+        $email = UserEmail::fromString(self::EMAIL);
+        $password = UserPassword::fromString(self::PASSWORD);
+
+        $user = User::registerWithMinimumData(
+            $id,
+            $email,
+            $password
         );
 
         self::assertInstanceOf(User::class, $user);
@@ -63,7 +82,7 @@ class UserTest extends TestCase
             $email = UserEmail::fromString(self::EMAIL),
             $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
         );
-        $person = new Person($id, $fullName, $contactInformation);
+        $person = new Person($id, $contactInformation, $fullName);
         $newFullName = new FullName(
             $newFirstName = FirstName::fromString('new'),
             $newLastName = LastName::fromString('new')
@@ -92,7 +111,7 @@ class UserTest extends TestCase
             $email = UserEmail::fromString(self::EMAIL),
             $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
         );
-        $person = new Person($id, $fullName, $contactInformation);
+        $person = new Person($id, $contactInformation, $fullName);
         $user = User::register(
             $id,
             $email = UserEmail::fromString(self::EMAIL),
@@ -115,13 +134,13 @@ class UserTest extends TestCase
             $password = UserPassword::fromString(self::PASSWORD),
             $person = new Person(
                 $id,
-                $fullName = new FullName(
-                    $firstName = FirstName::fromString(self::FIRST_NAME),
-                    $lastName = LastName::fromString(self::LAST_NAME)
-                ),
                 $contactInformation = new ContactInformation(
                     $email = UserEmail::fromString(self::EMAIL),
                     $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
+                ),
+                $fullName = new FullName(
+                    $firstName = FirstName::fromString(self::FIRST_NAME),
+                    $lastName = LastName::fromString(self::LAST_NAME)
                 )
             )
         );
@@ -131,13 +150,13 @@ class UserTest extends TestCase
             UserPassword::fromString('second'),
             $person = new Person(
                 $id,
-                $fullName = new FullName(
-                    $firstName = FirstName::fromString(self::FIRST_NAME),
-                    $lastName = LastName::fromString(self::LAST_NAME)
-                ),
                 $contactInformation = new ContactInformation(
                     $email = UserEmail::fromString(self::EMAIL),
                     $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
+                ),
+                $fullName = new FullName(
+                    $firstName = FirstName::fromString(self::FIRST_NAME),
+                    $lastName = LastName::fromString(self::LAST_NAME)
                 )
             )
         );
@@ -147,13 +166,13 @@ class UserTest extends TestCase
             $password,
             $person = new Person(
                 $id,
-                $fullName = new FullName(
-                    $firstName = FirstName::fromString(self::FIRST_NAME),
-                    $lastName = LastName::fromString(self::LAST_NAME)
-                ),
                 $contactInformation = new ContactInformation(
                     $email = UserEmail::fromString(self::EMAIL),
                     $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
+                ),
+                $fullName = new FullName(
+                    $firstName = FirstName::fromString(self::FIRST_NAME),
+                    $lastName = LastName::fromString(self::LAST_NAME)
                 )
             )
         );

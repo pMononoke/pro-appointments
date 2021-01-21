@@ -34,7 +34,7 @@ class PersonTest extends TestCase
             $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
         );
 
-        $person = new Person($userId, $fullName, $contactInformation);
+        $person = new Person($userId, $contactInformation, $fullName);
 
         self::assertEquals($userId, $person->userId());
         self::assertEquals($fullName, $person->name());
@@ -57,7 +57,26 @@ class PersonTest extends TestCase
             $newFirstName = FirstName::fromString('new'),
             $newLastName = LastName::fromString('new')
         );
-        $person = new Person($userId, $fullName, $contactInformation);
+        $person = new Person($userId, $contactInformation, $fullName);
+
+        $person->changeName($newFullName);
+
+        self::assertTrue($person->name()->equals($newFullName));
+    }
+
+    /** @test */
+    public function can_add_name_when_name_is_unknown(): void
+    {
+        $userId = UserId::generate();
+        $contactInformation = new ContactInformation(
+            $email = UserEmail::fromString(self::EMAIL),
+            $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
+        );
+        $newFullName = new FullName(
+            $newFirstName = FirstName::fromString('new'),
+            $newLastName = LastName::fromString('new')
+        );
+        $person = new Person($userId, $contactInformation);
 
         $person->changeName($newFullName);
 
@@ -80,7 +99,7 @@ class PersonTest extends TestCase
             $newemail = UserEmail::fromString('new@example.com'),
             $newMobileNumber = MobileNumber::fromString('+39-392-2222222')
         );
-        $person = new Person($userId, $fullName, $contactInformation);
+        $person = new Person($userId, $contactInformation, $fullName);
 
         $person->changeContactInformation($newContactInformation);
 
@@ -88,39 +107,63 @@ class PersonTest extends TestCase
     }
 
     /** @test */
+    public function can_add_mobile_number_to_contact_information(): void
+    {
+        $userId = UserId::generate();
+        $fullName = new FullName(
+            $firstName = FirstName::fromString(self::FIRST_NAME),
+            $lastName = LastName::fromString(self::LAST_NAME)
+        );
+        $contactInformation = new ContactInformation(
+            $email = UserEmail::fromString(self::EMAIL),
+//            $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
+        );
+        $newContactInformation = new ContactInformation(
+            $newemail = UserEmail::fromString('new@example.com'),
+            $newMobileNumber = MobileNumber::fromString('+39-392-2222222')
+        );
+        $person = new Person($userId, $contactInformation, $fullName);
+
+        $person->changeContactInformation($newContactInformation);
+
+        self::assertTrue($person->contactInformation()->equals($newContactInformation));
+        self::assertTrue($person->contactInformation()->mobileNumber()->equals($newMobileNumber));
+    }
+
+    /** @test */
     public function can_be_compared(): void
     {
         $firstPerson = new Person(
             $userId = UserId::generate(),
-            new FullName(
-                $firstName = FirstName::fromString(self::FIRST_NAME),
-                $lastName = LastName::fromString(self::LAST_NAME)
-            ),
             new ContactInformation(
                 $email = UserEmail::fromString(self::EMAIL),
                 $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
+            ),
+            new FullName(
+                $firstName = FirstName::fromString(self::FIRST_NAME),
+                $lastName = LastName::fromString(self::LAST_NAME)
             )
         );
         $secondPerson = new Person(
             UserId::generate(),
-            new FullName(
-                FirstName::fromString('second'),
-                LastName::fromString('second')
-            ),
             new ContactInformation(
                 $email = UserEmail::fromString('second@example.com'),
                 $mobileNumber = MobileNumber::fromString('+39-392-2222222')
+            ),
+            new FullName(
+                FirstName::fromString('second'),
+                LastName::fromString('second')
             )
         );
         $copyOfFirstPerson = new Person(
             $userId,
-            new FullName(
-                $firstName = FirstName::fromString(self::FIRST_NAME),
-                $lastName = LastName::fromString(self::LAST_NAME)
-            ),
             new ContactInformation(
                 $email = UserEmail::fromString(self::EMAIL),
                 $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
+            ),
+            new FullName(
+                $firstName = FirstName::fromString(self::FIRST_NAME),
+                $lastName = LastName::fromString(self::LAST_NAME)
             )
         );
 
