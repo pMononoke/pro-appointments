@@ -40,6 +40,17 @@ class DoctrineUserRepositoryTest extends KernelTestCase
     }
 
     /** @test */
+    public function can_register_and_retrieve_a_minimal_user(): void
+    {
+        list($id, $user) = $this->generateMinimalUserAggregate();
+
+        $this->userRepository->register($user);
+        $userFromDatabase = $this->userRepository->ofId($id);
+
+        $this->assertTrue($user->sameIdentityAs($userFromDatabase));
+    }
+
+    /** @test */
     public function can_register_and_remove_a_user(): void
     {
         $first = list($id, $user) = $this->generateUserAggregate();

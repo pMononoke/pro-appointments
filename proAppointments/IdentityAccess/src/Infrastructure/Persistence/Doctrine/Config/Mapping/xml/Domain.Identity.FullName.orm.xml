@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <embeddable name="ProAppointments\IdentityAccess\Domain\Identity\FullName">
-    <field name="firstName" type="identity_first_name" column="first_name"/>
-    <field name="lastName" type="identity_last_name" column="last_name"/>
+    <field name="firstName" type="identity_first_name" column="first_name" nullable="true"/>
+    <field name="lastName" type="identity_last_name" column="last_name" nullable="true"/>
   </embeddable>
 </doctrine-mapping>
