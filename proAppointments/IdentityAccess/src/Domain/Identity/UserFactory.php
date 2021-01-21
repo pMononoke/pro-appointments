@@ -11,10 +11,6 @@ class UserFactory
         UserEmail $email,
         UserPassword $password
         ): User {
-        $contactInformation = new ContactInformation($email);
-
-        $person = new Person($userId, $contactInformation);
-
         return User::registerWithMinimumData($userId, $email, $password);
     }
 
