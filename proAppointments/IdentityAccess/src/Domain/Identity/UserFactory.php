@@ -6,6 +6,18 @@ namespace ProAppointments\IdentityAccess\Domain\Identity;
 
 class UserFactory
 {
+    public function buildWithMinimumData(
+        UserId $userId,
+        UserEmail $email,
+        UserPassword $password
+        ): User {
+        $contactInformation = new ContactInformation($email);
+
+        $person = new Person($userId, $contactInformation);
+
+        return User::registerWithMinimumData($userId, $email, $password);
+    }
+
     public function buildWithContactInformation(
         UserId $userId,
         UserEmail $email,
@@ -18,10 +30,8 @@ class UserFactory
 
         $contactInformation = new ContactInformation($email, $mobileNumber);
 
-        $person = new Person($userId, $fullName, $contactInformation);
+        $person = new Person($userId, $contactInformation, $fullName);
 
-        $user = User::register($userId, $email, $password, $person);
-
-        return $user;
+        return User::register($userId, $email, $password, $person);
     }
 }

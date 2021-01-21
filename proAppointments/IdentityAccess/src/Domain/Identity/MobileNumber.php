@@ -8,7 +8,22 @@ final class MobileNumber
 {
     private $mobileNumber;
 
-    public function __construct(string $mobileNumber)
+    private function __construct(string $mobileNumber)
+    {
+        $this->mobileNumber = $mobileNumber;
+    }
+
+    public static function asUnknown(): MobileNumber
+    {
+        return new self('');
+    }
+
+    public function withMobileNumber(string $mobileNumber): MobileNumber
+    {
+        return self::fromString($mobileNumber);
+    }
+
+    public static function fromString(string $mobileNumber): MobileNumber
     {
         if (\strlen($mobileNumber) < 5) {
             throw new \InvalidArgumentException('Telephone number may not be less than 5 characters.');
@@ -18,16 +33,6 @@ final class MobileNumber
             throw new \InvalidArgumentException('Telephone number may not be more than 20 characters.');
         }
 
-        $this->mobileNumber = $mobileNumber;
-    }
-
-    public function withMobileNumber(string $mobileNumber): MobileNumber
-    {
-        return new self($mobileNumber);
-    }
-
-    public static function fromString(string $mobileNumber): MobileNumber
-    {
         return new self($mobileNumber);
     }
 
