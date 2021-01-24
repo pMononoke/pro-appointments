@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="{{ path('login') }}" method="post">
+                <h1 class="h3 mb-3 font-weight-normal">Registration</h1>
 {#                    {% if error %}#}
 {#                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
 {#                    {% endif %}#}
@@ -17,19 +17,13 @@
 {#                        </div>#}
 {#                    {% endif %}#}
 
-                    <h1 class="h3 mb-3 font-weight-normal">Registration</h1>
-                    <label for="inputUsername">Username</label>
-{#                    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>#}
-                    <label for="inputPassword">Password</label>
-{#                    <input type="password" name="password" id="inputPassword" class="form-control" required>#}
 
-                    <input type="hidden" name="_csrf_token"
-                           value="{{ csrf_token('authenticate') }}"
-                    >
 
-                    <br>
-                    <input class="btn btn-primary" type="submit" value="Sign Up">
-                </form>
+
+
+                <hr>
+                {{ form(form) }}
+
             </div>
     </div>
 {% endblock %}
