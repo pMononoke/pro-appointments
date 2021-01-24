@@ -47,18 +47,16 @@ class RegisterUserService implements ApplicationService
         }
         $factory = new UserFactory();
 
-        $user = $factory->buildWithContactInformation(
+        $user = $factory->buildWithMinimumData(
             $request->userId(),
             $request->email(),
             $request->password(),
-            $request->firstName(),
-            $request->lastName(),
-            $request->mobileNumber()
         );
 
         $password = $this->encodeUserPassword($user, $request->password()->toString());
 
         $user->changeAccessCredentials($password);
+
         $this->userRepository->register($user);
     }
 
