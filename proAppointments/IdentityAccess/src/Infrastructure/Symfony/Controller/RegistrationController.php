@@ -41,8 +41,6 @@ class RegistrationController extends AbstractController
             $formData = $form->getData();
 
             try {
-                // happy path if valid form
-                // Todo remove VO form request here. (should use only primitives)
                 $useCaseRequest = new RegisterUserRequest(
                     //Todo remove userId
                     UserId::generate(),
@@ -52,10 +50,9 @@ class RegistrationController extends AbstractController
 
                 $this->usecase->execute($useCaseRequest);
 
-                // TODO redirect to login || message 'check your mail for confirmation link'
                 return $this->redirectToRoute('app_login');
             } catch (\Exception $exception) {
-                //$this->convertExceptionToFormError($form, 'leanpubInvoiceId', $exception);
+                // Todo convert Exception To FormError
             }
         }
 
@@ -63,15 +60,4 @@ class RegistrationController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-//    private function convertExceptionToFormError(FormInterface $form, string $field, UserFacingError $exception): void
-//    {
-//        $form->get($field)->addError(
-//            new FormError(
-//                $this->translator->trans($exception->translationId(), $exception->translationParameters()),
-//                $exception->translationId(),
-//                $exception->translationParameters()
-//            )
-//        );
-//    }
 }
