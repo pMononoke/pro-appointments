@@ -541,16 +541,6 @@ parameters:
 			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/InMemory/ReadWriteRoleRepository.php
 
 		-
-			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\NullRepository\\\\UserRepository\\:\\:ofId\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\User but return statement is missing\\.$#"
-			count: 1
-			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/NullRepository/UserRepository.php
-
-		-
-			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Persistence\\\\NullRepository\\\\UserRepository\\:\\:nextIdentity\\(\\) should return ProAppointments\\\\IdentityAccess\\\\Domain\\\\Identity\\\\UserId but return statement is missing\\.$#"
-			count: 1
-			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/NullRepository/UserRepository.php
-
-		-
 			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Symfony\\\\Form\\\\RegisterUserForm\\:\\:buildForm\\(\\) has parameter \\$builder with no value type specified in iterable type Symfony\\\\Component\\\\Form\\\\FormBuilderInterface\\.$#"
 			count: 1
 			path: proAppointments/IdentityAccess/src/Infrastructure/Symfony/Form/RegisterUserForm.php
