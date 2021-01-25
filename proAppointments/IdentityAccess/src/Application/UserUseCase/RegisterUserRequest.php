@@ -35,7 +35,7 @@ class RegisterUserRequest implements ServiceRequest
     /**
      * RegisterUserRequest constructor.
      */
-    public function __construct(string $email, string $password, string $firstName = null, string $lastName = null, string $mobileNumber = null, string $userId)
+    public function __construct(string $email, string $password, string $firstName = null, string $lastName = null, string $mobileNumber = null, string $userId = null)
     {
         $this->userId = UserId::fromString($userId);
         $this->email = UserEmail::fromString($email);
