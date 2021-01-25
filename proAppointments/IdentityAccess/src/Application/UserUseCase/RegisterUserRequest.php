@@ -37,7 +37,7 @@ class RegisterUserRequest implements ServiceRequest
      */
     public function __construct(string $email, string $password, string $firstName = null, string $lastName = null, string $mobileNumber = null, string $userId = null)
     {
-        $this->userId = UserId::fromString($userId);
+        $this->userId = null === $userId ? $userId : UserId::fromString($userId);
         $this->email = UserEmail::fromString($email);
         $this->password = UserPassword::fromString($password);
         $this->firstName = null === $firstName ? null : FirstName::fromString($firstName);
@@ -45,7 +45,7 @@ class RegisterUserRequest implements ServiceRequest
         $this->mobileNumber = null === $mobileNumber ? null : MobileNumber::fromString($mobileNumber);
     }
 
-    public function userId(): UserId
+    public function userId(): ?UserId
     {
         return $this->userId;
     }
@@ -60,17 +60,17 @@ class RegisterUserRequest implements ServiceRequest
         return $this->password;
     }
 
-    public function firstName(): FirstName
+    public function firstName(): ?FirstName
     {
         return $this->firstName;
     }
 
-    public function lastName(): LastName
+    public function lastName(): ?LastName
     {
         return $this->lastName;
     }
 
-    public function mobileNumber(): MobileNumber
+    public function mobileNumber(): ?MobileNumber
     {
         return $this->mobileNumber;
     }
