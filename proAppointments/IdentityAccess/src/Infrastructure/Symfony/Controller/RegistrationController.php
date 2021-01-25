@@ -6,9 +6,7 @@ namespace ProAppointments\IdentityAccess\Infrastructure\Symfony\Controller;
 
 use CompostDDD\ApplicationService\ApplicationService;
 use ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserRequest;
-use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
-use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 use ProAppointments\IdentityAccess\Infrastructure\Symfony\Form\RegisterUserForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,10 +40,13 @@ class RegistrationController extends AbstractController
 
             try {
                 $useCaseRequest = new RegisterUserRequest(
+                    $formData['email'],
+                    $formData['password'],
+                    null,
+                    null,
+                    null,
                     //Todo remove userId
-                    UserId::generate(),
-                    UserEmail::fromString($formData['email']),
-                    UserPassword::fromString($formData['password'])
+                    UserId::generate()->toString(),
                 );
 
                 $this->usecase->execute($useCaseRequest);

@@ -14,7 +14,7 @@ use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 
 class RegisterUserRequest implements ServiceRequest
 {
-    /** @var UserId */
+    /** @var UserId|null */
     private $userId;
 
     /** @var UserEmail */
@@ -23,26 +23,26 @@ class RegisterUserRequest implements ServiceRequest
     /** @var UserPassword */
     private $password;
 
-    /** @var FirstName */
+    /** @var FirstName|null */
     private $firstName;
 
-    /** @var LastName */
+    /** @var LastName|null */
     private $lastName;
 
-    /** @var MobileNumber */
+    /** @var MobileNumber|null */
     private $mobileNumber;
 
     /**
      * RegisterUserRequest constructor.
      */
-    public function __construct(UserId $userId, UserEmail $email, UserPassword $password, FirstName $firstName = null, LastName $lastName = null, MobileNumber $mobileNumber = null)
+    public function __construct(string $email, string $password, string $firstName = null, string $lastName = null, string $mobileNumber = null, string $userId)
     {
-        $this->userId = $userId;
-        $this->email = $email;
-        $this->password = $password;
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->mobileNumber = $mobileNumber;
+        $this->userId = UserId::fromString($userId);
+        $this->email = UserEmail::fromString($email);
+        $this->password = UserPassword::fromString($password);
+        $this->firstName = null === $firstName ? null : FirstName::fromString($firstName);
+        $this->lastName = null === $lastName ? null : LastName::fromString($lastName);
+        $this->mobileNumber = null === $mobileNumber ? null : MobileNumber::fromString($mobileNumber);
     }
 
     public function userId(): UserId
