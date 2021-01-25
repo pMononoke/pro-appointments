@@ -48,30 +48,46 @@ class UserTest extends TestCase
         self::assertInstanceOf(User::class, $user);
         self::assertInstanceOf(UserId::class, $user->id());
         self::assertInstanceOf(UserEmail::class, $user->email());
+        self::assertSame(self::EMAIL, $user->email()->toString());
         self::assertInstanceOf(UserPassword::class, $user->password());
+        self::assertSame(self::PASSWORD, $user->password()->toString());
+        self::assertInstanceOf(Person::class, $user->person());
+        self::assertSame(self::FIRST_NAME, $user->person()->name()->firstName()->toString());
+        self::assertSame(self::LAST_NAME, $user->person()->name()->lastName()->toString());
+        self::assertInstanceOf(ContactInformation::class, $user->person()->contactInformation());
+        self::assertInstanceOf(MobileNumber::class, $user->person()->contactInformation()->mobileNumber());
+        self::assertSame(self::MOBILE_NUMBER, $user->person()->contactInformation()->mobileNumber()->toString());
     }
 
     /** @test */
     public function can_be_created_with_Minimum_data(): void
     {
         $id = UserId::generate();
-        $email = UserEmail::fromString(self::EMAIL);
-        $password = UserPassword::fromString(self::PASSWORD);
+        $contactInformation = new ContactInformation(
+            $email = UserEmail::fromString(self::EMAIL),
+        );
+        $person = new Person($id, $contactInformation);
 
-        $user = User::registerWithMinimumData(
+        $user = User::register(
             $id,
-            $email,
-            $password
+            $email = UserEmail::fromString(self::EMAIL),
+            $password = UserPassword::fromString(self::PASSWORD),
+            $person
         );
 
         self::assertInstanceOf(User::class, $user);
         self::assertInstanceOf(UserId::class, $user->id());
         self::assertInstanceOf(UserEmail::class, $user->email());
+        self::assertSame(self::EMAIL, $user->email()->toString());
         self::assertInstanceOf(UserPassword::class, $user->password());
+        self::assertSame(self::PASSWORD, $user->password()->toString());
+        self::assertInstanceOf(Person::class, $user->person());
+        self::assertNull($user->person()->name());
+        self::assertInstanceOf(MobileNumber::class, $user->person()->contactInformation()->mobileNumber());
+        self::assertSame('', $user->person()->contactInformation()->mobileNumber()->toString());
     }
 
-    /** @test */
-    public function can_change_personal_name(): void
+    public function fullUserDataProvider(): User
     {
         $id = UserId::generate();
         $fullName = new FullName(
@@ -83,15 +99,41 @@ class UserTest extends TestCase
             $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
         );
         $person = new Person($id, $contactInformation, $fullName);
-        $newFullName = new FullName(
-            $newFirstName = FirstName::fromString('new'),
-            $newLastName = LastName::fromString('new')
-        );
-        $user = User::register(
+
+        return User::register(
             $id,
             $email = UserEmail::fromString(self::EMAIL),
             $password = UserPassword::fromString(self::PASSWORD),
             $person
+        );
+    }
+
+    public function basicUserDataProvider(): User
+    {
+        $id = UserId::generate();
+        $contactInformation = new ContactInformation(
+            $email = UserEmail::fromString(self::EMAIL),
+        );
+        $person = new Person($id, $contactInformation);
+
+        return User::register(
+            $id,
+            $email = UserEmail::fromString(self::EMAIL),
+            $password = UserPassword::fromString(self::PASSWORD),
+            $person
+        );
+    }
+
+    /**
+     * @test
+     * @dataProvider fullUserDataProvider
+     * @dataProvider basicUserDataProvider
+     */
+    public function can_change_personal_name(User $user): void
+    {
+        $newFullName = new FullName(
+            $newFirstName = FirstName::fromString('new'),
+            $newLastName = LastName::fromString('new')
         );
 
         $user->changePersonalName($newFullName);
@@ -99,25 +141,13 @@ class UserTest extends TestCase
         self::assertTrue($user->person()->name()->equals($newFullName));
     }
 
-    /** @test */
-    public function can_change_access_credentials(): void
+    /**
+     * @test
+     * @dataProvider fullUserDataProvider
+     * @dataProvider basicUserDataProvider
+     */
+    public function can_change_access_credentials(User $user): void
     {
-        $id = UserId::generate();
-        $fullName = new FullName(
-            $firstName = FirstName::fromString(self::FIRST_NAME),
-            $lastName = LastName::fromString(self::LAST_NAME)
-        );
-        $contactInformation = new ContactInformation(
-            $email = UserEmail::fromString(self::EMAIL),
-            $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
-        );
-        $person = new Person($id, $contactInformation, $fullName);
-        $user = User::register(
-            $id,
-            $email = UserEmail::fromString(self::EMAIL),
-            $password = UserPassword::fromString(self::PASSWORD),
-            $person
-        );
         $newPassword = UserPassword::fromString('new-password');
 
         $user->changeAccessCredentials($newPassword);
@@ -126,7 +156,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function can_be_compared(): void
+    public function can_be_compared_by_identity(): void
     {
         $firstUser = User::register(
             $id = UserId::generate(),

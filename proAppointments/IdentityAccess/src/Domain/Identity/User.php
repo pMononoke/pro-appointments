@@ -48,19 +48,6 @@ class User
         return $user;
     }
 
-    public static function registerWithMinimumData(UserId $id, UserEmail $email, UserPassword $password): User
-    {
-        $user = new User($id);
-        $user->email = $email;
-        $user->password = $password;
-
-        $user->recordThat(
-            new UserWasRegistered($id, $email)
-        );
-
-        return $user;
-    }
-
     public function changePersonalName(FullName $personalName): void
     {
         $this->person->changeName($personalName);
