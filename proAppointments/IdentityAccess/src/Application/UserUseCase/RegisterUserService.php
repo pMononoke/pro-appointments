@@ -42,23 +42,27 @@ class RegisterUserService implements ApplicationService
     public function execute($request): void
     {
         if (!$this->isUniqueEmail($request->email())) {
-            //TODO poor text, text message to change in the future.
-            throw new UserException('Email exist.|Can not register with this email address.');
+            throw new UserException('Can not register user, email already exist.');
         }
+
+        if (null === $request->userId()) {
+            $id = $this->userRepository->nextIdentity();
+        } else {
+            $id = $request->userId();
+        }
+
         $factory = new UserFactory();
 
-        $user = $factory->buildWithContactInformation(
-            $request->userId(),
+        $user = $factory->buildWithMinimumData(
+            $id,
             $request->email(),
             $request->password(),
-            $request->firstName(),
-            $request->lastName(),
-            $request->mobileNumber()
         );
 
         $password = $this->encodeUserPassword($user, $request->password()->toString());
 
         $user->changeAccessCredentials($password);
+
         $this->userRepository->register($user);
     }
 

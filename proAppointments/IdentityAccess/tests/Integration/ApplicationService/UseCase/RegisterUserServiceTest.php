@@ -34,13 +34,15 @@ class RegisterUserServiceTest extends UserServiceTestCase
     /** @test */
     public function can_register_a_new_user(): void
     {
+        $id = UserId::generate();
+
         $applicationRequest = new RegisterUserRequest(
-            $id = UserId::generate(),
-            $email = UserEmail::fromString('irrelevant@example.com'),
-            UserPassword::fromString('irrelevant'),
-            FirstName::fromString('pippo'),
-            LastName::fromString('pluto'),
-            MobileNumber::fromString('+39-5555555')
+            $email = UserEmail::fromString('irrelevant@example.com')->toString(),
+            UserPassword::fromString('irrelevant')->toString(),
+            FirstName::fromString('pippo')->toString(),
+            LastName::fromString('pluto')->toString(),
+            MobileNumber::fromString('+39-5555555')->toString(),
+            $id->toString(),
         );
 
         $this->txApplicationService->execute($applicationRequest);
@@ -58,12 +60,12 @@ class RegisterUserServiceTest extends UserServiceTestCase
         $this->userRepository->register($user);
 
         $duplicatedUserEmailapplicationRequest = new RegisterUserRequest(
-            UserId::generate(),
-            $user->email(),
-            $user->password(),
-            $user->person()->name()->firstName(),
-            $user->person()->name()->lastName(),
-            $user->person()->contactInformation()->mobileNumber()
+            $user->email()->toString(),
+            $user->password()->toString(),
+            $user->person()->name()->firstName()->toString(),
+            $user->person()->name()->lastName()->toString(),
+            $user->person()->contactInformation()->mobileNumber()->toString(),
+            UserId::generate()->toString(),
         );
 
         $this->txApplicationService->execute($duplicatedUserEmailapplicationRequest);
@@ -78,12 +80,12 @@ class RegisterUserServiceTest extends UserServiceTestCase
         $this->userRepository->register($user);
 
         $duplicatedUserIdApplicationRequest = new RegisterUserRequest(
-            $user->id(),
-            UserEmail::fromString('other@email.com'),
-            $user->password(),
-            $user->person()->name()->firstName(),
-            $user->person()->name()->lastName(),
-            $user->person()->contactInformation()->mobileNumber()
+            UserEmail::fromString('other@email.com')->toString(),
+            $user->password()->toString(),
+            $user->person()->name()->firstName()->toString(),
+            $user->person()->name()->lastName()->toString(),
+            $user->person()->contactInformation()->mobileNumber()->toString(),
+            $user->id()->toString(),
         );
 
         $this->txApplicationService->execute($duplicatedUserIdApplicationRequest);

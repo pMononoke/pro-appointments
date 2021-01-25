@@ -38,4 +38,22 @@ trait UserFixtureBehavior
 
         return [$id, $user];
     }
+
+    protected function generateMinimalUserAggregate(): array
+    {
+        $id = UserId::generate();
+
+        $contactInformation = new ContactInformation(
+            $email = UserEmail::fromString('irrelevant@email.com'),
+        );
+        $person = new Person($id, $contactInformation);
+        $user = User::register(
+            $id,
+            $email = UserEmail::fromString('irrelevant@email.com'),
+            $password = UserPassword::fromString('irrelevant'),
+            $person
+        );
+
+        return [$id, $user];
+    }
 }

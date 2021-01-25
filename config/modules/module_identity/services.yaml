@@ -12,7 +12,7 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
         bind:
-            #CompostDDD\ApplicationService\ApplicationService $registerUserService: '@Identity\Transational\RegisterUserService'
+            CompostDDD\ApplicationService\ApplicationService $registerUserUseCase: '@Identity\Transational\RegisterUserService'
             #CompostDDD\ApplicationService\ApplicationService $deleteUserService: '@Identity\Transational\DeleteUserService'
             #CompostDDD\ApplicationService\ApplicationService $changeFirstNameService: '@Identity\Transational\ChangeFirstNameService'
             #CompostDDD\ApplicationService\ApplicationService $changePasswordService: '@Identity\Transational\ChangePasswordService'
@@ -26,6 +26,9 @@ services:
     ProAppointments\IdentityAccess\Infrastructure\Symfony\Controller\:
         resource: '../../../proAppointments/IdentityAccess/src/Infrastructure/Symfony/Controller'
         tags: ['controller.service_arguments']
+
+    ProAppointments\IdentityAccess\Infrastructure\Symfony\Form\:
+        resource: '../../../proAppointments/IdentityAccess/src/Infrastructure/Symfony/Form/'
 
     #
     #   SYSTEM CLOCK
