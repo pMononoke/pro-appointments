@@ -566,11 +566,6 @@ parameters:
 			path: proAppointments/IdentityAccess/src/UI/Cli/WireDeleteUserCommand.php
 
 		-
-			message: "#^Method ProAppointments\\\\IdentityAccess\\\\UI\\\\Cli\\\\WireUserCommand\\:\\:configure\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: proAppointments/IdentityAccess/src/UI/Cli/WireUserCommand.php
-
-		-
 			message: "#^Method ProAppointments\\\\Schedule\\\\Adapter\\\\Out\\\\Persistence\\\\AppointmentPersistenceAdapter\\:\\:loadAppointment\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: proAppointments/Schedule/src/Adapter/Out/Persistence/AppointmentPersistenceAdapter.php
