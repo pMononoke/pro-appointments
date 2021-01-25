@@ -16,7 +16,6 @@ use ProAppointments\IdentityAccess\Domain\Access\RoleRepository;
 use ProAppointments\IdentityAccess\Domain\Access\RoleRepository as RoleRepositoryPort;
 use ProAppointments\IdentityAccess\Infrastructure\Notification\EventStore;
 use ProAppointments\IdentityAccess\Infrastructure\Notification\NullEventStore;
-use ProAppointments\IdentityAccess\Infrastructure\Persistence\UnknownRepository\UnknownRoleRepository;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -30,9 +29,9 @@ class RoleRepositoryAdapter implements RoleRepositoryPort
     /** @var LoggerInterface */
     private $logger;
 
-    public function __construct(RoleRepository $innerRepository = null, EventStore $eventStore = null, LoggerInterface $logger = null)
+    public function __construct(RoleRepository $innerRepository, EventStore $eventStore = null, LoggerInterface $logger = null)
     {
-        $this->innerRepository = $innerRepository ?: new UnknownRoleRepository();
+        $this->innerRepository = $innerRepository;
         $this->eventStore = $eventStore ?: new NullEventStore();
         $this->logger = $logger ?: new NullLogger();
     }
