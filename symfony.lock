@@ -8,6 +8,12 @@
     "behat/mink": {
         "version": "v1.8.1"
     },
+    "behat/mink-browserkit-driver": {
+        "version": "v1.3.4"
+    },
+    "behat/mink-extension": {
+        "version": "2.3.1"
+    },
     "behat/symfony2-extension": {
         "version": "2.1.5"
     },
