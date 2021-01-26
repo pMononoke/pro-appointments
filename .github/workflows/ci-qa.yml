@@ -8,8 +8,8 @@ on:
     branches: [ master,develop ]
 
 env:
-  PHP_EXTENSIONS: ctype, curl, iconv, intl, openssl, mbstring, mysql, pdo_sqlite
-  PHP_EXTENSIONS_CACHE_KEY: cache-php-extensions-v1
+  PHP_EXTENSIONS: ctype, curl, gd, iconv, intl, opcache, openssl, mbstring, mysql, pdo_sqlite
+  PHP_EXTENSIONS_CACHE_KEY: cache-php-extensions-v2
 
 jobs:
   lint-composer:
@@ -44,9 +44,9 @@ jobs:
         name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.3
-          tools: ${{ env.PHP_EXTENSIONS }}
-          extensions: intl, bcmath, curl, openssl, mbstring
+          php-version: ${{ matrix.php }}
+          tools: composer:v1, composer-normalize, composer-unused, composer-require-checker
+          extensions: ${{ env.PHP_EXTENSIONS }}
           ini-values: memory_limit=-1
           coverage: none
       -
@@ -114,7 +114,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           tools: composer:v1
-          extensions: intl, bcmath, curl, openssl, mbstring
+          extensions: ${{ env.PHP_EXTENSIONS }}
           ini-values: memory_limit=-1
           coverage: none
       -
