@@ -1,0 +1,26 @@
+default:
+  #calls:
+    #error_reporting: 16383 # E_ALL & ~E_USER_DREPRECATED
+  suites:
+    default:
+      contexts:
+        - FeatureContext:
+            doctrine: '@doctrine'
+            kernel: '@kernel'
+        - Behat\MinkExtension\Context\MinkContext: ~
+  extensions:
+    Behat\Symfony2Extension:
+      kernel:
+        env: "test"
+        debug: "false"
+        bootstrap: features/bootstrap/bootstrap.php
+        class: App\Kernel
+    Behat\MinkExtension:
+      base_url: "http://127.0.0.1/"
+      sessions:
+        default:
+          symfony2: ~
+
+  gherkin:
+    filters:
+      tags: "~@todo"
