@@ -47,6 +47,11 @@ cs-check: ## Run code style check tool
 cs-fix: ## Run code style fixer tool
 	- ${PHP_DOCKER_COMMAND} vendor/bin/php-cs-fixer fix -v --ansi
 
+.PHONY: behat
+behat: ## Run behat
+	- ${MAKE} ensure-database-for-test
+	- ${PHP_DOCKER_COMMAND} vendor/bin/behat
+
 .PHONY: migration-run
 migration-run: ## Run database migrations
 	- ${PHP_DOCKER_COMMAND} bin/console doctrine:migrations:migrate --no-interaction --ansi
