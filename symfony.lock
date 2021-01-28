@@ -114,6 +114,9 @@
     "doctrine/sql-formatter": {
         "version": "1.1.1"
     },
+    "fakerphp/faker": {
+        "version": "v1.13.0"
+    },
     "friendsofphp/php-cs-fixer": {
         "version": "2.2",
         "recipe": {
@@ -520,5 +523,11 @@
     },
     "zendframework/zend-eventmanager": {
         "version": "3.2.1"
+    },
+    "zenstruck/callback": {
+        "version": "v1.2.0"
+    },
+    "zenstruck/foundry": {
+        "version": "v1.7.0"
     }
 }
