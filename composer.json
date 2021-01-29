@@ -30,6 +30,7 @@
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.4",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "fakerphp/faker": "^1.13",
         "friendsofphp/php-cs-fixer": "^2.16",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^0.12",
