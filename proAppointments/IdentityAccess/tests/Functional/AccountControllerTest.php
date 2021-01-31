@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Functional;
 
-use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter;
-use ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository;
 use ProAppointments\IdentityAccess\Infrastructure\Symfony\Security\SecurityUserAdapter;
 use ProAppointments\IdentityAccess\Tests\Support\Factory\UserFactoryGirl;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -66,21 +64,6 @@ class AccountControllerTest extends WebTestCase
         $cookie = new Cookie($session->getName(), $session->getId());
         $this->client->getCookieJar()->set($cookie);
     }
-
-//    private function checkUserIsPersisted(): bool
-//    {
-//        $container = $this->client->getContainer();
-//
-//        $specialContainer = $container->get('test.service_container');
-//        $repository = $specialContainer->get('ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository');
-//
-//        /* @var DoctrineUserRepository  DoctrineUserRepository */
-//        if (null === $user = $repository->findOneBy(['email' => UserEmail::fromString('x_registration-email@email.com')])) {
-//            return false;
-//        }
-//
-//        return true;
-//    }
 
     protected function tearDown(): void
     {
