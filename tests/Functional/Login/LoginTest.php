@@ -51,8 +51,8 @@ class LoginTest extends WebTestCase
     public function validCredentialsProvider(): array
     {
         return [
-            [self::USER, self::PASSWORD_USER, '/web'],
-            [self::ADMIN, self::PASSWORD_ADMIN, '/administration'],
+            'demo user' => [self::USER, self::PASSWORD_USER, '/web'],
+            'admin user' => [self::ADMIN, self::PASSWORD_ADMIN, '/administration'],
         ];
     }
 }
