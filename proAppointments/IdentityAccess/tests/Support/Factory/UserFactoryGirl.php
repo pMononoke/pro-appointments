@@ -110,6 +110,7 @@ class UserFactoryGirl extends UserFactory
             'mobileNumber' => $mobileNumber,
         ];
     }
+
     /**
      * Create an instance of User aggregate,
      * it is a full data (properties and events) entity.

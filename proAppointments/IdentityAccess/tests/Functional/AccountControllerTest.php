@@ -5,8 +5,13 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Tests\Functional;
 
 use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
+use ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository;
+use ProAppointments\IdentityAccess\Infrastructure\Symfony\Security\SecurityUserAdapter;
+use ProAppointments\IdentityAccess\Tests\Support\Factory\UserFactoryGirl;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class AccountControllerTest extends WebTestCase
 {
@@ -20,22 +25,46 @@ class AccountControllerTest extends WebTestCase
     /** @test */
     public function accountPageShouldBeProtected(): void
     {
+        $this->client->request('GET', '/account');
+
+        $this->assertResponseRedirects();
+    }
+
+    /** @test */
+    public function accountPageShouldBeAvailableIfLoggedIn(): void
+    {
+        $this->doWebLogIn();
         $crawler = $this->client->request('GET', '/account');
         $this->assertResponseIsSuccessful();
-        //        $expectedRedirect = '/login';
-//        $crawler = $this->client->request('GET', '/registration');
-//        $buttonCrawlerNode = $crawler->selectButton('register_user_form.register_user_submit.label');
-//        $form = $buttonCrawlerNode->form();
-//        $data = [
-//            'register_user_form[email]' => 'x_registration-email@email.com',
-//            'register_user_form[password][first]' => 'registration-password',
-//            'register_user_form[password][second]' => 'registration-password',
-//        ];
-//
-//        $this->client->submit($form, $data);
-//
-//        $this->assertResponseRedirects($expectedRedirect);
-//        self::assertTrue($this->checkUserIsPersisted());
+        $this->assertContains('Account', $this->client->getResponse()->getContent());
+    }
+
+    private function doWebLogIn()
+    {
+        $factory = new UserFactoryGirl();
+
+        $user = $factory->buildDefaultTestUser();
+
+        /** @var UserRepositoryAdapter $userRepositoy */
+        $userRepositoy = self::$container->get('test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter');
+        $userRepositoy->register($user);
+
+        $session = self::$container->get('session');
+
+        $firewallName = 'main';
+        // if you don't define multiple connected firewalls, the context defaults to the firewall name
+        // See https://symfony.com/doc/current/reference/configuration/security.html#firewall-context
+        $firewallContext = 'main';
+
+        // you may need to use a different token class depending on your application.
+        // for example, when using Guard authentication you must instantiate PostAuthenticationGuardToken
+        //$token = new UsernamePasswordToken($user, null, $firewallName, $user->getRoles());
+        $token = new UsernamePasswordToken($securityUser = new SecurityUserAdapter($user), null, $firewallName, $securityUser->getRoles());
+        $session->set('_security_'.$firewallContext, \serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $this->client->getCookieJar()->set($cookie);
     }
 
 //    private function checkUserIsPersisted(): bool
