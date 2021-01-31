@@ -84,4 +84,47 @@ class UserFactoryGirl extends UserFactory
 
         return $users;
     }
+
+    protected function getDefaultsTestUser(): array
+    {
+        $faker = Factory::create('it_IT');
+
+        $userId = UserId::generate();
+
+        $email = UserEmail::fromString('test-user@example.com');
+
+        $password = UserPassword::fromString('test-user');
+
+        $firstName = FirstName::fromString('test-user');
+
+        $lastName = LastName::fromString('test-user');
+
+        $mobileNumber = MobileNumber::fromString($faker->unique()->phoneNumber);
+
+        return [
+            'id' => $userId,
+            'email' => $email,
+            'password' => $password,
+            'firstName' => $firstName,
+            'lastName' => $lastName,
+            'mobileNumber' => $mobileNumber,
+        ];
+    }
+    /**
+     * Create an instance of User aggregate,
+     * it is a full data (properties and events) entity.
+     */
+    public function buildDefaultTestUser(): User
+    {
+        $default = $this->getDefaultsTestUser();
+
+        return $this->buildWithContactInformation(
+            $default['id'],
+            $default['email'],
+            $default['password'],
+            $default['firstName'],
+            $default['lastName'],
+            $default['mobileNumber'],
+        );
+    }
 }
