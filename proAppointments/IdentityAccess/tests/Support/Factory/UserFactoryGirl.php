@@ -13,6 +13,7 @@ use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 use ProAppointments\IdentityAccess\Domain\Identity\UserFactory;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
+use ProAppointments\IdentityAccess\Tests\Support\StaticData\DefaultTestUserStaticData as TestUser;
 
 class UserFactoryGirl extends UserFactory
 {
@@ -87,19 +88,17 @@ class UserFactoryGirl extends UserFactory
 
     protected function getDefaultsTestUser(): array
     {
-        $faker = Factory::create('it_IT');
+        $userId = UserId::fromString(TestUser::$uuid);
 
-        $userId = UserId::generate();
+        $email = UserEmail::fromString(TestUser::$email);
 
-        $email = UserEmail::fromString('test-user@example.com');
+        $password = UserPassword::fromString(TestUser::$password);
 
-        $password = UserPassword::fromString('test-user');
+        $firstName = FirstName::fromString(TestUser::$firstName);
 
-        $firstName = FirstName::fromString('test-user');
+        $lastName = LastName::fromString(TestUser::$lastName);
 
-        $lastName = LastName::fromString('test-user');
-
-        $mobileNumber = MobileNumber::fromString($faker->unique()->phoneNumber);
+        $mobileNumber = MobileNumber::fromString(TestUser::$mobileNumber);
 
         return [
             'id' => $userId,
