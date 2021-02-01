@@ -13,6 +13,17 @@ class SecurityUserAdapterTest extends TestCase
     use UserFixtureBehavior;
 
     /** @test */
+    public function shouldExposeInternalUserIdAsString(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+
+        $adapter = new SecurityUserAdapter($user);
+
+        self::assertIsString($adapter->getUsername());
+        self::assertEquals($id->toString(), $adapter->getId());
+    }
+
+    /** @test */
     public function shouldExposeInternalEmailAsUsername(): void
     {
         list($id, $user) = $this->generateUserAggregate();

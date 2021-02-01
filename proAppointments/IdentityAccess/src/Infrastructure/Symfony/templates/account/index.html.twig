@@ -1,0 +1,10 @@
+{% extends '@identity/account/layout.html.twig' %}
+
+{% block title %}Account{% endblock %}
+
+{% block account %}
+    <div>
+        account-id: {{ userViewData.id }} <br>
+        email: {{ userViewData.email }} <br>
+    </div>
+{% endblock %}
