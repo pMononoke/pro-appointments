@@ -7,6 +7,7 @@ namespace ProAppointments\IdentityAccess\Tests\Functional;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter;
 use ProAppointments\IdentityAccess\Infrastructure\Symfony\Security\SecurityUserAdapter;
 use ProAppointments\IdentityAccess\Tests\Support\Factory\UserFactoryGirl;
+use ProAppointments\IdentityAccess\Tests\Support\StaticData\DefaultTestUserStaticData as TestUser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -31,13 +32,16 @@ class AccountControllerTest extends WebTestCase
     /** @test */
     public function accountPageShouldBeAvailableIfLoggedIn(): void
     {
-        $this->doWebLogIn();
+        $this->doWebLogInAsTestUser();
         $crawler = $this->client->request('GET', '/account');
         $this->assertResponseIsSuccessful();
+
         $this->assertContains('Account', $this->client->getResponse()->getContent());
+        $this->assertContains(TestUser::$email, $this->client->getResponse()->getContent());
+        $this->assertContains(TestUser::$uuid, $this->client->getResponse()->getContent());
     }
 
-    private function doWebLogIn()
+    private function doWebLogInAsTestUser()
     {
         $factory = new UserFactoryGirl();
 

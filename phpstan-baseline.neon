@@ -541,6 +541,11 @@ parameters:
 			path: proAppointments/IdentityAccess/src/Infrastructure/Persistence/InMemory/ReadWriteRoleRepository.php
 
 		-
+			message: "#^Call to an undefined method object\\:\\:getId\\(\\)\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Symfony/Controller/AccountController.php
+
+		-
 			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Symfony\\\\Form\\\\RegisterUserForm\\:\\:buildForm\\(\\) has parameter \\$builder with no value type specified in iterable type Symfony\\\\Component\\\\Form\\\\FormBuilderInterface\\.$#"
 			count: 1
 			path: proAppointments/IdentityAccess/src/Infrastructure/Symfony/Form/RegisterUserForm.php
