@@ -20,6 +20,11 @@ class SecurityUserAdapter implements UserInterface
         $this->user = $user;
     }
 
+    public function getId(): string
+    {
+        return $this->user->id()->toString();
+    }
+
     /**
      * {@inheritDoc}
      */

@@ -13,6 +13,7 @@ use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 use ProAppointments\IdentityAccess\Domain\Identity\UserFactory;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
+use ProAppointments\IdentityAccess\Tests\Support\StaticData\DefaultTestUserStaticData as TestUser;
 
 class UserFactoryGirl extends UserFactory
 {
@@ -83,5 +84,47 @@ class UserFactoryGirl extends UserFactory
         }
 
         return $users;
+    }
+
+    protected function getDefaultsTestUser(): array
+    {
+        $userId = UserId::fromString(TestUser::$uuid);
+
+        $email = UserEmail::fromString(TestUser::$email);
+
+        $password = UserPassword::fromString(TestUser::$password);
+
+        $firstName = FirstName::fromString(TestUser::$firstName);
+
+        $lastName = LastName::fromString(TestUser::$lastName);
+
+        $mobileNumber = MobileNumber::fromString(TestUser::$mobileNumber);
+
+        return [
+            'id' => $userId,
+            'email' => $email,
+            'password' => $password,
+            'firstName' => $firstName,
+            'lastName' => $lastName,
+            'mobileNumber' => $mobileNumber,
+        ];
+    }
+
+    /**
+     * Create an instance of User aggregate,
+     * it is a full data (properties and events) entity.
+     */
+    public function buildDefaultTestUser(): User
+    {
+        $default = $this->getDefaultsTestUser();
+
+        return $this->buildWithContactInformation(
+            $default['id'],
+            $default['email'],
+            $default['password'],
+            $default['firstName'],
+            $default['lastName'],
+            $default['mobileNumber'],
+        );
     }
 }

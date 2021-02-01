@@ -50,7 +50,7 @@ class IdentityFixtures extends Fixture implements FixtureGroupInterface
             $email,
             $mobileNumber = MobileNumber::fromString(self::MOBILE_NUMBER)
         );
-        $person = new Person($id, $fullName, $contactInformation);
+        $person = new Person($id, $contactInformation, $fullName);
         $user = User::register(
             $id,
             $email,
@@ -73,7 +73,7 @@ class IdentityFixtures extends Fixture implements FixtureGroupInterface
             $email,
             $mobileNumber = MobileNumber::fromString('+39-392-5555555')
         );
-        $person = new Person($id, $fullName, $contactInformation);
+        $person = new Person($id, $contactInformation, $fullName);
         $encodedPasswod = '$argon2id$v=19$m=65536,t=4,p=1$6biXmA+2PCHZJV64T9Z3Iw$lMZtvEmPUOyBNZxvwWI4BuHzWl9A40DrwDbmTWDRvU8';
         $user = User::register(
             $id,
