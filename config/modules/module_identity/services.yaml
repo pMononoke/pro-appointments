@@ -82,7 +82,7 @@ services:
 
 
     #
-    #   APPLICATION SERVICE &  TRANSACTIONAL APPLICATION SERVICES
+    #   (WRITE SIDE) APPLICATION SERVICE &  TRANSACTIONAL APPLICATION SERVICES
     #
     identity.transactional.session:
         class: CompostDDD\ApplicationService\DoctrineSession
@@ -130,6 +130,13 @@ services:
         arguments:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService'
             - '@identity.transactional.session'
+
+    #
+    #   (READ SIDE) APPLICATION SERVICE &  TRANSACTIONAL APPLICATION SERVICES
+    #
+    ProAppointments\IdentityAccess\Application\UserViewCase\MyAccountVewCase:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserQuery'
 
     #
     #   UI PRESENTATION LAYER
