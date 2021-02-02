@@ -72,6 +72,15 @@ class UserFactoryGirl extends UserFactory
                 $default['lastName'],
                 $default['mobileNumber'],
             );
+        } else {
+            return $this->buildWithContactInformation(
+                $arguments['id'],
+                $arguments['email'],
+                $arguments['password'],
+                $arguments['firstName'],
+                $arguments['lastName'],
+                $arguments['mobileNumber'],
+            );
         }
     }
 
