@@ -23,4 +23,4 @@ default:
 
   gherkin:
     filters:
-      tags: "~@todo"
+      tags: "~@todo && ~@not-yet-implemented"
