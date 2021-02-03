@@ -136,7 +136,8 @@ services:
     #
     ProAppointments\IdentityAccess\Application\UserViewCase\MyAccountVewCase:
         arguments:
-            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserQuery'
+            #- '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserQuery'
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserAccountQuery'
 
     #
     #   UI PRESENTATION LAYER
@@ -162,6 +163,8 @@ services:
 
     ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UsersQuery:
         public: true
+
+    ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserAccountQuery:
 
 
 

@@ -10,11 +10,20 @@ interface ImmutableUserInterface
 
     public function email(): string;
 
+    /**
+     * @return string|null
+     */
     public function firstName();
 
+    /**
+     * @return string|null
+     */
     public function lastName();
 
     public function contactEmail(): string;
 
+    /**
+     * @return string|null
+     */
     public function contactNumber();
 }
