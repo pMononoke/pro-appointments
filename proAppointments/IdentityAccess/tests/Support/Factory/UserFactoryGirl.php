@@ -73,6 +73,14 @@ class UserFactoryGirl extends UserFactory
                 $default['mobileNumber'],
             );
         } else {
+            if ($this->isMinimumUserDataset($arguments)) {
+                return $this->buildWithMinimumData(
+                    $arguments['id'],
+                    $arguments['email'],
+                    $arguments['password'],
+                );
+            }
+
             return $this->buildWithContactInformation(
                 $arguments['id'],
                 $arguments['email'],
@@ -82,6 +90,15 @@ class UserFactoryGirl extends UserFactory
                 $arguments['mobileNumber'],
             );
         }
+    }
+
+    private function isMinimumUserDataset(array $userData): bool
+    {
+        if (isset($userData['firstName']) && isset($userData['lastName']) && isset($userData['mobileNumber'])) {
+            return false;
+        }
+
+        return true;
     }
 
     public function buildMany(int $instanceNumber): array
