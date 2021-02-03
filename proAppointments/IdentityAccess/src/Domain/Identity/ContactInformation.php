@@ -34,7 +34,7 @@ final class ContactInformation
         return $this->email;
     }
 
-    public function mobileNumber(): MobileNumber
+    public function mobileNumber(): ?MobileNumber //TODO embeddable issue
     {
         return $this->mobileNumber;
     }

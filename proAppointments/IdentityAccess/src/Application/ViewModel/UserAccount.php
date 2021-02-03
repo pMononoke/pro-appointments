@@ -34,6 +34,15 @@ class UserAccount implements ImmutableUserInterface
      */
     public function firstName()
     {
+        //TODO embeddable issue
+        if (null === $this->user->person()->name()) {
+            return null;
+        }
+
+        if (null === $this->user->person()->name()->firstName()) {
+            return null;
+        }
+
         return $this->user->person()->name()->firstName()->toString();
     }
 
@@ -42,6 +51,14 @@ class UserAccount implements ImmutableUserInterface
      */
     public function lastName()
     {
+        //TODO embeddable issue
+        if (null === $this->user->person()->name()) {
+            return null;
+        }
+        if (null === $this->user->person()->name()->lastName()) {
+            return null;
+        }
+
         return $this->user->person()->name()->lastName()->toString();
     }
 
@@ -55,6 +72,14 @@ class UserAccount implements ImmutableUserInterface
      */
     public function contactNumber()
     {
+        //TODO embeddable issue
+        if (null === $this->user->person()->contactInformation()->mobileNumber()) {
+            return null;
+        }
+        if ('' === $this->user->person()->contactInformation()->mobileNumber()->toString()) {
+            return null;
+        }
+
         return $this->user->person()->contactInformation()->mobileNumber()->toString();
     }
 }
