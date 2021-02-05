@@ -101,6 +101,17 @@ services:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
             - '@identity.transactional.session'
 
+
+    ProAppointments\IdentityAccess\Application\UserUseCase\ChangeNameService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+    Identity\Transational\ChangeNameService:
+        factory: ['@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory', 'createTransationalApplicationService']
+        arguments:
+            - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeNameService'
+            - '@identity.transactional.session'
+
+
     ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService:
         arguments:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
