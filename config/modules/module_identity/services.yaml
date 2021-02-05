@@ -13,6 +13,7 @@ services:
 
         bind:
             CompostDDD\ApplicationService\ApplicationService $registerUserUseCase: '@Identity\Transational\RegisterUserService'
+            CompostDDD\ApplicationService\ApplicationService $changeNameUserUseCase: '@Identity\Transational\ChangeNameService'
             #CompostDDD\ApplicationService\ApplicationService $deleteUserService: '@Identity\Transational\DeleteUserService'
             #CompostDDD\ApplicationService\ApplicationService $changeFirstNameService: '@Identity\Transational\ChangeFirstNameService'
             #CompostDDD\ApplicationService\ApplicationService $changePasswordService: '@Identity\Transational\ChangePasswordService'
@@ -147,7 +148,6 @@ services:
     #
     ProAppointments\IdentityAccess\Application\UserViewCase\MyAccountVewCase:
         arguments:
-            #- '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserQuery'
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserAccountQuery'
 
     #
