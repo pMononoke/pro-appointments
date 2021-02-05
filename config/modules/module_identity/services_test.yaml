@@ -27,6 +27,7 @@ services:
     test.ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory: '@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory'
 
     test.Identity\Transational\RegisterUserService: '@Identity\Transational\RegisterUserService'
+    test.Identity\Transational\ChangeNameService: '@Identity\Transational\ChangeNameService'
     #test.ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService: '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
     #test.ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService: '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService'
 
@@ -42,6 +43,7 @@ services:
 
     test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository: '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository'
     test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueUserEmailQuery: '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UniqueUserEmailQuery'
+    test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserAccountQuery: '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\UserAccountQuery'
 
     test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository: '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository'
     test.ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleQuery: '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\Query\RoleQuery'

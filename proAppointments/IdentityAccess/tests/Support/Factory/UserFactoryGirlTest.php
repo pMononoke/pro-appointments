@@ -30,7 +30,7 @@ class UserFactoryGirlTest extends TestCase
     }
 
     /** @test */
-    public function itCanBuildOneUserFromData(): void
+    public function itCanBuildOneUserWithFullData(): void
     {
         $data = [
             'id' => UserId::generate(),
@@ -39,6 +39,17 @@ class UserFactoryGirlTest extends TestCase
             'firstName' => FirstName::fromString('admin joe'),
             'lastName' => LastName::fromString('doe'),
             'mobileNumber' => MobileNumber::fromString('+39-392-5555555'),
+        ];
+        self::assertInstanceOf(User::class, $this->factory->build($data));
+    }
+
+    /** @test */
+    public function itCanBuildOneUserWithMinimumData(): void
+    {
+        $data = [
+            'id' => UserId::generate(),
+            'email' => UserEmail::fromString('admin@example.com'),
+            'password' => UserPassword::fromString('foo'),
         ];
         self::assertInstanceOf(User::class, $this->factory->build($data));
     }

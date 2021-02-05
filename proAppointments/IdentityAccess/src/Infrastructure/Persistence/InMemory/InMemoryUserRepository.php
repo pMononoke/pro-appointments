@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\InMemory;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use ProAppointments\IdentityAccess\Application\ViewModel\ImmutableUserInterface;
+use ProAppointments\IdentityAccess\Application\ViewModel\UserAccount;
 use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserAlreadyExist;
 use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserNotFound;
 use ProAppointments\IdentityAccess\Domain\Identity\User;
@@ -96,5 +98,14 @@ class InMemoryUserRepository implements InfrastructureUserRepository
         }
 
         return $isUniqueUserEmail;
+    }
+
+    public function loadUserAccountByUserId(UserId $userId): ?ImmutableUserInterface
+    {
+        if (!$this->userExist($userId)) {
+            return null;
+        }
+
+        return new UserAccount($this->userCollection->get($userId->toString()));
     }
 }

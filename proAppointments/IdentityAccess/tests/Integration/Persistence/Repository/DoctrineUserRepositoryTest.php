@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Repository;
 
+use ProAppointments\IdentityAccess\Application\ViewModel\ImmutableUserInterface;
+use ProAppointments\IdentityAccess\Application\ViewModel\UserAccount;
+use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 use ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine\DoctrineUserRepository;
 use ProAppointments\IdentityAccess\Infrastructure\Symfony\Security\SecurityUserAdapter;
 use ProAppointments\IdentityAccess\Tests\DataFixtures\UserFixtureBehavior;
@@ -88,6 +91,26 @@ class DoctrineUserRepositoryTest extends KernelTestCase
 
         $this->assertInstanceOf(UserInterface::class, $securityUserFromDatabase);
         $this->assertInstanceOf(SecurityUserAdapter::class, $securityUserFromDatabase);
+    }
+
+    /** @test */
+    public function canRetrieveAUserAccount(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+        $this->userRepository->save($user);
+
+        $userAccount = $this->userRepository->loadUserAccountByUserId($user->id());
+
+        $this->assertInstanceOf(ImmutableUserInterface::class, $userAccount);
+        $this->assertInstanceOf(UserAccount::class, $userAccount);
+    }
+
+    /** @test */
+    public function loadAUserAccountShouldReturnNullIfNotExist(): void
+    {
+        $this->assertNull(
+            $this->userRepository->loadUserAccountByUserId(UserId::generate())
+        );
     }
 
     protected function tearDown()

@@ -15,12 +15,12 @@ final class FullName
         $this->lastName = $lastName;
     }
 
-    public function firstName(): FirstName
+    public function firstName(): ?FirstName //TODO embeddable issue
     {
         return $this->firstName;
     }
 
-    public function lastName(): LastName
+    public function lastName(): ?LastName //TODO embeddable issue
     {
         return $this->lastName;
     }

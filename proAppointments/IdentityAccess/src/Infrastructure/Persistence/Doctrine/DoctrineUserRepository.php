@@ -7,6 +7,8 @@ namespace ProAppointments\IdentityAccess\Infrastructure\Persistence\Doctrine;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 //use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ManagerRegistry;
+use ProAppointments\IdentityAccess\Application\ViewModel\ImmutableUserInterface;
+use ProAppointments\IdentityAccess\Application\ViewModel\UserAccount;
 use ProAppointments\IdentityAccess\Domain\Identity\User;
 use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
@@ -65,5 +67,14 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserLoad
         $user = $this->findOneBy(['email' => UserEmail::fromString($username)]);
 
         return new SecurityUserAdapter($user);
+    }
+
+    public function loadUserAccountByUserId(UserId $userId): ?ImmutableUserInterface
+    {
+        if (null === $user = $this->find($userId)) {
+            return null;
+        }
+
+        return new UserAccount($user);
     }
 }
