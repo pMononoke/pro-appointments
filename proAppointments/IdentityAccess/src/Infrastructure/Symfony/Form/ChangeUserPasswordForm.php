@@ -34,7 +34,7 @@ final class ChangeUserPasswordForm extends AbstractType
                 'second_options' => ['label' => 'change_user_password_form.password_repeat'],
             ])
             ->add(
-                'register_user_submit',
+                'change_user_password_submit',
                 SubmitType::class,
                 [
                     'label' => 'change_user_password_form.submit.label',
