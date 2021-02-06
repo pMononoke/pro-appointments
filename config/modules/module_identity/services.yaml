@@ -14,6 +14,7 @@ services:
         bind:
             CompostDDD\ApplicationService\ApplicationService $registerUserUseCase: '@Identity\Transational\RegisterUserService'
             CompostDDD\ApplicationService\ApplicationService $changeNameUserUseCase: '@Identity\Transational\ChangeNameService'
+            CompostDDD\ApplicationService\ApplicationService $changePasswordUserUseCase: '@Identity\Transational\ChangePasswordService'
             #CompostDDD\ApplicationService\ApplicationService $deleteUserService: '@Identity\Transational\DeleteUserService'
             #CompostDDD\ApplicationService\ApplicationService $changeFirstNameService: '@Identity\Transational\ChangeFirstNameService'
             #CompostDDD\ApplicationService\ApplicationService $changePasswordService: '@Identity\Transational\ChangePasswordService'
@@ -95,7 +96,6 @@ services:
     ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService:
         arguments:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
-
     Identity\Transational\RegisterUserService:
         factory: ['@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory', 'createTransationalApplicationService']
         arguments:
@@ -112,6 +112,16 @@ services:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeNameService'
             - '@identity.transactional.session'
 
+
+    ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+            - '@ProAppointments\IdentityAccess\Infrastructure\DomainService\PasswordEncoderSymfony'
+    Identity\Transational\ChangePasswordService:
+        factory: ['@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory', 'createTransationalApplicationService']
+        arguments:
+            - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService'
+            - '@identity.transactional.session'
 
     ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService:
         arguments:
@@ -133,15 +143,6 @@ services:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService'
             - '@identity.transactional.session'
 
-    ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService:
-        arguments:
-            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
-
-    Identity\Transational\ChangePasswordService:
-        factory: ['@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory', 'createTransationalApplicationService']
-        arguments:
-            - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService'
-            - '@identity.transactional.session'
 
     #
     #   (READ SIDE) APPLICATION SERVICE &  TRANSACTIONAL APPLICATION SERVICES

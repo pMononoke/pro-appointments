@@ -556,6 +556,16 @@ parameters:
 			path: proAppointments/IdentityAccess/src/Infrastructure/Symfony/Form/ChangePersonalNameForm.php
 
 		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Symfony\\\\Form\\\\ChangeUserPasswordForm\\:\\:buildForm\\(\\) has parameter \\$builder with no value type specified in iterable type Symfony\\\\Component\\\\Form\\\\FormBuilderInterface\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Symfony/Form/ChangeUserPasswordForm.php
+
+		-
+			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Symfony\\\\Form\\\\ChangeUserPasswordForm\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: proAppointments/IdentityAccess/src/Infrastructure/Symfony/Form/ChangeUserPasswordForm.php
+
+		-
 			message: "#^Method ProAppointments\\\\IdentityAccess\\\\Infrastructure\\\\Symfony\\\\Form\\\\RegisterUserForm\\:\\:buildForm\\(\\) has parameter \\$builder with no value type specified in iterable type Symfony\\\\Component\\\\Form\\\\FormBuilderInterface\\.$#"
 			count: 1
 			path: proAppointments/IdentityAccess/src/Infrastructure/Symfony/Form/RegisterUserForm.php
