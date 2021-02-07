@@ -8,7 +8,6 @@ use DateTimeImmutable;
 use ProAppointments\IdentityAccess\Domain\Identity\MobileNumber;
 use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
-use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 
 class ContactInformationWasChanged
 {
@@ -33,17 +32,11 @@ class ContactInformationWasChanged
         return $this->userId;
     }
 
-    /**
-     * @return UserEmail
-     */
     public function contactEmail(): UserEmail
     {
         return $this->contactEmail;
     }
 
-    /**
-     * @return MobileNumber
-     */
     public function contactMobileNumber(): MobileNumber
     {
         return $this->contactMobileNumber;
