@@ -29,6 +29,7 @@ services:
     test.Identity\Transational\RegisterUserService: '@Identity\Transational\RegisterUserService'
     test.Identity\Transational\ChangeNameService: '@Identity\Transational\ChangeNameService'
     test.Identity\Transational\ChangePasswordService: '@Identity\Transational\ChangePasswordService'
+    test.Identity\Transational\ChangeContactInformationService: '@Identity\Transational\ChangeContactInformationService'
 
     #test.ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService: '@ProAppointments\IdentityAccess\Application\UserUseCase\RegisterUserService'
     #test.ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService: '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeFirstNameService'
