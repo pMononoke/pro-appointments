@@ -123,6 +123,17 @@ services:
             - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordService'
             - '@identity.transactional.session'
 
+
+    ProAppointments\IdentityAccess\Application\UserUseCase\ChangeContactInformationService:
+        arguments:
+            - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'
+    Identity\Transational\ChangeContactInformationService:
+        factory: ['@ProAppointments\IdentityAccess\Infrastructure\Factories\ApplicationServiceFactory', 'createTransationalApplicationService']
+        arguments:
+            - '@ProAppointments\IdentityAccess\Application\UserUseCase\ChangeContactInformationService'
+            - '@identity.transactional.session'
+
+
     ProAppointments\IdentityAccess\Application\UserUseCase\DeleteUserService:
         arguments:
             - '@ProAppointments\IdentityAccess\Infrastructure\Persistence\Adapter\UserRepositoryAdapter'

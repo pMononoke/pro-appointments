@@ -8,16 +8,19 @@ use DateTimeImmutable;
 use ProAppointments\IdentityAccess\Domain\Identity\MobileNumber;
 use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
-use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
 
 class ContactInformationWasChanged
 {
+    /** @var UserId */
     private $userId;
 
+    /** @var UserEmail */
     private $contactEmail;
 
+    /** @var MobileNumber */
     private $contactMobileNumber;
 
+    /** @var DateTimeImmutable */
     private $occurredOn;
 
     public function __construct(UserId $userId, UserEmail $contactEmail, MobileNumber $mobileNumber)
@@ -33,17 +36,11 @@ class ContactInformationWasChanged
         return $this->userId;
     }
 
-    /**
-     * @return UserEmail
-     */
     public function contactEmail(): UserEmail
     {
         return $this->contactEmail;
     }
 
-    /**
-     * @return MobileNumber
-     */
     public function contactMobileNumber(): MobileNumber
     {
         return $this->contactMobileNumber;
@@ -54,6 +51,9 @@ class ContactInformationWasChanged
         return $this->occurredOn;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function toPayload(): array
     {
         return [
