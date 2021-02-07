@@ -6,6 +6,7 @@ namespace ProAppointments\IdentityAccess\Domain\Identity;
 
 use CompostDDD\Aggregate\AggregateBehaviour;
 use ProAppointments\IdentityAccess\Domain\Identity\Event\AccessCredentialsWasChanged;
+use ProAppointments\IdentityAccess\Domain\Identity\Event\ContactInformationWasChanged;
 use ProAppointments\IdentityAccess\Domain\Identity\Event\PersonalNameWasChanged;
 use ProAppointments\IdentityAccess\Domain\Identity\Event\UserWasDeleted;
 use ProAppointments\IdentityAccess\Domain\Identity\Event\UserWasRegistered;
@@ -70,10 +71,9 @@ class User
     {
         $this->person->changeContactInformation($contactInformation);
 
-        //Todo add event
-//        $this->recordThat(
-//            new AccessCredentialsWasChanged($this->id, $this->password)
-//        );
+        $this->recordThat(
+            new ContactInformationWasChanged($this->id, $contactInformation->email(), $contactInformation->mobileNumber())
+        );
     }
 
     public function delete(): void
