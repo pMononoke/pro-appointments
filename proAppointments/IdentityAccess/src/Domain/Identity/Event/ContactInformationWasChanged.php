@@ -11,12 +11,16 @@ use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 
 class ContactInformationWasChanged
 {
+    /** @var UserId */
     private $userId;
 
+    /** @var UserEmail */
     private $contactEmail;
 
+    /** @var MobileNumber */
     private $contactMobileNumber;
 
+    /** @var DateTimeImmutable */
     private $occurredOn;
 
     public function __construct(UserId $userId, UserEmail $contactEmail, MobileNumber $mobileNumber)
@@ -47,6 +51,9 @@ class ContactInformationWasChanged
         return $this->occurredOn;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function toPayload(): array
     {
         return [
