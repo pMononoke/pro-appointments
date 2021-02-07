@@ -66,6 +66,16 @@ class User
         );
     }
 
+    public function changeContactInformation(ContactInformation $contactInformation): void
+    {
+        $this->person->changeContactInformation($contactInformation);
+
+        //Todo add event
+//        $this->recordThat(
+//            new AccessCredentialsWasChanged($this->id, $this->password)
+//        );
+    }
+
     public function delete(): void
     {
         $this->recordThat(
