@@ -15,6 +15,7 @@ services:
             CompostDDD\ApplicationService\ApplicationService $registerUserUseCase: '@Identity\Transational\RegisterUserService'
             CompostDDD\ApplicationService\ApplicationService $changeNameUserUseCase: '@Identity\Transational\ChangeNameService'
             CompostDDD\ApplicationService\ApplicationService $changePasswordUserUseCase: '@Identity\Transational\ChangePasswordService'
+            CompostDDD\ApplicationService\ApplicationService $changeContactInformationUserUseCase: '@Identity\Transational\ChangeContactInformationService'
             #CompostDDD\ApplicationService\ApplicationService $deleteUserService: '@Identity\Transational\DeleteUserService'
             #CompostDDD\ApplicationService\ApplicationService $changeFirstNameService: '@Identity\Transational\ChangeFirstNameService'
             #CompostDDD\ApplicationService\ApplicationService $changePasswordService: '@Identity\Transational\ChangePasswordService'
