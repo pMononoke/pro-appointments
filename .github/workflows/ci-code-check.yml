@@ -320,6 +320,13 @@ jobs:
           name: codecov-php-7.3
           fail_ci_if_error: true
       -
+        name: SonarCloud Change paths in clover.xml files before Scan
+        if: ${{ matrix.php == '7.3' }}
+        run: |
+          sed -i 's+/home/runner/work/pro-appointments/pro-appointments+/github/workspace+g' ./reports/phpunit/unit-test-clover.xml
+          sed -i 's+/home/runner/work/pro-appointments/pro-appointments+/github/workspace+g' ./reports/phpunit/integration-test-clover.xml
+          sed -i 's+/home/runner/work/pro-appointments/pro-appointments+/github/workspace+g' ./reports/phpunit/functional-test-clover.xml          #sed -i 's+/home/runner/work/component-value-objects/component-value-objects+/github/workspace+g' ./var/coverage/clover.xml
+      -
         name: SonarCloud Scan And publication (only php-${{ matrix.php }})
         if: ${{ matrix.php == '7.3' }}
         uses: sonarsource/sonarcloud-github-action@master
