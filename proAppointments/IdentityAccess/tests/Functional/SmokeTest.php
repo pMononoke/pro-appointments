@@ -14,9 +14,12 @@ class SmokeTest extends WebTestCase
 {
     /**
      * @test
-     * @dataProvider identityRouteProvider
+     * dataProvider identityRouteProvider
+     * @dataProvider identityUnprotectedRouteProvider
+     * @dataProvider identityProtectedRouteProvider
+     * @dataProvider identityUnderDevelopmentRouteProvider
      */
-    public function identityControllers(string $path, int $expectedHttpStatusCode): void
+    public function controllersShouldReturnExpectedStatusCode(string $path, int $expectedHttpStatusCode): void
     {
         $client = static::createClient();
 
@@ -24,7 +27,25 @@ class SmokeTest extends WebTestCase
         $this->assertEquals($client->getResponse()->getStatusCode(), $expectedHttpStatusCode);
     }
 
-    public function identityRouteProvider(): array
+    public function identityUnprotectedRouteProvider(): array
+    {
+        return [
+            'identity route login' => ['/login', Response::HTTP_OK],
+            'identity route registration' => ['/registration', Response::HTTP_OK],
+        ];
+    }
+
+    public function identityProtectedRouteProvider(): array
+    {
+        return [
+            'identity route account' => ['/account', Response::HTTP_FOUND],
+            'identity route change name' => ['/account/change-name', Response::HTTP_FOUND],
+            'identity route change password' => ['/account/change-password', Response::HTTP_FOUND],
+            'identity route change contact info' => ['/account/change-contact-info', Response::HTTP_FOUND],
+        ];
+    }
+
+    public function identityUnderDevelopmentRouteProvider(): array
     {
         return [
             // identity module
