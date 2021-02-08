@@ -13,6 +13,9 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class ChangeNameControllerTest extends WebTestCase
 {
+    private const NEW_FIRST_NAME = 'Richard';
+    private const NEW_LAST_NAME = 'Pryor';
+
     private $client;
 
     protected function setUp(): void
@@ -45,8 +48,8 @@ class ChangeNameControllerTest extends WebTestCase
         $buttonCrawlerNode = $crawler->selectButton('change_personal_name_form.submit.label');
         $form = $buttonCrawlerNode->form();
         $data = [
-            'change_personal_name_form[first_name]' => 'new first name',
-            'change_personal_name_form[last_name]' => 'new last name',
+            'change_personal_name_form[first_name]' => self::NEW_FIRST_NAME,
+            'change_personal_name_form[last_name]' => self::NEW_LAST_NAME,
         ];
 
         $this->client->submit($form, $data);
@@ -54,11 +57,55 @@ class ChangeNameControllerTest extends WebTestCase
         self::assertResponseRedirects('/account');
         $this->client->followRedirect();
         self::assertContains(
-            'new first name',
+            self::NEW_FIRST_NAME,
             $this->client->getResponse()->getContent()
         );
         self::assertContains(
-            'new last name',
+            self::NEW_LAST_NAME,
+            $this->client->getResponse()->getContent()
+        );
+    }
+
+    /** @test */
+    public function CanChangeOnlyFirstname(): void
+    {
+        $this->doWebLogInAsTestUser();
+        $crawler = $this->client->request('GET', '/account');
+        $this->assertResponseIsSuccessful();
+        $buttonCrawlerNode = $crawler->selectButton('change_personal_name_form.submit.label');
+        $form = $buttonCrawlerNode->form();
+        $data = [
+            'change_personal_name_form[first_name]' => self::NEW_FIRST_NAME,
+        ];
+
+        $this->client->submit($form, $data);
+
+        self::assertResponseRedirects('/account');
+        $this->client->followRedirect();
+        self::assertContains(
+            self::NEW_FIRST_NAME,
+            $this->client->getResponse()->getContent()
+        );
+    }
+
+    /** @test */
+    public function CanChangeOnlyLastname(): void
+    {
+        $this->doWebLogInAsTestUser();
+        $crawler = $this->client->request('GET', '/account');
+        $this->assertResponseIsSuccessful();
+        $buttonCrawlerNode = $crawler->selectButton('change_personal_name_form.submit.label');
+        $form = $buttonCrawlerNode->form();
+        $data = [
+            'change_personal_name_form[last_name]' => self::NEW_LAST_NAME,
+        ];
+
+        $this->client->submit($form, $data);
+
+        self::assertResponseRedirects('/account');
+        $this->client->followRedirect();
+        self::assertContains(
+            self::NEW_LAST_NAME,
             $this->client->getResponse()->getContent()
         );
     }
