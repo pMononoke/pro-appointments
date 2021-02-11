@@ -73,4 +73,50 @@ class ChangeContactInfoController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+    /**
+     * @Route("/account/change-contact-info-2", name="identity_change_contact_info-2", methods={"GET","POST"})
+     */
+    public function changeContactInfo2Action(Request $request): Response
+    {
+        /** @var SecurityUserAdapter $securityUser */
+        $securityUser = $this->getUser();
+
+        $userData = $this->userDataService->execute(
+            new MyAccountRequest($securityUser->getId())
+        );
+
+        $form = $this->createForm(
+            ChangeContactInfoForm::class,
+            ['contact_email' => $userData->contactEmail(), 'mobile_number' => $userData->contactNumber()]
+        );
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+
+            try {
+                $useCaseRequest = new ChangeContactInformationRequest(
+                    $securityUser->getId(),
+                    $formData['contact_email'],
+                    $formData['mobile_number']
+                );
+
+                $this->usecase->execute($useCaseRequest);
+
+                return $this->redirectToRoute('account');
+            } catch (\Exception $exception) {
+                // Todo convert domain Exception To FormError
+            }
+        }
+
+        return $this->render('@identity/account/form/change_contact_info_modal.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+
 }

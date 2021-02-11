@@ -29,6 +29,15 @@
                     change contact info
                 </button>
             </div>
+
+            <hr>
+            <div class="row">
+                <a  class="btn btn-primary" href="{{ path('identity_change_contact_info-2') }}" data-sideclick-modal-trigger>new change contact info</a>
+
+
+            </div>
+
+
         </div>
     </div>
 </div>
@@ -93,4 +102,20 @@
             </div>
         </div>
     </div>
+
+
+<div class="modal fade" id="emptyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-async data-target="#emptyModal">
+    <div class="modal-dialog">
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+{#    <script src="{{ asset('bundles/sideclickbootstrapmodal/js/sideclick-bootstrap-modal.js') }}"></script>#}
+    <script src="http://127.0.0.1:8080/bundles/sideclickbootstrapmodal/js/sideclick-bootstrap-modal.js"></script>
 {% endblock %}
