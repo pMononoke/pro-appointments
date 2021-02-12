@@ -115,7 +115,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          tools: composer:v1
+          tools: composer:v1, symfony
           extensions: ${{ env.PHP_EXTENSIONS }}
           ini-values: memory_limit=-1
           coverage: none
@@ -135,7 +135,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
       -
         name: QA - Run sensiolab security check
-        run: bin/console security:check
+        run: symfony check:security
       -
         name: QA - Run roave security check
         run: |

@@ -3,8 +3,32 @@
 {% block title %}Account{% endblock %}
 
 {% block account %}
-    <div>
-        account-id: {{ userViewData.id }} <br>
-        email: {{ userViewData.email }} <br>
+    <div class="row">
+        <div class="text-left font-weight-bold">Account-id:  </div><div class="text-left"> {{ userViewData.id }}</div>
     </div>
+    <div class="row">
+        <div class="text-left font-weight-bold">Email:  </div><div class="text-left"> {{ userViewData.email }}</div>
+    </div>
+<hr>
+    <div class="row">
+        <div class="text-left font-weight-bold">First name:  </div><div class="text-left"> {{ userViewData.firstName }}</div>
+    </div>
+    <div class="row">
+        <div class="text-left font-weight-bold">Last name:  </div><div class="text-left"> {{ userViewData.lastName }}</div>
+    </div>
+
+
+
+
+    <hr>
+    <div class="row">
+        <div class="text-left font-weight-bold">Contact email:  </div><div class="text-left"> {{ userViewData.contactEmail }}</div>
+    </div>
+    <div class="row">
+        <div class="text-left font-weight-bold">Contact mobile number:  </div><div class="text-left"> {{ userViewData.contactNumber }}</div>
+    </div>
+
+
+
+
 {% endblock %}

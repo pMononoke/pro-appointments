@@ -87,7 +87,7 @@ class UserTest extends TestCase
         self::assertSame('', $user->person()->contactInformation()->mobileNumber()->toString());
     }
 
-    public function fullUserDataProvider(): User
+    public function fullUserDataProvider(): array
     {
         $id = UserId::generate();
         $fullName = new FullName(
@@ -100,15 +100,19 @@ class UserTest extends TestCase
         );
         $person = new Person($id, $contactInformation, $fullName);
 
-        return User::register(
+        $user = User::register(
             $id,
             $email = UserEmail::fromString(self::EMAIL),
             $password = UserPassword::fromString(self::PASSWORD),
             $person
         );
+
+        return [
+            'user with full data' => [$user],
+        ];
     }
 
-    public function basicUserDataProvider(): User
+    public function basicUserDataProvider(): array
     {
         $id = UserId::generate();
         $contactInformation = new ContactInformation(
@@ -116,12 +120,16 @@ class UserTest extends TestCase
         );
         $person = new Person($id, $contactInformation);
 
-        return User::register(
+        $user = User::register(
             $id,
             $email = UserEmail::fromString(self::EMAIL),
             $password = UserPassword::fromString(self::PASSWORD),
             $person
         );
+
+        return [
+            'user with minimum data' => [$user],
+        ];
     }
 
     /**
@@ -153,6 +161,23 @@ class UserTest extends TestCase
         $user->changeAccessCredentials($newPassword);
 
         self::assertTrue($user->password()->equals($newPassword));
+    }
+
+    /**
+     * @test
+     * @dataProvider fullUserDataProvider
+     * @dataProvider basicUserDataProvider
+     */
+    public function can_change_contact_information(User $user): void
+    {
+        $newContactEmail = UserEmail::fromString('new-contact-email@example.com');
+        $newContactMobileNumber = MobileNumber::fromString('+39 388 111111');
+        $newContactInformation = new ContactInformation($newContactEmail, $newContactMobileNumber);
+
+        $user->changeContactInformation($newContactInformation);
+
+        self::assertTrue($user->person()->contactInformation()->email()->equals($newContactEmail));
+        self::assertTrue($user->person()->contactInformation()->mobileNumber()->equals($newContactMobileNumber));
     }
 
     /** @test */

@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Infrastructure\Symfony\Security;
 
+use ProAppointments\IdentityAccess\Application\ViewModel\IdentifiableInterface;
 use ProAppointments\IdentityAccess\Domain\Identity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class SecurityUserAdapter implements UserInterface
+class SecurityUserAdapter implements UserInterface, IdentifiableInterface
 {
     /** @var User */
     private $user;

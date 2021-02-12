@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\Persistence\Repository;
 
+use ProAppointments\IdentityAccess\Application\ViewModel\ImmutableUserInterface;
+use ProAppointments\IdentityAccess\Application\ViewModel\UserAccount;
 use ProAppointments\IdentityAccess\Domain\Identity\UserEmail;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 use ProAppointments\IdentityAccess\Domain\Identity\UserPassword;
@@ -167,6 +169,26 @@ class InMemoryUserRepositoryTest extends KernelTestCase
     public function findUniqueUserEmail_query_execution_return_true_if_email_not_exist(): void
     {
         $this->assertTrue($this->userRepository->findUniqueUserEmail(UserEmail::fromString('unknown@example.com')));
+    }
+
+    /** @test */
+    public function canRetrieveAUserAccount(): void
+    {
+        list($id, $user) = $this->generateUserAggregate();
+        $this->userRepository->register($user);
+
+        $userAccount = $this->userRepository->loadUserAccountByUserId($user->id());
+
+        $this->assertInstanceOf(ImmutableUserInterface::class, $userAccount);
+        $this->assertInstanceOf(UserAccount::class, $userAccount);
+    }
+
+    /** @test */
+    public function loadAUserAccountShouldReturnNullIfNotExist(): void
+    {
+        $this->assertNull(
+            $this->userRepository->loadUserAccountByUserId(UserId::generate())
+        );
     }
 
     protected function tearDown()

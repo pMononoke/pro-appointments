@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace ProAppointments\IdentityAccess\Tests\Integration\ApplicationService\UseCase;
 
-use ProAppointments\IdentityAccess\Application\UserUseCase\ChangePasswordRequest;
+use ProAppointments\IdentityAccess\Application\UserUseCase\ChangeNameRequest;
 use ProAppointments\IdentityAccess\Domain\Identity\Exception\UserNotFound;
 use ProAppointments\IdentityAccess\Domain\Identity\UserId;
 use ProAppointments\IdentityAccess\Tests\DataFixtures\IrrelevantUserFixtureBehavior;
 
-class ChangePasswordServiceTest extends UserServiceTestCase
+class ChangeNameServiceTest extends UserServiceTestCase
 {
     use IrrelevantUserFixtureBehavior;
 
@@ -20,36 +20,38 @@ class ChangePasswordServiceTest extends UserServiceTestCase
         $kernel = self::bootKernel();
 
         $this->txApplicationService = $kernel->getContainer()
-            ->get('test.Identity\Transational\ChangePasswordService');
+            ->get('test.Identity\Transational\ChangeNameService');
 
         parent::setUp();
     }
 
     /** @test */
-    public function canChangeAUserPassword(): void
+    public function canChangeTheUserPersonalName(): void
     {
         $user = $this->generateUserAggregate();
         $this->populateDatabase($user);
-        $applicationRequest = new ChangePasswordRequest(
+        $applicationRequest = new ChangeNameRequest(
             $user->id()->toString(),
-            $plainPassword = 'new changed password'
+            $firstName = 'new first name',
+            $lastName = 'new last name'
         );
 
         $this->txApplicationService->execute($applicationRequest);
 
         $userFromDatabase = $this->retrieveUserById($user->id());
         $this->assertTrue($userFromDatabase->id()->equals($user->id()));
-        $this->assertNotEquals($userFromDatabase->password()->toString(), $user->password()->toString());
+        $this->assertEquals($userFromDatabase->person()->name()->firstName()->toString(), $firstName);
+        $this->assertEquals($userFromDatabase->person()->name()->lastName()->toString(), $lastName);
     }
 
     /** @test */
-    public function cantChangeAUserPasswordIfUserNotExist(): void
+    public function canChangeTheUserPersonalNameIfUserNotExist(): void
     {
         self::expectException(UserNotFound::class);
-
-        $applicationRequest = new ChangePasswordRequest(
+        $applicationRequest = new ChangeNameRequest(
             UserId::generate()->toString(),
-            $plainPassword = 'new changed password'
+            $firstName = 'new first name',
+            $lastName = 'new last name'
         );
 
         $this->txApplicationService->execute($applicationRequest);

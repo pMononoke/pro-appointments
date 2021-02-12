@@ -72,7 +72,33 @@ class UserFactoryGirl extends UserFactory
                 $default['lastName'],
                 $default['mobileNumber'],
             );
+        } else {
+            if ($this->isMinimumUserDataset($arguments)) {
+                return $this->buildWithMinimumData(
+                    $arguments['id'],
+                    $arguments['email'],
+                    $arguments['password'],
+                );
+            }
+
+            return $this->buildWithContactInformation(
+                $arguments['id'],
+                $arguments['email'],
+                $arguments['password'],
+                $arguments['firstName'],
+                $arguments['lastName'],
+                $arguments['mobileNumber'],
+            );
         }
+    }
+
+    private function isMinimumUserDataset(array $userData): bool
+    {
+        if (isset($userData['firstName']) && isset($userData['lastName']) && isset($userData['mobileNumber'])) {
+            return false;
+        }
+
+        return true;
     }
 
     public function buildMany(int $instanceNumber): array
