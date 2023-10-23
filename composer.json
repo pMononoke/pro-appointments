@@ -11,7 +11,7 @@
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.7",
-        "php-amqplib/php-amqplib": "^2.12",
+        "php-amqplib/php-amqplib": "^3.6",
         "phpstan/phpstan": "^0.12",
         "ramsey/uuid": "^4.1",
         "ramsey/uuid-doctrine": "^1.6",
